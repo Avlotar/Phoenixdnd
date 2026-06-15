@@ -1010,3 +1010,32 @@ button {
     transform: translate(0, 0) scale(1.03) !important;
   }
 }
+/* ============================= */
+/* v1.8.2 — исправление интерактивного фона */
+/* ============================= */
+
+.tavern-layer {
+  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scale(1.08) !important;
+  transition: none !important;
+}
+
+.tavern-fire {
+  animation:
+    tavernFirePulse 1.8s ease-in-out infinite,
+    tavernFireMove 5s ease-in-out infinite;
+}
+
+.tavern-sparks {
+  opacity: 1;
+  animation: tavernSparks 6s linear infinite;
+}
+
+@keyframes tavernFireMove {
+  0%, 100% {
+    filter: blur(1px) brightness(1);
+  }
+
+  50% {
+    filter: blur(2px) brightness(1.25);
+  }
+}

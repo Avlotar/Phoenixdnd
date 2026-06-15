@@ -2,15 +2,17 @@ const tavernLayers = document.querySelectorAll(".tavern-layer");
 
 let targetX = 0;
 let targetY = 0;
+
 let currentX = 0;
 let currentY = 0;
-let idleTime = 0;
+
+let time = 0;
 
 function updateTavernParallax() {
-  idleTime += 0.01;
+  time += 0.025;
 
-  const idleX = Math.sin(idleTime) * 3;
-  const idleY = Math.cos(idleTime * 0.8) * 2;
+  const idleX = Math.sin(time) * 10;
+  const idleY = Math.cos(time * 0.8) * 7;
 
   currentX += (targetX - currentX) * 0.08;
   currentY += (targetY - currentY) * 0.08;
@@ -21,7 +23,8 @@ function updateTavernParallax() {
     const moveX = (currentX + idleX) * depth;
     const moveY = (currentY + idleY) * depth;
 
-    layer.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.03)`;
+    layer.style.setProperty("--parallax-x", `${moveX}px`);
+    layer.style.setProperty("--parallax-y", `${moveY}px`);
   });
 
   requestAnimationFrame(updateTavernParallax);
@@ -31,8 +34,8 @@ function handlePointerMove(event) {
   const centerX = window.innerWidth / 2;
   const centerY = window.innerHeight / 2;
 
-  targetX = (event.clientX - centerX) / 18;
-  targetY = (event.clientY - centerY) / 18;
+  targetX = (event.clientX - centerX) / 10;
+  targetY = (event.clientY - centerY) / 10;
 }
 
 function handlePointerLeave() {
