@@ -1056,7 +1056,7 @@ button {
       rgba(255, 190, 90, 0.12),
       rgba(0, 0, 0, 0.45) 65%
     ),
-    url("images/tavern-bg.jpg");
+    url("images/tavern-bg.png");
 
   background-size: cover;
   background-position: center;
