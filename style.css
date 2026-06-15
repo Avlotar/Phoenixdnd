@@ -731,3 +731,269 @@ h1 {
     align-items: flex-start;
   }
 }
+/* ============================= */
+/* v1.5 — оптимизация под телефоны */
+/* ============================= */
+
+section {
+  scroll-margin-top: 90px;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 1100px) {
+  .container {
+    width: 94%;
+  }
+
+  .game-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hub-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .top-nav {
+    position: sticky;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .nav-logo {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: rgba(255, 210, 122, 0.08);
+    font-size: 14px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 70px 18px 55px;
+  }
+
+  h1 {
+    font-size: 42px;
+    line-height: 1.05;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  .hero-text {
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .main-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .main-buttons .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .container {
+    width: 94%;
+    padding: 30px 0;
+  }
+
+  .section {
+    padding: 22px;
+    margin-bottom: 30px;
+    border-radius: 18px;
+  }
+
+  .section h2 {
+    font-size: 28px;
+  }
+
+  .section p {
+    font-size: 17px;
+  }
+
+  .hub-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hub-card {
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .filter-panel {
+    gap: 8px;
+  }
+
+  .filter-button {
+    flex: 1 1 auto;
+    min-width: 130px;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .game-list {
+    grid-template-columns: 1fr;
+  }
+
+  .game-card {
+    padding: 20px;
+  }
+
+  .game-card-top {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .game-meta {
+    gap: 7px;
+  }
+
+  .game-meta span {
+    font-size: 13px;
+  }
+
+  .game-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .schedule-box {
+    overflow-x: auto;
+  }
+
+  .schedule-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 14px;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .calendar-header h3 {
+    order: -1;
+    font-size: 26px;
+  }
+
+  .calendar-nav-button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .calendar-weekdays {
+    display: none;
+  }
+
+  .calendar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-day {
+    min-height: auto;
+  }
+
+  .calendar-game {
+    padding: 10px;
+  }
+
+  .open-date-game {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-preview {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .social-links {
+    flex-direction: column;
+  }
+
+  .social {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-links {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+
+  .nav-links a {
+    white-space: nowrap;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .hero-text {
+    font-size: 16px;
+  }
+
+  .section {
+    padding: 18px;
+  }
+
+  .section h2 {
+    font-size: 25px;
+  }
+
+  .button,
+  .social {
+    font-size: 16px;
+  }
+
+  .hub-icon {
+    font-size: 30px;
+  }
+
+  .game-card h3 {
+    font-size: 22px;
+  }
+
+  .status-badge {
+    font-size: 12px;
+  }
+}
