@@ -68,6 +68,61 @@ function getCellValue(cell) {
   return "";
 }
 
+function normalizeHeader(value) {
+  return String(value ?? "")
+    .trim()
+    .replace(/\uFEFF/g, "");
+}
+
+function normalizeDateForDisplay(value) {
+  const rawDate = String(value ?? "").trim();
+
+  if (!rawDate) {
+    return "Открытая дата";
+  }
+
+  if (isOpenDate(rawDate)) {
+    return "Открытая дата";
+  }
+
+  if (rawDate.includes(".")) {
+    return rawDate;
+  }
+
+  if (rawDate.includes("-")) {
+    const onlyDate = rawDate.split(" ")[0];
+    const parts = onlyDate.split("-");
+
+    if (parts.length >= 3) {
+      const year = parts[0];
+      const month = parts[1];
+      const day = parts[2];
+
+      return `${day}.${month}.${year}`;
+    }
+  }
+
+  return rawDate;
+}
+
+function normalizeTimeForDisplay(value) {
+  const rawTime = String(value ?? "").trim();
+
+  if (!rawTime) {
+    return "19:00";
+  }
+
+  if (rawTime.includes(":")) {
+    const parts = rawTime.split(":");
+    const hours = parts[0];
+    const minutes = parts[1];
+
+    return `${hours}:${minutes}`;
+  }
+
+  return rawTime;
+}
+
 function convertGoogleTableToGames(response) {
   if (!response || response.status !== "ok" || !response.table) {
     console.warn("Google Таблица вернула неожиданный ответ:", response);
@@ -75,25 +130,53 @@ function convertGoogleTableToGames(response) {
   }
 
   let headers = response.table.cols.map((column) => {
-    return String(column.label || "").trim();
+    return normalizeHeader(column.label);
   });
 
   let rows = response.table.rows || [];
 
+  const normalHeaders = [
+    "id",
+    "type",
+    "title",
+    "description",
+    "date",
+    "time",
+    "master",
+    "level",
+    "price",
+    "totalSeats",
+    "freeSeats",
+    "announcementUrl"
+  ];
+
   const hasNormalHeaders = headers.includes("title") && headers.includes("date");
 
   if (!hasNormalHeaders && rows.length > 0) {
-    headers = rows[0].c.map((cell) => {
-      return String(getCellValue(cell)).trim();
+    const firstRowAsHeaders = rows[0].c.map((cell) => {
+      return normalizeHeader(getCellValue(cell));
     });
 
-    rows = rows.slice(1);
+    const firstRowLooksLikeHeaders =
+      firstRowAsHeaders.includes("title") &&
+      firstRowAsHeaders.includes("date");
+
+    if (firstRowLooksLikeHeaders) {
+      headers = firstRowAsHeaders;
+      rows = rows.slice(1);
+    } else {
+      headers = normalHeaders;
+    }
   }
 
   return rows.map((row, index) => {
     const game = {};
 
     headers.forEach((header, cellIndex) => {
+      if (!header) {
+        return;
+      }
+
       game[header] = getCellValue(row.c[cellIndex]);
     });
 
@@ -102,8 +185,8 @@ function convertGoogleTableToGames(response) {
       type: game.type || "Ваншот",
       title: game.title || "Без названия",
       description: game.description || "",
-      date: game.date || "Открытая дата",
-      time: game.time || "19:00",
+      date: normalizeDateForDisplay(game.date),
+      time: normalizeTimeForDisplay(game.time),
       master: game.master || "Не указан",
       level: game.level || "Не указан",
       price: game.price || "Не указана",
@@ -130,7 +213,7 @@ function loadGamesFromGoogleSheet() {
 
   const script = document.createElement("script");
 
-  script.src = `${googleSheetGvizUrl}&tqx=out:json;responseHandler:${callbackName}&tq=${encodeURIComponent("select *")}&cacheBust=${Date.now()}`;
+  script.src = `${googleSheetGvizUrl}&headers=1&tqx=out:json;responseHandler:${callbackName}&tq=${encodeURIComponent("select *")}&cacheBust=${Date.now()}`;
 
   script.onerror = function() {
     console.warn("Не удалось загрузить Google Таблицу через gviz.");
@@ -183,21 +266,38 @@ function parseGameDate(dateText) {
     return null;
   }
 
-  const parts = String(dateText).split(".");
+  const rawDate = String(dateText).trim();
 
-  if (parts.length < 2) {
-    return null;
+  if (rawDate.includes(".")) {
+    const parts = rawDate.split(".");
+
+    const day = Number(parts[0]);
+    const month = Number(parts[1]) - 1;
+    const year = parts[2] ? Number(parts[2]) : calendarDate.getFullYear();
+
+    if (!day || month < 0 || month > 11) {
+      return null;
+    }
+
+    return new Date(year, month, day);
   }
 
-  const day = Number(parts[0]);
-  const month = Number(parts[1]) - 1;
-  const year = parts[2] ? Number(parts[2]) : calendarDate.getFullYear();
+  if (rawDate.includes("-")) {
+    const onlyDate = rawDate.split(" ")[0];
+    const parts = onlyDate.split("-");
 
-  if (!day || month < 0 || month > 11) {
-    return null;
+    const year = Number(parts[0]);
+    const month = Number(parts[1]) - 1;
+    const day = Number(parts[2]);
+
+    if (!day || month < 0 || month > 11 || !year) {
+      return null;
+    }
+
+    return new Date(year, month, day);
   }
 
-  return new Date(year, month, day);
+  return null;
 }
 
 function getFilteredGames() {
