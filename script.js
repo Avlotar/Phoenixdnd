@@ -1,6 +1,6 @@
 const vkLink = "https://vk.com/phoenixdnd";
 
-const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=0&single=true&output=csv";
+const googleSheetGvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/gviz/tq?gid=0";
 
 let games = [];
 
@@ -11,11 +11,6 @@ let activeFilter = {
 
 let calendarDate = new Date();
 
-/*
-  Защита текста.
-  Всё, что приходит из Google Таблицы, сначала превращаем в безопасный текст.
-  Так вредный HTML/JS не сможет выполниться на странице.
-*/
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -25,11 +20,6 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-/*
-  Защита ссылок.
-  Мы разрешаем только нормальные https/http ссылки.
-  Если ссылка битая или странная — ведём на основную группу ВК.
-*/
 function getSafeUrl(value) {
   const rawUrl = String(value ?? "").trim();
 
@@ -52,9 +42,6 @@ function getSafeUrl(value) {
   }
 }
 
-/*
-  Числа тоже приводим к безопасному виду.
-*/
 function getSafeNumber(value) {
   const number = Number(value);
 
@@ -65,73 +52,49 @@ function getSafeNumber(value) {
   return number;
 }
 
-/*
-  CSV-парсер.
-  Он нужен, чтобы правильно читать Google Таблицу,
-  даже если в описании есть запятые или кавычки.
-*/
-function parseCsv(text) {
-  const rows = [];
-  let currentRow = [];
-  let currentCell = "";
-  let insideQuotes = false;
-
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    const nextChar = text[i + 1];
-
-    if (char === '"' && insideQuotes && nextChar === '"') {
-      currentCell += '"';
-      i++;
-      continue;
-    }
-
-    if (char === '"') {
-      insideQuotes = !insideQuotes;
-      continue;
-    }
-
-    if (char === "," && !insideQuotes) {
-      currentRow.push(currentCell.trim());
-      currentCell = "";
-      continue;
-    }
-
-    if ((char === "\n" || char === "\r") && !insideQuotes) {
-      if (currentCell || currentRow.length > 0) {
-        currentRow.push(currentCell.trim());
-        rows.push(currentRow);
-        currentRow = [];
-        currentCell = "";
-      }
-      continue;
-    }
-
-    currentCell += char;
+function getCellValue(cell) {
+  if (!cell) {
+    return "";
   }
 
-  if (currentCell || currentRow.length > 0) {
-    currentRow.push(currentCell.trim());
-    rows.push(currentRow);
+  if (cell.f !== undefined && cell.f !== null) {
+    return cell.f;
   }
 
-  return rows;
+  if (cell.v !== undefined && cell.v !== null) {
+    return cell.v;
+  }
+
+  return "";
 }
 
-function convertCsvToGames(csvText) {
-  const rows = parseCsv(csvText);
-
-  if (rows.length < 2) {
+function convertGoogleTableToGames(response) {
+  if (!response || response.status !== "ok" || !response.table) {
+    console.warn("Google Таблица вернула неожиданный ответ:", response);
     return [];
   }
 
-  const headers = rows[0].map((header) => header.trim());
+  let headers = response.table.cols.map((column) => {
+    return String(column.label || "").trim();
+  });
 
-  return rows.slice(1).map((row, index) => {
+  let rows = response.table.rows || [];
+
+  const hasNormalHeaders = headers.includes("title") && headers.includes("date");
+
+  if (!hasNormalHeaders && rows.length > 0) {
+    headers = rows[0].c.map((cell) => {
+      return String(getCellValue(cell)).trim();
+    });
+
+    rows = rows.slice(1);
+  }
+
+  return rows.map((row, index) => {
     const game = {};
 
     headers.forEach((header, cellIndex) => {
-      game[header] = row[cellIndex] || "";
+      game[header] = getCellValue(row.c[cellIndex]);
     });
 
     return {
@@ -148,25 +111,36 @@ function convertCsvToGames(csvText) {
       freeSeats: getSafeNumber(game.freeSeats),
       announcementUrl: getSafeUrl(game.announcementUrl)
     };
-  }).filter((game) => game.title && game.title !== "Без названия");
+  }).filter((game) => {
+    return game.title && game.title !== "Без названия";
+  });
 }
 
-async function loadGamesFromGoogleSheet() {
-  try {
-    const response = await fetch(`${googleSheetCsvUrl}&cacheBust=${Date.now()}`);
+function loadGamesFromGoogleSheet() {
+  const callbackName = `phoenixSheetCallback_${Date.now()}`;
 
-    if (!response.ok) {
-      throw new Error("Не удалось загрузить Google Таблицу");
-    }
+  window[callbackName] = function(response) {
+    games = convertGoogleTableToGames(response);
+    renderAll();
 
-    const csvText = await response.text();
-    games = convertCsvToGames(csvText);
-  } catch (error) {
-    console.warn("Не удалось загрузить Google Таблицу.", error);
+    setTimeout(() => {
+      delete window[callbackName];
+    }, 1000);
+  };
+
+  const script = document.createElement("script");
+
+  script.src = `${googleSheetGvizUrl}&tqx=out:json;responseHandler:${callbackName}&tq=${encodeURIComponent("select *")}&cacheBust=${Date.now()}`;
+
+  script.onerror = function() {
+    console.warn("Не удалось загрузить Google Таблицу через gviz.");
     games = [];
-  }
+    renderAll();
 
-  renderAll();
+    delete window[callbackName];
+  };
+
+  document.body.appendChild(script);
 }
 
 function getGameStatus(game) {
