@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Гнездо Феникса — Центральный Хаб</title>
-<link rel="stylesheet" href="style.css?v=1.7" />
+
+  <title>Гнездо Феникса — Таверна приключений</title>
+
+  <link rel="stylesheet" href="style.css?v=1.8" />
 </head>
 <body>
 
   <nav class="top-nav">
-    <a href="#" class="nav-logo">Гнездо Феникса</a>
+    <a href="#" class="nav-logo">🔥 Гнездо Феникса</a>
 
     <div class="nav-links">
       <a href="#games">Игры</a>
@@ -17,36 +19,48 @@
       <a href="#schedule">Расписание</a>
       <a href="#calendar">Календарь</a>
       <a href="#profile">Кабинет</a>
-      <a href="https://vk.com/phoenixdnd" target="_blank">ВК</a>
+      <a href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">ВК</a>
     </div>
   </nav>
 
-  <header class="hero">
-    <div class="hero-content">
-      <p class="eyebrow">Центральный Хаб</p>
+  <header class="hero tavern-hero">
+    <div class="tavern-background" aria-hidden="true">
+      <div class="tavern-layer tavern-deep" data-depth="0.2"></div>
+      <div class="tavern-layer tavern-window" data-depth="0.35"></div>
+      <div class="tavern-layer tavern-shelves" data-depth="0.55"></div>
+      <div class="tavern-layer tavern-fire" data-depth="0.75"></div>
+      <div class="tavern-layer tavern-sparks" data-depth="1"></div>
+    </div>
+
+    <div class="hero-content tavern-content">
+      <p class="eyebrow">Таверна приключений</p>
+
       <h1>Гнездо Феникса</h1>
+
       <p class="hero-text">
-        Место, где собираются игроки настольных ролевых игр, чтобы находить приключения,
-        записываться на партии и становиться частью общей истории.
+        Заходи к огню, путник. Здесь собираются игроки настольных ролевых игр,
+        выбирают приключения, записываются на партии и становятся частью историй,
+        которые потом пересказывают у камина.
       </p>
 
       <div class="main-buttons">
-        <a href="#games" class="button">Игры</a>
-        <a href="#signup" class="button">Запись на игры</a>
+        <a href="#games" class="button">Посмотреть игры</a>
+        <a href="#signup" class="button">Записаться</a>
         <a href="#schedule" class="button">Расписание</a>
         <a href="#calendar" class="button">Календарь</a>
-        <a href="#profile" class="button">Личный кабинет</a>
+        <a href="#profile" class="button">Кабинет игрока</a>
       </div>
     </div>
   </header>
 
   <main class="container">
 
-    <section class="section welcome-panel">
-      <h2>Добро пожаловать в Гнездо Феникса</h2>
+    <section class="section welcome-panel tavern-card-large">
+      <h2>Добро пожаловать к огню</h2>
+
       <p>
-        Выбери нужный раздел: посмотри ближайшие игры, запишись на приключение,
-        открой расписание или перейди в личный кабинет игрока.
+        Выбери нужный раздел: посмотри ближайшие игры, найди свободные места,
+        открой расписание или перейди к записи через группу ВК.
       </p>
 
       <div class="hub-cards">
@@ -63,7 +77,7 @@
         </a>
 
         <a href="#schedule" class="hub-card">
-          <span class="hub-icon">📅</span>
+          <span class="hub-icon">📜</span>
           <h3>Расписание</h3>
           <p>Даты, время, мастера и свободные места.</p>
         </a>
@@ -80,7 +94,7 @@
           <p>Будущий личный раздел участника клуба.</p>
         </a>
 
-        <a href="https://vk.com/phoenixdnd" target="_blank" class="hub-card">
+        <a href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer" class="hub-card">
           <span class="hub-icon">🔥</span>
           <h3>Группа ВК</h3>
           <p>Основная площадка Гнезда Феникса.</p>
@@ -100,10 +114,12 @@
       </div>
     </section>
 
-    <section class="section" id="games">
-      <h2>Игры</h2>
+    <section class="section tavern-card-large" id="games">
+      <h2>Ближайшие игры</h2>
+
       <p>
-        Здесь собраны ближайшие приключения клуба: ваншоты, мини-кампейны и особые истории.
+        На доске объявлений уже ждут приключения: ваншоты, мини-кампейны
+        и особые истории от мастеров клуба.
       </p>
 
       <div class="filter-panel">
@@ -122,16 +138,18 @@
       </div>
     </section>
 
-    <section class="section" id="signup">
+    <section class="section tavern-card-large" id="signup">
       <h2>Запись на игры</h2>
+
       <p>
-        Пока запись проходит через группу ВК. Открой анонс нужной игры и поставь “+” в комментарии.
+        Пока запись проходит через группу ВК. Открой анонс нужной игры
+        и поставь “+” в комментарии.
       </p>
 
       <div class="steps">
         <div class="step">
           <span>1</span>
-          <p>Выбери игру на сайте.</p>
+          <p>Выбери игру на доске объявлений.</p>
         </div>
 
         <div class="step">
@@ -145,13 +163,14 @@
         </div>
       </div>
 
-      <a class="button big" href="https://vk.com/phoenixdnd" target="_blank">
+      <a class="button big" href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">
         Перейти в группу ВК
       </a>
     </section>
 
-    <section class="section" id="schedule">
+    <section class="section tavern-card-large" id="schedule">
       <h2>Расписание</h2>
+
       <p>
         Ближайшие игры клуба по датам.
       </p>
@@ -161,10 +180,12 @@
       </div>
     </section>
 
-    <section class="section" id="calendar">
+    <section class="section tavern-card-large" id="calendar">
       <h2>Календарь месяца</h2>
+
       <p>
-        Здесь отображаются даты текущего месяца: занятые дни с играми и свободные даты.
+        Здесь отображаются даты текущего месяца: занятые дни с играми
+        и свободные даты.
       </p>
 
       <div class="calendar-header">
@@ -189,8 +210,10 @@
 
       <div class="open-date-box">
         <h3>Игры с открытой датой</h3>
+
         <p>
-          Эти игры ещё не закреплены за конкретным днём. Для них можно выбрать свободную дату в календаре.
+          Эти игры ещё не закреплены за конкретным днём. Для них можно выбрать
+          свободную дату в календаре.
         </p>
 
         <div id="openDateGamesList">
@@ -199,10 +222,12 @@
       </div>
     </section>
 
-    <section class="section" id="profile">
-      <h2>Личный кабинет игрока</h2>
+    <section class="section tavern-card-large" id="profile">
+      <h2>Кабинет игрока</h2>
+
       <p>
-        В будущем здесь игрок сможет видеть своё имя, историю игр, достижения и личную информацию.
+        В будущем здесь игрок сможет видеть своё имя, историю игр,
+        достижения и личную информацию.
       </p>
 
       <div class="profile-preview">
@@ -210,19 +235,20 @@
 
         <div>
           <h3>Кабинет в разработке</h3>
+
           <p>
-            Позже здесь появятся имя игрока, список посещённых игр, заметки, достижения
-            и другая личная информация участника клуба.
+            Позже здесь появятся имя игрока, список посещённых игр, заметки,
+            достижения и другая личная информация участника клуба.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section tavern-card-large">
       <h2>Наши площадки</h2>
 
       <div class="social-links">
-        <a class="social vk" href="https://vk.com/phoenixdnd" target="_blank">
+        <a class="social vk" href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">
           Группа ВК
         </a>
 
@@ -239,9 +265,10 @@
   </main>
 
   <footer class="footer">
-    <p>Гнездо Феникса — общий хаб проекта</p>
+    <p>Гнездо Феникса — таверна, где начинаются приключения</p>
   </footer>
 
-<script src="script.js?v=1.7"></script>
+  <script src="script.js?v=1.7"></script>
+  <script src="visual.js?v=1.8"></script>
 </body>
 </html>
