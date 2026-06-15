@@ -1,6 +1,7 @@
 const vkLink = "https://vk.com/phoenixdnd";
 
 const googleSheetGvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/gviz/tq?gid=0";
+const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=0&single=true&output=csv";
 
 let games = [];
 
@@ -29,7 +30,6 @@ function getSafeUrl(value) {
 
   try {
     const url = new URL(rawUrl);
-
     const isAllowedProtocol = url.protocol === "https:" || url.protocol === "http:";
 
     if (!isAllowedProtocol) {
@@ -74,14 +74,19 @@ function normalizeHeader(value) {
     .replace(/\uFEFF/g, "");
 }
 
+function isOpenDate(dateText) {
+  const normalizedDate = String(dateText).toLowerCase().trim();
+
+  return normalizedDate === "открытая дата" ||
+    normalizedDate === "дата открыта" ||
+    normalizedDate === "открыто" ||
+    normalizedDate === "";
+}
+
 function normalizeDateForDisplay(value) {
   const rawDate = String(value ?? "").trim();
 
-  if (!rawDate) {
-    return "Открытая дата";
-  }
-
-  if (isOpenDate(rawDate)) {
+  if (!rawDate || isOpenDate(rawDate)) {
     return "Открытая дата";
   }
 
@@ -121,6 +126,99 @@ function normalizeTimeForDisplay(value) {
   }
 
   return rawTime;
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let currentRow = [];
+  let currentCell = "";
+  let insideQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const nextChar = text[i + 1];
+
+    if (char === '"' && insideQuotes && nextChar === '"') {
+      currentCell += '"';
+      i++;
+      continue;
+    }
+
+    if (char === '"') {
+      insideQuotes = !insideQuotes;
+      continue;
+    }
+
+    if (char === "," && !insideQuotes) {
+      currentRow.push(currentCell.trim());
+      currentCell = "";
+      continue;
+    }
+
+    if ((char === "\n" || char === "\r") && !insideQuotes) {
+      if (currentCell || currentRow.length > 0) {
+        currentRow.push(currentCell.trim());
+        rows.push(currentRow);
+        currentRow = [];
+        currentCell = "";
+      }
+      continue;
+    }
+
+    currentCell += char;
+  }
+
+  if (currentCell || currentRow.length > 0) {
+    currentRow.push(currentCell.trim());
+    rows.push(currentRow);
+  }
+
+  return rows.filter((row) => {
+    return row.some((cell) => String(cell).trim() !== "");
+  });
+}
+
+function buildGameFromObject(game, index) {
+  return {
+    id: getSafeNumber(game.id) || Date.now() + index,
+    type: game.type || "Ваншот",
+    title: game.title || "Без названия",
+    description: game.description || "",
+    date: normalizeDateForDisplay(game.date),
+    time: normalizeTimeForDisplay(game.time),
+    master: game.master || "Не указан",
+    level: game.level || "Не указан",
+    price: game.price || game.prise || "Не указана",
+    totalSeats: getSafeNumber(game.totalSeats),
+    freeSeats: getSafeNumber(game.freeSeats),
+    announcementUrl: getSafeUrl(game.announcementUrl)
+  };
+}
+
+function convertCsvToGames(csvText) {
+  const rows = parseCsv(csvText);
+
+  if (rows.length < 2) {
+    return [];
+  }
+
+  const headers = rows[0].map((header) => normalizeHeader(header));
+
+  return rows.slice(1).map((row, index) => {
+    const game = {};
+
+    headers.forEach((header, cellIndex) => {
+      if (!header) {
+        return;
+      }
+
+      game[header] = row[cellIndex] || "";
+    });
+
+    return buildGameFromObject(game, index);
+  }).filter((game) => {
+    return game.title && game.title !== "Без названия";
+  });
 }
 
 function convertGoogleTableToGames(response) {
@@ -180,50 +278,131 @@ function convertGoogleTableToGames(response) {
       game[header] = getCellValue(row.c[cellIndex]);
     });
 
-    return {
-      id: getSafeNumber(game.id) || Date.now() + index,
-      type: game.type || "Ваншот",
-      title: game.title || "Без названия",
-      description: game.description || "",
-      date: normalizeDateForDisplay(game.date),
-      time: normalizeTimeForDisplay(game.time),
-      master: game.master || "Не указан",
-      level: game.level || "Не указан",
-      price: game.price || "Не указана",
-      totalSeats: getSafeNumber(game.totalSeats),
-      freeSeats: getSafeNumber(game.freeSeats),
-      announcementUrl: getSafeUrl(game.announcementUrl)
-    };
+    return buildGameFromObject(game, index);
   }).filter((game) => {
     return game.title && game.title !== "Без названия";
   });
 }
 
-function loadGamesFromGoogleSheet() {
-  const callbackName = `phoenixSheetCallback_${Date.now()}`;
+function showLoadingMessage(message) {
+  const gamesList = document.querySelector("#gamesList");
 
-  window[callbackName] = function(response) {
-    games = convertGoogleTableToGames(response);
-    renderAll();
+  if (!gamesList) {
+    return;
+  }
 
-    setTimeout(() => {
+  gamesList.innerHTML = `
+    <div class="empty-message">
+      ${escapeHtml(message)}
+    </div>
+  `;
+}
+
+function finishGamesLoading(loadedGames, sourceName) {
+  games = loadedGames;
+  console.log(`Игры загружены через ${sourceName}:`, games);
+  renderAll();
+}
+
+function loadGamesFromGviz() {
+  return new Promise((resolve, reject) => {
+    const callbackName = `phoenixSheetCallback_${Date.now()}`;
+    const script = document.createElement("script");
+
+    let finished = false;
+
+    const timeout = setTimeout(() => {
+      if (finished) {
+        return;
+      }
+
+      finished = true;
       delete window[callbackName];
-    }, 1000);
-  };
+      script.remove();
+      reject(new Error("GVIZ не ответил за 8 секунд"));
+    }, 8000);
 
-  const script = document.createElement("script");
+    window[callbackName] = function(response) {
+      if (finished) {
+        return;
+      }
 
-  script.src = `${googleSheetGvizUrl}&headers=1&tqx=out:json;responseHandler:${callbackName}&tq=${encodeURIComponent("select *")}&cacheBust=${Date.now()}`;
+      finished = true;
+      clearTimeout(timeout);
+      delete window[callbackName];
+      script.remove();
 
-  script.onerror = function() {
-    console.warn("Не удалось загрузить Google Таблицу через gviz.");
-    games = [];
-    renderAll();
+      try {
+        const loadedGames = convertGoogleTableToGames(response);
+        resolve(loadedGames);
+      } catch (error) {
+        reject(error);
+      }
+    };
 
-    delete window[callbackName];
-  };
+    script.onerror = function() {
+      if (finished) {
+        return;
+      }
 
-  document.body.appendChild(script);
+      finished = true;
+      clearTimeout(timeout);
+      delete window[callbackName];
+      script.remove();
+      reject(new Error("Не удалось загрузить Google Таблицу через GVIZ"));
+    };
+
+    script.src = `${googleSheetGvizUrl}&headers=1&tqx=out:json;responseHandler:${callbackName}&tq=${encodeURIComponent("select *")}&cacheBust=${Date.now()}`;
+
+    document.body.appendChild(script);
+  });
+}
+
+async function loadGamesFromCsv() {
+  const response = await fetch(`${googleSheetCsvUrl}&cacheBust=${Date.now()}`, {
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`CSV вернул ошибку: ${response.status}`);
+  }
+
+  const csvText = await response.text();
+  return convertCsvToGames(csvText);
+}
+
+async function loadGamesFromGoogleSheet() {
+  showLoadingMessage("Загружаю игры из Google Таблицы...");
+
+  try {
+    const gvizGames = await loadGamesFromGviz();
+
+    if (gvizGames.length > 0) {
+      finishGamesLoading(gvizGames, "GVIZ");
+      return;
+    }
+
+    console.warn("GVIZ загрузился, но игр не нашёл. Пробую CSV...");
+  } catch (error) {
+    console.warn("GVIZ не сработал. Пробую CSV...", error);
+  }
+
+  try {
+    const csvGames = await loadGamesFromCsv();
+
+    if (csvGames.length > 0) {
+      finishGamesLoading(csvGames, "CSV");
+      return;
+    }
+
+    console.warn("CSV загрузился, но игр не нашёл.");
+  } catch (error) {
+    console.warn("CSV не сработал.", error);
+  }
+
+  games = [];
+  renderAll();
+  showLoadingMessage("Не удалось загрузить игры. Проверь публикацию Google Таблицы и первую строку с названиями колонок.");
 }
 
 function getGameStatus(game) {
@@ -250,15 +429,6 @@ function getStatusClass(status) {
   }
 
   return "status-default";
-}
-
-function isOpenDate(dateText) {
-  const normalizedDate = String(dateText).toLowerCase().trim();
-
-  return normalizedDate === "открытая дата" ||
-    normalizedDate === "дата открыта" ||
-    normalizedDate === "открыто" ||
-    normalizedDate === "";
 }
 
 function parseGameDate(dateText) {
