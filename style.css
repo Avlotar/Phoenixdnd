@@ -997,3 +997,16 @@ button {
     font-size: 12px;
   }
 }
+/* ============================= */
+/* v1.8.1 — живой фон на всех устройствах */
+/* ============================= */
+
+.tavern-layer {
+  transform: translate(0, 0) scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .tavern-layer {
+    transform: translate(0, 0) scale(1.03) !important;
+  }
+}
