@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Гнездо Феникса — Центральный Хаб</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="#" class="nav-logo">Гнездо Феникса</a>
+
+    <div class="nav-links">
+      <a href="#games">Игры</a>
+      <a href="#signup">Запись</a>
+      <a href="#schedule">Расписание</a>
+      <a href="#calendar">Календарь</a>
+      <a href="#profile">Кабинет</a>
+      <a href="https://vk.com/phoenixdnd" target="_blank">ВК</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">Центральный Хаб</p>
+      <h1>Гнездо Феникса</h1>
+      <p class="hero-text">
+        Место, где собираются игроки настольных ролевых игр, чтобы находить приключения,
+        записываться на партии и становиться частью общей истории.
+      </p>
+
+      <div class="main-buttons">
+        <a href="#games" class="button">Игры</a>
+        <a href="#signup" class="button">Запись на игры</a>
+        <a href="#schedule" class="button">Расписание</a>
+        <a href="#calendar" class="button">Календарь</a>
+        <a href="#profile" class="button">Личный кабинет</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="section welcome-panel">
+      <h2>Добро пожаловать в Гнездо Феникса</h2>
+      <p>
+        Выбери нужный раздел: посмотри ближайшие игры, запишись на приключение,
+        открой расписание или перейди в личный кабинет игрока.
+      </p>
+
+      <div class="hub-cards">
+        <a href="#games" class="hub-card">
+          <span class="hub-icon">🎲</span>
+          <h3>Игры</h3>
+          <p>Ваншоты, кампейны и ближайшие приключения.</p>
+        </a>
+
+        <a href="#signup" class="hub-card">
+          <span class="hub-icon">✍️</span>
+          <h3>Запись</h3>
+          <p>Раздел для записи на ближайшие игры клуба.</p>
+        </a>
+
+        <a href="#schedule" class="hub-card">
+          <span class="hub-icon">📅</span>
+          <h3>Расписание</h3>
+          <p>Даты, время, мастера и свободные места.</p>
+        </a>
+
+        <a href="#calendar" class="hub-card">
+          <span class="hub-icon">🗓️</span>
+          <h3>Календарь</h3>
+          <p>Дни с играми и свободные даты месяца.</p>
+        </a>
+
+        <a href="#profile" class="hub-card">
+          <span class="hub-icon">🧙</span>
+          <h3>Кабинет игрока</h3>
+          <p>Будущий личный раздел участника клуба.</p>
+        </a>
+
+        <a href="https://vk.com/phoenixdnd" target="_blank" class="hub-card">
+          <span class="hub-icon">🔥</span>
+          <h3>Группа ВК</h3>
+          <p>Основная площадка Гнезда Феникса.</p>
+        </a>
+
+        <button class="hub-card soon" data-soon="Telegram">
+          <span class="hub-icon">📣</span>
+          <h3>Telegram</h3>
+          <p>Канал скоро появится.</p>
+        </button>
+
+        <button class="hub-card soon" data-soon="MAX">
+          <span class="hub-icon">💬</span>
+          <h3>MAX</h3>
+          <p>Раздел пока в разработке.</p>
+        </button>
+      </div>
+    </section>
+
+    <section class="section" id="games">
+      <h2>Игры</h2>
+      <p>
+        Здесь собраны ближайшие приключения клуба: ваншоты, мини-кампейны и особые истории.
+      </p>
+
+      <div class="filter-panel">
+        <button class="filter-button active" data-filter="all" data-value="all">Все игры</button>
+        <button class="filter-button" data-filter="status" data-value="Набор открыт">Набор открыт</button>
+        <button class="filter-button" data-filter="status" data-value="Мест нет">Мест нет</button>
+        <button class="filter-button" data-filter="master" data-value="Харон">Харон</button>
+        <button class="filter-button" data-filter="master" data-value="Глория">Глория</button>
+        <button class="filter-button" data-filter="master" data-value="Оникс">Оникс</button>
+      </div>
+
+      <p class="games-counter" id="gamesCounter"></p>
+
+      <div class="game-list" id="gamesList">
+        <!-- Карточки игр появятся здесь автоматически из Google Таблицы -->
+      </div>
+    </section>
+
+    <section class="section" id="signup">
+      <h2>Запись на игры</h2>
+      <p>
+        Пока запись проходит через группу ВК. Открой анонс нужной игры и поставь “+” в комментарии.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <span>1</span>
+          <p>Выбери игру на сайте.</p>
+        </div>
+
+        <div class="step">
+          <span>2</span>
+          <p>Открой анонс игры через кнопку ВК.</p>
+        </div>
+
+        <div class="step">
+          <span>3</span>
+          <p>Поставь “+” в комментарии под анонсом или напиши организатору.</p>
+        </div>
+      </div>
+
+      <a class="button big" href="https://vk.com/phoenixdnd" target="_blank">
+        Перейти в группу ВК
+      </a>
+    </section>
+
+    <section class="section" id="schedule">
+      <h2>Расписание</h2>
+      <p>
+        Ближайшие игры клуба по датам.
+      </p>
+
+      <div class="schedule-box" id="scheduleBox">
+        <!-- Расписание появится здесь автоматически из Google Таблицы -->
+      </div>
+    </section>
+
+    <section class="section" id="calendar">
+      <h2>Календарь месяца</h2>
+      <p>
+        Здесь отображаются даты текущего месяца: занятые дни с играми и свободные даты.
+      </p>
+
+      <div class="calendar-header">
+        <button class="calendar-nav-button" id="prevMonthButton">← Предыдущий</button>
+        <h3 id="calendarTitle">Месяц</h3>
+        <button class="calendar-nav-button" id="nextMonthButton">Следующий →</button>
+      </div>
+
+      <div class="calendar-weekdays">
+        <span>Пн</span>
+        <span>Вт</span>
+        <span>Ср</span>
+        <span>Чт</span>
+        <span>Пт</span>
+        <span>Сб</span>
+        <span>Вс</span>
+      </div>
+
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- Календарь появится здесь автоматически -->
+      </div>
+
+      <div class="open-date-box">
+        <h3>Игры с открытой датой</h3>
+        <p>
+          Эти игры ещё не закреплены за конкретным днём. Для них можно выбрать свободную дату в календаре.
+        </p>
+
+        <div id="openDateGamesList">
+          <!-- Игры с открытой датой появятся здесь -->
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="profile">
+      <h2>Личный кабинет игрока</h2>
+      <p>
+        В будущем здесь игрок сможет видеть своё имя, историю игр, достижения и личную информацию.
+      </p>
+
+      <div class="profile-preview">
+        <div class="avatar-placeholder">?</div>
+
+        <div>
+          <h3>Кабинет в разработке</h3>
+          <p>
+            Позже здесь появятся имя игрока, список посещённых игр, заметки, достижения
+            и другая личная информация участника клуба.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Наши площадки</h2>
+
+      <div class="social-links">
+        <a class="social vk" href="https://vk.com/phoenixdnd" target="_blank">
+          Группа ВК
+        </a>
+
+        <button class="social soon" data-soon="Telegram">
+          Telegram — скоро
+        </button>
+
+        <button class="social soon" data-soon="MAX">
+          MAX — скоро
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Гнездо Феникса — общий хаб проекта</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
