@@ -1100,3 +1100,31 @@ button {
       );
   }
 }
+/* ============================= */
+/* v1.9.2 — фон-картинка напрямую на главном экране */
+/* ============================= */
+
+.tavern-hero {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 4, 4, 0.20) 0%,
+      rgba(10, 4, 4, 0.45) 55%,
+      rgba(10, 4, 4, 0.82) 100%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(255, 190, 90, 0.10),
+      rgba(0, 0, 0, 0.48) 70%
+    ),
+    url("images/tavern-bg.png") !important;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Старые декоративные интерактивные слои убираем, чтобы они не перекрывали картинку */
+.tavern-background {
+  display: none !important;
+}
