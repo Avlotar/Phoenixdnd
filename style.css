@@ -1039,3 +1039,64 @@ button {
     filter: blur(2px) brightness(1.25);
   }
 }
+/* ============================= */
+/* v1.9 — статичная тавернная картинка */
+/* ============================= */
+
+.tavern-background {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 4, 4, 0.28) 0%,
+      rgba(10, 4, 4, 0.52) 55%,
+      rgba(10, 4, 4, 0.82) 100%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(255, 190, 90, 0.12),
+      rgba(0, 0, 0, 0.45) 65%
+    ),
+    url("images/tavern-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.tavern-layer {
+  display: none !important;
+}
+
+.tavern-hero {
+  background: #120709;
+}
+
+.tavern-content {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(26, 12, 8, 0.70),
+      rgba(9, 4, 5, 0.62)
+    );
+
+  border: 1px solid rgba(255, 210, 122, 0.32);
+  box-shadow:
+    0 0 70px rgba(255, 130, 40, 0.16),
+    0 18px 90px rgba(0, 0, 0, 0.58);
+}
+
+/* На телефоне фон остаётся красивым и не ломает страницу */
+@media (max-width: 768px) {
+  .tavern-background {
+    background-position: center top;
+  }
+
+  .tavern-content {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(26, 12, 8, 0.78),
+        rgba(9, 4, 5, 0.72)
+      );
+  }
+}
