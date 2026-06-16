@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=3.3" />
+  <link rel="stylesheet" href="style.css?v=3.4" />
 </head>
 <body>
   <nav class="top-nav compact-nav">
@@ -52,65 +52,151 @@
     <div class="hero-content tavern-content">
       <p class="eyebrow">Отдельный стол у камина</p>
       <h1>Игры под ключ</h1>
-      <p class="hero-text">Нужна отдельная игра для вашей компании, праздника, команды или дружеской встречи? Мы поможем собрать приключение под ваш запрос и провести его в нужном настроении.</p>
+      <p class="hero-text">
+        Хотите отдельное приключение для своей компании? Мы соберём игру под ваш повод,
+        людей и настроение — от первого знакомства с D&D до мрачной сказки, детектива
+        или праздничного безумия за столом.
+      </p>
     </div>
   </header>
 
   <main class="container">
-    <section class="section tavern-card-large service-public-section" id="games-service" data-icon="🔑">
+    <section class="section tavern-card-large service-public-section service-sales-section" id="games-service" data-icon="🔑">
       <h2>Игры под ключ</h2>
 
-      <p>
-        Иногда хочется не просто записаться на готовый ваншот, а заказать историю под свою компанию:
-        день рождения, корпоратив, встречу друзей, знакомство с D&D или особый вечер с конкретной темой.
-        Для этого и нужна эта отдельная комната таверны.
-      </p>
+      <div class="service-hero-card service-hero-card--illustrated service-main-offer">
+        <img class="placeholder-illustration" src="images/service-placeholder.svg" alt="Иллюстрация раздела Игры под ключ" />
 
-      <div class="service-hero-card service-hero-card--illustrated">
-        <img class="placeholder-illustration" src="images/service-placeholder.svg" alt="Иллюстрация-заглушка для раздела Игры под ключ" />
         <div>
-          <p class="news-kicker">Формат в подготовке</p>
-          <h3>Страница уже открыта, детали будут дополняться</h3>
+          <p class="news-kicker">Персональное приключение</p>
+          <h3>Не просто сценарий, а вечер под ваш стол</h3>
           <p>
-            Мы постепенно оформим здесь понятные варианты, примеры сюжетов, длительность,
-            количество игроков и порядок заявки. Пока можно написать в ВК и обсудить игру напрямую.
+            Мы поможем подобрать формат, настроение и сложность игры так, чтобы участникам
+            было понятно, интересно и атмосферно. Можно прийти совсем без опыта — мастер
+            объяснит правила по ходу и поможет войти в историю.
           </p>
+
+          <div class="service-cta-row">
+            <a class="button big" href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">
+              Обсудить игру в ВК
+            </a>
+
+            <a class="button service-secondary-button" href="#service-request">
+              Что написать в заявке
+            </a>
+          </div>
         </div>
       </div>
 
-      <div class="service-format-grid">
+      <div class="service-format-grid service-audience-grid">
         <div class="feature-card">
           <span>🎂</span>
-          <h3>Праздник</h3>
-          <p>Приключение для дня рождения, дружеской встречи или необычного вечера.</p>
+          <h3>День рождения</h3>
+          <p>Приключение как необычный подарок: весёлое, героическое, странное или сказочное.</p>
         </div>
 
         <div class="feature-card">
           <span>🧭</span>
-          <h3>Для новичков</h3>
-          <p>Мягкий вход в НРИ: объясним правила по ходу игры и поможем с персонажами.</p>
+          <h3>Первое знакомство</h3>
+          <p>Мягкий вход в настольные ролевые игры без перегруза правилами и сложными терминами.</p>
+        </div>
+
+        <div class="feature-card">
+          <span>🍻</span>
+          <h3>Вечер для друзей</h3>
+          <p>Отдельный стол для вашей компании, где история строится вокруг ваших персонажей.</p>
         </div>
 
         <div class="feature-card">
           <span>🏰</span>
-          <h3>Под тему</h3>
-          <p>Мрачная сказка, тавернное приключение, детектив, хоррор или героическое фэнтези.</p>
+          <h3>Тематическая игра</h3>
+          <p>Фэнтези, детектив, хоррор, сказка, абсурдная комедия или тавернное приключение.</p>
+        </div>
+
+        <div class="feature-card">
+          <span>💼</span>
+          <h3>Командная встреча</h3>
+          <p>Игровой вечер для коллег или небольшой команды, где важны общение и совместные решения.</p>
+        </div>
+
+        <div class="feature-card">
+          <span>🌙</span>
+          <h3>Особый вечер</h3>
+          <p>Можно собрать игру под дату, настроение, любимую тему или конкретный образ приключения.</p>
         </div>
       </div>
 
-      <div class="about-tavern-box">
-        <h3>Как это будет работать?</h3>
-        <ol class="service-step-list">
-          <li>Вы пишете нам и рассказываете, для кого нужна игра.</li>
-          <li>Мы уточняем дату, формат, количество игроков и желаемую атмосферу.</li>
-          <li>Мастер подбирает или готовит приключение под вашу группу.</li>
-          <li>Вы приходите за стол — а дальше начинается история.</li>
+      <div class="about-tavern-box service-section-box">
+        <h3>Какие форматы можно заказать?</h3>
+
+        <div class="service-offer-grid">
+          <div class="service-offer-card">
+            <strong>Ваншот на один вечер</strong>
+            <p>Законченная история на 3–5 часов: пришли, сыграли, получили финал.</p>
+          </div>
+
+          <div class="service-offer-card">
+            <strong>Игра для новичков</strong>
+            <p>Простые персонажи, понятная завязка и объяснение правил прямо во время партии.</p>
+          </div>
+
+          <div class="service-offer-card">
+            <strong>Авторская история</strong>
+            <p>Приключение под вашу компанию, любимую тему или особую атмосферу.</p>
+          </div>
+
+          <div class="service-offer-card">
+            <strong>Мини-кампания</strong>
+            <p>Несколько связанных встреч, если хочется не просто вечер, а маленькую сагу.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-tavern-box service-section-box">
+        <h3>Как проходит заказ?</h3>
+
+        <ol class="service-step-list service-process-list">
+          <li><strong>Вы пишете нам.</strong> Рассказываете, для кого нужна игра и какой повод.</li>
+          <li><strong>Мы уточняем детали.</strong> Дата, формат, количество игроков, опыт участников и желаемая атмосфера.</li>
+          <li><strong>Подбираем мастера и идею.</strong> Мастер предлагает подходящий формат или готовит историю под вашу группу.</li>
+          <li><strong>Помогаем с персонажами.</strong> При необходимости подготовим готовых героев или поможем создать своих.</li>
+          <li><strong>Проводим игру.</strong> Вы приходите за стол — дальше начинается история.</li>
         </ol>
       </div>
 
-      <a class="button big" href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">
-        Обсудить игру в ВК
-      </a>
+      <div class="service-price-card">
+        <p class="news-kicker">Стоимость и детали</p>
+        <h3>Цена зависит от формата</h3>
+        <p>
+          Итоговая стоимость зависит от длительности игры, количества игроков, подготовки,
+          формата проведения и того, нужна ли отдельная авторская история. Мы заранее обсуждаем
+          условия и подтверждаем всё до подготовки игры.
+        </p>
+      </div>
+
+      <div class="about-tavern-box service-section-box" id="service-request">
+        <h3>Что написать в заявке?</h3>
+
+        <ul class="service-request-list">
+          <li>Сколько будет игроков.</li>
+          <li>Есть ли у участников опыт в D&D или НРИ.</li>
+          <li>Нужна онлайн или офлайн игра.</li>
+          <li>Желаемая дата и примерное время.</li>
+          <li>Какое настроение хочется: весёлое, мрачное, героическое, сказочное, детективное.</li>
+          <li>Есть ли темы, которых лучше избегать.</li>
+        </ul>
+      </div>
+
+      <div class="service-final-call">
+        <h3>Готовы занять отдельный стол?</h3>
+        <p>
+          Напишите в группу ВК, и мы поможем подобрать приключение, которое подойдёт именно вашей компании.
+        </p>
+
+        <a class="button big" href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">
+          Обсудить игру в ВК
+        </a>
+      </div>
     </section>
   </main>
 
@@ -143,7 +229,7 @@
       </p>
     </div>
   </footer>
-  <script src="script.js?v=3.3"></script>
-  <script src="accordion.js?v=3.3"></script>
+  <script src="script.js?v=3.4"></script>
+  <script src="accordion.js?v=3.4"></script>
 </body>
 </html>

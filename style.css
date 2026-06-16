@@ -4177,3 +4177,192 @@ section {
     grid-column: 1 / -1;
   }
 }
+
+/* ============================= */
+/* v3.4 — полноценная страница “Игры под ключ” */
+/* ============================= */
+
+.service-sales-section .accordion-body > p:first-child {
+  padding-top: 0;
+}
+
+.service-main-offer {
+  margin-top: 18px;
+  margin-bottom: 24px;
+}
+
+.service-main-offer h3 {
+  font-size: 30px;
+}
+
+.service-main-offer p {
+  font-size: 18px;
+}
+
+.service-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.service-secondary-button {
+  font-size: 16px;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.service-audience-grid {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 26px;
+}
+
+.service-section-box {
+  margin-top: 26px;
+}
+
+.service-section-box h3 {
+  margin-top: 0;
+  color: #ffd27a;
+  font-size: 26px;
+}
+
+.service-offer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.service-offer-card {
+  padding: 18px;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 122, 0.08), rgba(24, 10, 8, 0.50));
+  border: 1px solid rgba(255, 210, 122, 0.20);
+}
+
+.service-offer-card strong {
+  display: block;
+  color: #ffd27a;
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.service-offer-card p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.service-process-list {
+  margin-top: 18px;
+}
+
+.service-process-list li {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 210, 122, 0.06);
+  border: 1px solid rgba(255, 210, 122, 0.14);
+}
+
+.service-process-list strong {
+  color: #ffd27a;
+}
+
+.service-price-card {
+  margin-top: 26px;
+  padding: 26px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 210, 122, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(64, 24, 14, 0.88), rgba(13, 5, 7, 0.96));
+  border: 1px solid rgba(255, 210, 122, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 190, 0.10),
+    0 16px 38px rgba(0, 0, 0, 0.25),
+    0 0 28px rgba(255, 150, 55, 0.08);
+}
+
+.service-price-card h3 {
+  margin: 0 0 10px;
+  color: #ffd27a;
+  font-size: 28px;
+}
+
+.service-price-card p:last-child {
+  margin-bottom: 0;
+}
+
+.service-request-list {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding-left: 24px;
+  color: #f0d6ad;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.service-request-list li::marker {
+  color: #ffd27a;
+}
+
+.service-final-call {
+  margin-top: 28px;
+  padding: 28px;
+  border-radius: 24px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 122, 0.12), rgba(45, 18, 12, 0.50));
+  border: 1px solid rgba(255, 210, 122, 0.30);
+  box-shadow: inset 0 1px 0 rgba(255, 235, 190, 0.08);
+}
+
+.service-final-call h3 {
+  margin: 0 0 10px;
+  color: #ffd27a;
+  font-size: 30px;
+}
+
+.service-final-call p {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 900px) {
+  .service-audience-grid,
+  .service-offer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-cta-row {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .service-main-offer h3,
+  .service-price-card h3,
+  .service-final-call h3 {
+    font-size: 23px;
+  }
+
+  .service-main-offer p,
+  .service-request-list,
+  .service-step-list {
+    font-size: 16px;
+  }
+
+  .service-final-call,
+  .service-price-card {
+    padding: 20px;
+  }
+
+  .service-cta-row .button {
+    width: 100%;
+    text-align: center;
+  }
+}
