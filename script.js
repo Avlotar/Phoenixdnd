@@ -550,6 +550,13 @@ function renderGames() {
     const safeImageForCss = imageUrl.replaceAll("'", "%27");
     const imageStyle = imageUrl ? `style="--game-image-url: url('${safeImageForCss}');"` : "";
 
+    const descriptionBlock = game.description ? `
+      <details class="game-description-details">
+        <summary>Показать логлайн</summary>
+        <p>${escapeHtml(game.description)}</p>
+      </details>
+    ` : "";
+
     return `
       <div class="game-card ${hasImageClass}" ${imageStyle}>
         <div class="game-card-content">
@@ -559,7 +566,8 @@ function renderGames() {
           </div>
 
           <h3>${escapeHtml(game.title)}</h3>
-          <p>${escapeHtml(game.description)}</p>
+
+          ${descriptionBlock}
 
           <div class="game-meta">
             <span>📅 ${escapeHtml(game.date)}</span>

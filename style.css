@@ -2186,3 +2186,239 @@ section {
     font-size: 14px;
   }
 }
+/* ============================= */
+/* v2.6 — фиксированный текст на анонсах */
+/* ============================= */
+
+/* Карточка с картинкой: текст всегда закреплён внизу */
+.notice-board-section .game-card.has-image {
+  position: relative;
+  min-height: 620px;
+  display: block;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.16) 38%,
+      rgba(0, 0, 0, 0.56) 68%,
+      rgba(0, 0, 0, 0.92) 100%
+    ),
+    var(--game-image-url);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Нижняя текстовая плашка */
+.notice-board-section .game-card.has-image .game-card-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  padding: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 3, 3, 0.18) 0%,
+      rgba(8, 3, 3, 0.78) 34%,
+      rgba(8, 3, 3, 0.96) 100%
+    );
+
+  border-top: 1px solid rgba(255, 210, 122, 0.28);
+  backdrop-filter: blur(3px);
+}
+
+/* Верхняя строка внутри карточки */
+.notice-board-section .game-card.has-image .game-card-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Название фиксированное и читаемое */
+.notice-board-section .game-card.has-image h3 {
+  margin: 0 0 12px;
+  color: #ffd27a;
+  font-size: 24px;
+  line-height: 1.15;
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.95),
+    0 0 18px rgba(255, 150, 55, 0.42);
+}
+
+/* Тип игры */
+.notice-board-section .game-card.has-image .game-type {
+  margin: 0;
+  color: #ffe1a3;
+  font-weight: bold;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(255, 190, 90, 0.34);
+}
+
+/* Раскрывающийся логлайн */
+.game-description-details {
+  margin: 0 0 14px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 210, 122, 0.22);
+  overflow: hidden;
+}
+
+.game-description-details summary {
+  padding: 10px 12px;
+  color: #ffe1a3;
+  font-weight: bold;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.game-description-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.game-description-details summary::after {
+  content: " ⌄";
+  color: #ffd27a;
+}
+
+.game-description-details[open] summary::after {
+  content: " ⌃";
+}
+
+.game-description-details p {
+  margin: 0;
+  padding: 0 12px 12px;
+  color: #f7dfba;
+  font-size: 15px;
+  line-height: 1.4;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
+}
+
+/* Метки даты и информации */
+.notice-board-section .game-card.has-image .game-meta {
+  margin-top: 12px;
+}
+
+.notice-board-section .game-card.has-image .game-meta span {
+  background: rgba(0, 0, 0, 0.58);
+  border-color: rgba(255, 214, 145, 0.30);
+  color: #ffe1a3;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+}
+
+/* Кнопка записи */
+.notice-board-section .game-card.has-image .game-button {
+  width: 100%;
+  margin-top: 16px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 122, 0.30), rgba(122, 48, 22, 0.54));
+  border-color: rgba(255, 210, 122, 0.72);
+  box-shadow:
+    0 0 18px rgba(255, 150, 55, 0.24),
+    inset 0 1px 0 rgba(255, 235, 190, 0.12);
+}
+
+/* ============================= */
+/* v2.6 — яркий статус набора */
+/* ============================= */
+
+.status-badge {
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  text-shadow: none;
+}
+
+/* Набор открыт — яркий зелёный огонёк */
+.status-open {
+  color: #062d0a !important;
+  background:
+    linear-gradient(180deg, #baff8f 0%, #45d651 100%) !important;
+  border-color: rgba(196, 255, 158, 0.95) !important;
+  box-shadow:
+    0 0 12px rgba(83, 255, 91, 0.75),
+    0 0 24px rgba(83, 255, 91, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Мест нет — яркий красный огонёк */
+.status-closed {
+  color: #fff2f2 !important;
+  background:
+    linear-gradient(180deg, #ff6b6b 0%, #b51414 100%) !important;
+  border-color: rgba(255, 160, 160, 0.95) !important;
+  box-shadow:
+    0 0 12px rgba(255, 70, 70, 0.75),
+    0 0 24px rgba(255, 70, 70, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+/* На картинках статус ещё заметнее */
+.notice-board-section .game-card.has-image .status-badge {
+  padding: 8px 12px;
+  font-size: 13px;
+  border-width: 2px;
+  text-transform: uppercase;
+}
+
+/* Бумажные карточки тоже получают раскрывающийся логлайн */
+.notice-board-section .game-card:not(.has-image) .game-description-details {
+  background: rgba(83, 39, 14, 0.12);
+  border-color: rgba(83, 39, 14, 0.20);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-description-details summary {
+  color: #3a1c0d;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-description-details p {
+  color: #4a2a14;
+  text-shadow: none;
+}
+
+/* Телефоны */
+@media (max-width: 768px) {
+  .notice-board-section .game-card.has-image {
+    min-height: 540px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    padding: 18px;
+  }
+
+  .notice-board-section .game-card.has-image h3 {
+    font-size: 23px;
+  }
+
+  .game-description-details p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .notice-board-section .game-card.has-image {
+    min-height: 500px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    padding: 16px;
+  }
+
+  .notice-board-section .game-card.has-image h3 {
+    font-size: 21px;
+  }
+
+  .notice-board-section .game-card.has-image .status-badge {
+    font-size: 11px;
+    padding: 7px 9px;
+  }
+}
