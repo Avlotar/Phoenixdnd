@@ -2536,3 +2536,91 @@ section {
     font-size: 15px !important;
   }
 }
+/* ============================= */
+/* v2.11 — выпадающие фильтры */
+/* ============================= */
+
+.dropdown-filter-panel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+.filter-field {
+  display: grid;
+  gap: 7px;
+}
+
+.filter-field span {
+  color: #ffd27a;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.filter-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  color: #ffe1a3;
+  background:
+    linear-gradient(180deg, rgba(45, 18, 12, 0.96), rgba(14, 6, 8, 0.96));
+
+  border: 1px solid rgba(255, 210, 122, 0.38);
+  outline: none;
+
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 235, 190, 0.08);
+}
+
+.filter-field select:focus {
+  border-color: rgba(255, 210, 122, 0.82);
+  box-shadow:
+    0 0 0 3px rgba(255, 210, 122, 0.12),
+    0 6px 18px rgba(0, 0, 0, 0.24);
+}
+
+.filter-field option {
+  color: #1a0b08;
+  background: #f3d49a;
+}
+
+.filter-reset-button {
+  min-height: 46px;
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  color: #ffd27a;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 210, 122, 0.34);
+
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.filter-reset-button:hover {
+  background: rgba(255, 210, 122, 0.12);
+  border-color: rgba(255, 210, 122, 0.62);
+}
+
+@media (max-width: 900px) {
+  .dropdown-filter-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .dropdown-filter-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-field select,
+  .filter-reset-button {
+    width: 100%;
+  }
+}

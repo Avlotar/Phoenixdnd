@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-<link rel="stylesheet" href="style.css?v=2.8" />
+<link rel="stylesheet" href="style.css?v=2.11" />
 </head>
 <body>
 
@@ -207,20 +207,40 @@
         и особые истории от мастеров клуба.
       </p>
 
-      <div class="filter-panel">
-  <button class="filter-button active" data-filter="all" data-value="all">Все игры</button>
+      <div class="filter-panel dropdown-filter-panel">
+  <label class="filter-field">
+    <span>Актуальность</span>
+    <select id="statusFilter">
+      <option value="all">Все</option>
+      <option value="Набор открыт">Набор открыт</option>
+      <option value="Мест нет">Мест нет</option>
+    </select>
+  </label>
 
-  <button class="filter-button" data-filter="status" data-value="Набор открыт">Набор открыт</button>
-  <button class="filter-button" data-filter="status" data-value="Мест нет">Мест нет</button>
+  <label class="filter-field">
+    <span>Тип игры</span>
+    <select id="playFormatFilter">
+      <option value="all">Все</option>
+      <option value="Онлайн">Онлайн</option>
+      <option value="Офлайн">Офлайн</option>
+      <option value="Домашняя">Домашняя</option>
+      <option value="Выездная">Выездная</option>
+    </select>
+  </label>
 
-  <button class="filter-button" data-filter="playFormat" data-value="Онлайн">Онлайн</button>
-  <button class="filter-button" data-filter="playFormat" data-value="Офлайн">Офлайн</button>
-  <button class="filter-button" data-filter="playFormat" data-value="Домашняя">Домашняя</button>
-  <button class="filter-button" data-filter="playFormat" data-value="Выездная">Выездная</button>
+  <label class="filter-field">
+    <span>Мастер</span>
+    <select id="masterFilter">
+      <option value="all">Все</option>
+      <option value="Харон">Харон</option>
+      <option value="Глория">Глория</option>
+      <option value="Оникс">Оникс</option>
+    </select>
+  </label>
 
-  <button class="filter-button" data-filter="master" data-value="Харон">Харон</button>
-  <button class="filter-button" data-filter="master" data-value="Глория">Глория</button>
-  <button class="filter-button" data-filter="master" data-value="Оникс">Оникс</button>
+  <button class="filter-reset-button" id="resetFilters" type="button">
+    Сбросить фильтры
+  </button>
 </div>
 
       <p class="games-counter" id="gamesCounter"></p>
@@ -386,7 +406,7 @@
   </div>
 </footer>
   
-<script src="script.js?v=2.10"></script>
+<script src="script.js?v=2.11"></script>
 <script src="accordion.js?v=2.4"></script>
 </body>
 </html>

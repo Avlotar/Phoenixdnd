@@ -5,9 +5,10 @@ const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdO
 
 let games = [];
 
-let activeFilter = {
-  type: "all",
-  value: "all"
+let activeFilters = {
+  status: "all",
+  playFormat: "all",
+  master: "all"
 };
 
 let calendarDate = new Date();
@@ -503,28 +504,33 @@ function parseGameDate(dateText) {
 }
 
 function getFilteredGames() {
-  if (activeFilter.type === "all") {
-    return games;
-  }
+  let filteredGames = games;
 
-  if (activeFilter.type === "status") {
-    return games.filter((game) => getGameStatus(game) === activeFilter.value);
-  }
-
-  if (activeFilter.type === "master") {
-    return games.filter((game) => game.master === activeFilter.value);
-  }
-
-  if (activeFilter.type === "playFormat") {
-    return games.filter((game) => {
-      const gamePlayFormat = String(game.playFormat || "Онлайн").trim().toLowerCase();
-      const filterValue = String(activeFilter.value || "").trim().toLowerCase();
-
-      return gamePlayFormat === filterValue;
+  if (activeFilters.status !== "all") {
+    filteredGames = filteredGames.filter((game) => {
+      return getGameStatus(game) === activeFilters.status;
     });
   }
 
-  return games;
+  if (activeFilters.playFormat !== "all") {
+    filteredGames = filteredGames.filter((game) => {
+      const gamePlayFormat = String(game.playFormat || "Онлайн").trim().toLowerCase();
+      const selectedPlayFormat = String(activeFilters.playFormat).trim().toLowerCase();
+
+      return gamePlayFormat === selectedPlayFormat;
+    });
+  }
+
+  if (activeFilters.master !== "all") {
+    filteredGames = filteredGames.filter((game) => {
+      const gameMaster = String(game.master || "").trim().toLowerCase();
+      const selectedMaster = String(activeFilters.master).trim().toLowerCase();
+
+      return gameMaster === selectedMaster;
+    });
+  }
+
+  return filteredGames;
 }
 
 function renderGames() {
@@ -765,25 +771,52 @@ function bindCalendarButtons() {
 }
 
 function bindFilterButtons() {
-  const filterButtons = document.querySelectorAll(".filter-button");
+  const statusFilter = document.querySelector("#statusFilter");
+  const playFormatFilter = document.querySelector("#playFormatFilter");
+  const masterFilter = document.querySelector("#masterFilter");
+  const resetFiltersButton = document.querySelector("#resetFilters");
 
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      filterButtons.forEach((item) => {
-        item.classList.remove("active");
-      });
+  function applyDropdownFilters() {
+    activeFilters.status = statusFilter ? statusFilter.value : "all";
+    activeFilters.playFormat = playFormatFilter ? playFormatFilter.value : "all";
+    activeFilters.master = masterFilter ? masterFilter.value : "all";
 
-      button.classList.add("active");
+    renderAll();
+  }
 
-      activeFilter = {
-        type: button.dataset.filter,
-        value: button.dataset.value
-      };
+  if (statusFilter) {
+    statusFilter.addEventListener("change", applyDropdownFilters);
+  }
 
-      renderGames();
-      renderSchedule();
+  if (playFormatFilter) {
+    playFormatFilter.addEventListener("change", applyDropdownFilters);
+  }
+
+  if (masterFilter) {
+    masterFilter.addEventListener("change", applyDropdownFilters);
+  }
+
+  if (resetFiltersButton) {
+    resetFiltersButton.addEventListener("click", () => {
+      activeFilters.status = "all";
+      activeFilters.playFormat = "all";
+      activeFilters.master = "all";
+
+      if (statusFilter) {
+        statusFilter.value = "all";
+      }
+
+      if (playFormatFilter) {
+        playFormatFilter.value = "all";
+      }
+
+      if (masterFilter) {
+        masterFilter.value = "all";
+      }
+
+      renderAll();
     });
-  });
+  }
 }
 
 function bindSoonButtons() {
