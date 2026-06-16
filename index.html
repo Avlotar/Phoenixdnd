@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=3.2" />
+  <link rel="stylesheet" href="style.css?v=3.3" />
 </head>
 <body>
   <nav class="top-nav compact-nav">
@@ -65,14 +65,12 @@
         новые игры, ближайшие партии, хроники прошедших приключений и свежие вести таверны.
       </p>
 
-      <div class="news-bulletin">
-        <p class="news-kicker">Сегодня в Гнезде</p>
-        <h3>Таверна стала удобнее для путников</h3>
-        <p>
-          Мы разложили всё по комнатам таверны: игры ждут на Доске объявлений,
-          истории ушедших партий лежат в Хрониках, календарь показывает свободные
-          и занятые даты, а главная страница стала короткой дорогой к самому нужному.
-        </p>
+      <div class="news-list" id="newsList">
+        <article class="news-bulletin news-empty-card">
+          <p class="news-kicker">Сегодня в Гнезде</p>
+          <h3>Загружаю свежие вести...</h3>
+          <p>Гард листает доску объявлений и ищет самые новые записи.</p>
+        </article>
       </div>
 
       <div class="home-cards tavern-home-cards">
@@ -292,7 +290,7 @@
       </p>
     </div>
   </footer>
-  <script src="script.js?v=3.2"></script>
-  <script src="accordion.js?v=3.2"></script>
+  <script src="script.js?v=3.3"></script>
+  <script src="accordion.js?v=3.3"></script>
 </body>
 </html>

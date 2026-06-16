@@ -3,9 +3,11 @@ const vkLink = "https://vk.com/phoenixdnd";
 const googleSheetGvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/gviz/tq?gid=0";
 const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=0&single=true&output=csv";
 const googleDigestCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=320358313&single=true&output=csv";
+const googleNewsCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=1011337459&single=true&output=csv";
 
 let games = [];
 let digests = [];
+let news = [];
 
 let activeFilters = {
   status: "all",
@@ -978,6 +980,148 @@ function renderOpenDateGames() {
   }).join("");
 }
 
+
+/* ============================= */
+/* Новости */
+/* ============================= */
+
+function buildNewsFromObject(newsItem, index) {
+  const title = String(newsItem.title ?? "").trim();
+  const link = getOptionalSafeUrl(newsItem.link);
+
+  return {
+    id: getSafeNumber(newsItem.id) || Date.now() + index,
+    title: title,
+    description: String(newsItem.description ?? "").trim(),
+    date: normalizeDigestDateForDisplay(newsItem.date),
+    link: link,
+    type: String(newsItem.type ?? "Новость").trim() || "Новость"
+  };
+}
+
+function convertCsvToNews(csvText) {
+  const rows = parseCsv(csvText);
+
+  if (rows.length < 2) {
+    return [];
+  }
+
+  const headers = rows[0].map(normalizeHeader);
+
+  return rows.slice(1)
+    .map((row, index) => {
+      const newsItem = {};
+
+      headers.forEach((header, columnIndex) => {
+        if (!header) {
+          return;
+        }
+
+        newsItem[header] = row[columnIndex] || "";
+      });
+
+      return buildNewsFromObject(newsItem, index);
+    })
+    .filter((newsItem) => {
+      const normalizedTitle = String(newsItem.title ?? "").trim().toLowerCase();
+
+      return newsItem.title &&
+        normalizedTitle !== "без названия";
+    })
+    .sort((firstNews, secondNews) => {
+      return getSafeNumber(secondNews.id) - getSafeNumber(firstNews.id);
+    });
+}
+
+function renderNews() {
+  const newsList = document.querySelector("#newsList");
+
+  if (!newsList) {
+    return;
+  }
+
+  if (news.length === 0) {
+    newsList.innerHTML = `
+      <article class="news-bulletin news-empty-card">
+        <p class="news-kicker">Сегодня в Гнезде</p>
+        <h3>Вести пока не загрузились</h3>
+        <p>
+          Если ты только что обновил таблицу, подожди пару минут и обнови страницу.
+          Новости подтянутся сюда автоматически из Google Таблицы.
+        </p>
+      </article>
+    `;
+    return;
+  }
+
+  const visibleNews = news.slice(0, 5);
+
+  newsList.innerHTML = visibleNews.map((newsItem, index) => {
+    const linkButton = newsItem.link
+      ? `
+        <a class="button news-button" href="${newsItem.link}" target="_blank" rel="noopener noreferrer">
+          Открыть
+        </a>
+      `
+      : "";
+
+    const featuredClass = index === 0 ? "news-bulletin-featured" : "";
+
+    return `
+      <article class="news-bulletin ${featuredClass}">
+        <p class="news-kicker">${escapeHtml(newsItem.type)} • ${escapeHtml(newsItem.date)}</p>
+        <h3>${escapeHtml(newsItem.title)}</h3>
+        <p>${escapeHtml(newsItem.description)}</p>
+        ${linkButton}
+      </article>
+    `;
+  }).join("");
+}
+
+async function loadNewsFromGoogleSheet() {
+  const newsList = document.querySelector("#newsList");
+
+  if (!newsList) {
+    return;
+  }
+
+  try {
+    newsList.innerHTML = `
+      <article class="news-bulletin news-empty-card">
+        <p class="news-kicker">Сегодня в Гнезде</p>
+        <h3>Загружаю свежие вести...</h3>
+        <p>Гард листает доску объявлений и ищет самые новые записи.</p>
+      </article>
+    `;
+
+    const response = await fetch(`${googleNewsCsvUrl}&cacheBust=${Date.now()}`, {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("Не удалось загрузить таблицу новостей");
+    }
+
+    const csvText = await response.text();
+    news = convertCsvToNews(csvText);
+
+    renderNews();
+  } catch (error) {
+    console.error(error);
+
+    newsList.innerHTML = `
+      <article class="news-bulletin news-empty-card">
+        <p class="news-kicker">Сегодня в Гнезде</p>
+        <h3>Вести не дошли до доски</h3>
+        <p>
+          Не удалось загрузить новости. Проверь публикацию Google Таблицы
+          и вкладку news с колонками id, title, description, date, link, type.
+        </p>
+      </article>
+    `;
+  }
+}
+
 /* ============================= */
 /* Хроники */
 /* ============================= */
@@ -1307,3 +1451,4 @@ bindSoonButtons();
 bindNavigationMenu();
 loadGamesFromGoogleSheet();
 loadDigestsFromGoogleSheet();
+loadNewsFromGoogleSheet();
