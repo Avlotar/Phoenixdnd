@@ -835,31 +835,81 @@ function renderCalendar() {
 
     const mobileDots = hasGames
       ? `<div class="calendar-mobile-dots">${visibleDots}${extraDots}</div>`
-      : "";
+      : `<div class="calendar-mobile-dots calendar-mobile-dots-empty"></div>`;
+
+    const gamesListHtml = hasGames
+      ? gamesOnThisDay.map((game) => {
+        const status = getGameStatus(game);
+        const statusClass = getStatusClass(status);
+
+        return `
+          <a class="calendar-mini-game" href="${getSafeUrl(game.announcementUrl)}" target="_blank" rel="noopener noreferrer">
+            <strong>${escapeHtml(game.title)}</strong>
+
+            <span class="calendar-mini-game-info">
+              🕖 ${escapeHtml(game.time)}
+              · 🎭 ${escapeHtml(game.master)}
+              · 🪑 ${escapeHtml(game.freeSeats)} свободно
+            </span>
+
+            <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+          </a>
+        `;
+      }).join("")
+      : `
+        <div class="calendar-mini-empty">
+          Свободная дата для будущих игр.
+        </div>
+      `;
 
     calendarHtml += `
       <div class="${dayClass}">
-        <div class="calendar-day-number">${day}</div>
-        <div class="calendar-day-label">${dayLabel}</div>
-        ${mobileDots}
+        <button class="calendar-day-toggle" type="button" aria-expanded="false">
+          <div class="calendar-day-number">${day}</div>
+          <div class="calendar-day-label">${dayLabel}</div>
+          ${mobileDots}
+        </button>
 
-        ${gamesOnThisDay.map((game) => {
-          const status = getGameStatus(game);
-          const statusClass = getStatusClass(status);
-
-          return `
-            <div class="calendar-game">
-              <strong>${escapeHtml(game.title)}</strong>
-              <span>${escapeHtml(game.time)}</span>
-              <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
-            </div>
-          `;
-        }).join("")}
+        <div class="calendar-day-games-mini">
+          ${gamesListHtml}
+        </div>
       </div>
     `;
   }
 
   calendarGrid.innerHTML = calendarHtml;
+  bindCalendarDayToggles();
+}
+
+function bindCalendarDayToggles() {
+  const calendarDays = document.querySelectorAll(".calendar-day");
+
+  calendarDays.forEach((day) => {
+    const toggle = day.querySelector(".calendar-day-toggle");
+
+    if (!toggle) {
+      return;
+    }
+
+    toggle.addEventListener("click", () => {
+      const isOpen = day.classList.contains("calendar-day-open");
+
+      calendarDays.forEach((otherDay) => {
+        otherDay.classList.remove("calendar-day-open");
+
+        const otherToggle = otherDay.querySelector(".calendar-day-toggle");
+
+        if (otherToggle) {
+          otherToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      if (!isOpen) {
+        day.classList.add("calendar-day-open");
+        toggle.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
 }
 
 function renderOpenDateGames() {
