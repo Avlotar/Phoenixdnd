@@ -1399,3 +1399,75 @@ button {
     transform: translateY(-3px);
   }
 }
+/* ============================= */
+/* v2.2 — картинки анонсов в карточках игр */
+/* ============================= */
+
+.game-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.game-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: rgba(12, 7, 18, 0.75);
+  border-bottom: 1px solid rgba(255, 210, 122, 0.26);
+}
+
+.game-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.notice-board-section .game-card.has-image {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(28, 12, 8, 0.94), rgba(10, 4, 4, 0.96));
+  border: 1px solid rgba(255, 210, 122, 0.34);
+  color: #f7ead2;
+}
+
+.notice-board-section .game-card.has-image::before {
+  display: none;
+}
+
+.notice-board-section .game-card.has-image .game-card-content {
+  padding: 20px;
+}
+
+.notice-board-section .game-card.has-image h3 {
+  color: #ffd27a;
+  text-shadow: 0 0 14px rgba(255, 150, 55, 0.25);
+}
+
+.notice-board-section .game-card.has-image p {
+  color: #f0d6ad;
+}
+
+.notice-board-section .game-card.has-image .game-type {
+  color: #d9a441;
+}
+
+.notice-board-section .game-card.has-image .game-meta span {
+  background: rgba(255, 210, 122, 0.11);
+  border-color: rgba(255, 214, 145, 0.18);
+  color: #ffe1a3;
+}
+
+.notice-board-section .game-card.has-image .game-button {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .game-image-wrap {
+    aspect-ratio: 16 / 10;
+  }
+}

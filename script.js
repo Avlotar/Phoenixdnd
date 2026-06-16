@@ -41,6 +41,36 @@ function getSafeUrl(value) {
     return vkLink;
   }
 }
+function getSafeImageUrl(value) {
+  const rawUrl = String(value ?? "").trim();
+
+  if (!rawUrl) {
+    return "";
+  }
+
+  const googleDriveFileMatch = rawUrl.match(/\/file\/d\/([^/]+)/);
+  const googleDriveIdMatch = rawUrl.match(/[?&]id=([^&]+)/);
+
+  const googleDriveFileId = googleDriveFileMatch?.[1] || googleDriveIdMatch?.[1];
+
+  if (googleDriveFileId) {
+    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(googleDriveFileId)}&sz=w1200`;
+  }
+
+  try {
+    const url = new URL(rawUrl);
+
+    const isAllowedProtocol = url.protocol === "https:" || url.protocol === "http:";
+
+    if (!isAllowedProtocol) {
+      return "";
+    }
+
+    return url.href;
+  } catch (error) {
+    return "";
+  }
+}
 
 function getSafeNumber(value) {
   const number = Number(value);
@@ -191,7 +221,8 @@ function buildGameFromObject(game, index) {
     price: game.price || game.prise || "Не указана",
     totalSeats: getSafeNumber(game.totalSeats),
     freeSeats: getSafeNumber(game.freeSeats),
-    announcementUrl: getSafeUrl(game.announcementUrl)
+    announcementUrl: getSafeUrl(game.announcementUrl),
+    imageUrl: getSafeImageUrl(game.imageUrl)
   };
 }
 
@@ -513,29 +544,47 @@ function renderGames() {
     const status = getGameStatus(game);
     const statusClass = getStatusClass(status);
     const announcementUrl = getSafeUrl(game.announcementUrl);
+    const imageUrl = getSafeImageUrl(game.imageUrl);
+    const hasImageClass = imageUrl ? "has-image" : "";
+
+    const imageBlock = imageUrl ? `
+      <div class="game-image-wrap">
+        <img
+          class="game-image"
+          src="${imageUrl}"
+          alt="${escapeHtml(game.title)}"
+          loading="lazy"
+          onerror="this.closest('.game-card').classList.remove('has-image'); this.closest('.game-image-wrap').remove();"
+        />
+      </div>
+    ` : "";
 
     return `
-      <div class="game-card">
-        <div class="game-card-top">
-          <p class="game-type">${escapeHtml(game.type)}</p>
-          <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+      <div class="game-card ${hasImageClass}">
+        ${imageBlock}
+
+        <div class="game-card-content">
+          <div class="game-card-top">
+            <p class="game-type">${escapeHtml(game.type)}</p>
+            <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+          </div>
+
+          <h3>${escapeHtml(game.title)}</h3>
+          <p>${escapeHtml(game.description)}</p>
+
+          <div class="game-meta">
+            <span>📅 ${escapeHtml(game.date)}</span>
+            <span>🕖 ${escapeHtml(game.time)}</span>
+            <span>🎭 ${escapeHtml(game.master)}</span>
+            <span>⭐ ${escapeHtml(game.level)}</span>
+            <span>💰 ${escapeHtml(game.price)}</span>
+            <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
+          </div>
+
+          <a class="button game-button" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
+            Анонс / запись ВК
+          </a>
         </div>
-
-        <h3>${escapeHtml(game.title)}</h3>
-        <p>${escapeHtml(game.description)}</p>
-
-        <div class="game-meta">
-          <span>📅 ${escapeHtml(game.date)}</span>
-          <span>🕖 ${escapeHtml(game.time)}</span>
-          <span>🎭 ${escapeHtml(game.master)}</span>
-          <span>⭐ ${escapeHtml(game.level)}</span>
-          <span>💰 ${escapeHtml(game.price)}</span>
-          <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
-        </div>
-
-        <a class="button game-button" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
-          Анонс / запись ВК
-        </a>
       </div>
     `;
   }).join("");
