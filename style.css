@@ -2624,3 +2624,60 @@ section {
     width: 100%;
   }
 }
+/* ============================= */
+/* v2.12 — закреплённое меню на телефоне */
+/* ============================= */
+
+/* Теперь верхнее меню закреплено и на телефонах тоже */
+@media (max-width: 768px) {
+  .top-nav {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+
+    background:
+      linear-gradient(180deg, rgba(20, 8, 14, 0.98), rgba(10, 4, 8, 0.94));
+
+    box-shadow:
+      0 8px 28px rgba(0, 0, 0, 0.45),
+      0 0 18px rgba(255, 150, 55, 0.10);
+  }
+
+  /* Чтобы главный экран не залезал под меню */
+  .hero,
+  .tavern-hero {
+    padding-top: 118px !important;
+  }
+
+  /* Чтобы при нажатии на пункты меню разделы не прятались под верхней панелью */
+  section {
+    scroll-margin-top: 118px;
+  }
+}
+
+/* Для совсем маленьких телефонов меню чуть компактнее */
+@media (max-width: 420px) {
+  .top-nav {
+    padding: 8px 10px;
+  }
+
+  .nav-logo {
+    font-size: 17px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    padding: 7px 9px;
+  }
+
+  .hero,
+  .tavern-hero {
+    padding-top: 108px !important;
+  }
+
+  section {
+    scroll-margin-top: 108px;
+  }
+}
