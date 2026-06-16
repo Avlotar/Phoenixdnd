@@ -3359,3 +3359,38 @@ section {
     font-size: 13px;
   }
 }
+/* ============================= */
+/* v2.20 — кликабельные статусы в расписании */
+/* ============================= */
+
+.schedule-status-link {
+  width: fit-content;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    filter 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.schedule-status-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.schedule-status-link:active {
+  transform: translateY(0);
+}
+
+.schedule-status-link:focus-visible {
+  outline: 2px solid rgba(255, 210, 122, 0.9);
+  outline-offset: 3px;
+}
+
+/* На телефоне ссылка-статус удобнее нажимается */
+@media (max-width: 768px) {
+  .schedule-status-link {
+    width: 100%;
+    min-height: 42px;
+  }
+}

@@ -739,19 +739,23 @@ function renderSchedule() {
       <strong>Дата</strong>
       <span>Игра</span>
       <span>Время</span>
-      <span>Статус</span>
+      <span>Статус / запись</span>
     </div>
 
     ${filteredGames.map((game) => {
       const status = getGameStatus(game);
       const statusClass = getStatusClass(status);
+      const announcementUrl = getSafeUrl(game.announcementUrl);
 
       return `
         <div class="schedule-row">
           <strong>${escapeHtml(game.date)}</strong>
           <span>${escapeHtml(game.title)}</span>
           <span>${escapeHtml(game.time)}</span>
-          <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+
+          <a class="status-badge schedule-status-link ${statusClass}" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(status)}
+          </a>
         </div>
       `;
     }).join("")}
