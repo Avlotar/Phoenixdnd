@@ -2,10 +2,10 @@ const vkLink = "https://vk.com/phoenixdnd";
 
 const googleSheetGvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/gviz/tq?gid=0";
 const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=0&single=true&output=csv";
+
 const googleDigestCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=320358313&single=true&output=csv";
 
 let games = [];
-
 let digests = [];
 
 let activeFilters = {
@@ -45,6 +45,28 @@ function getSafeUrl(value) {
     return vkLink;
   }
 }
+
+function getOptionalSafeUrl(value) {
+  const rawUrl = String(value ?? "").trim();
+
+  if (!rawUrl) {
+    return "";
+  }
+
+  try {
+    const url = new URL(rawUrl);
+    const isAllowedProtocol = url.protocol === "https:" || url.protocol === "http:";
+
+    if (!isAllowedProtocol) {
+      return "";
+    }
+
+    return url.href;
+  } catch (error) {
+    return "";
+  }
+}
+
 function getSafeImageUrl(value) {
   const rawUrl = String(value ?? "").trim();
 
@@ -63,7 +85,6 @@ function getSafeImageUrl(value) {
 
   try {
     const url = new URL(rawUrl);
-
     const isAllowedProtocol = url.protocol === "https:" || url.protocol === "http:";
 
     if (!isAllowedProtocol) {
@@ -144,6 +165,16 @@ function normalizeDateForDisplay(value) {
   return rawDate;
 }
 
+function normalizeDigestDateForDisplay(value) {
+  const rawDate = String(value ?? "").trim();
+
+  if (!rawDate) {
+    return "Дата не указана";
+  }
+
+  return normalizeDateForDisplay(rawDate);
+}
+
 function normalizeTimeForDisplay(value) {
   const rawTime = String(value ?? "").trim();
 
@@ -212,6 +243,10 @@ function parseCsv(text) {
   });
 }
 
+/* ============================= */
+/* Игры */
+/* ============================= */
+
 function buildGameFromObject(game, index) {
   return {
     id: getSafeNumber(game.id) || Date.now() + index,
@@ -240,21 +275,23 @@ function convertCsvToGames(csvText) {
 
   const headers = rows[0].map((header) => normalizeHeader(header));
 
-  return rows.slice(1).map((row, index) => {
-    const game = {};
+  return rows.slice(1)
+    .map((row, index) => {
+      const game = {};
 
-    headers.forEach((header, cellIndex) => {
-      if (!header) {
-        return;
-      }
+      headers.forEach((header, cellIndex) => {
+        if (!header) {
+          return;
+        }
 
-      game[header] = row[cellIndex] || "";
+        game[header] = row[cellIndex] || "";
+      });
+
+      return buildGameFromObject(game, index);
+    })
+    .filter((game) => {
+      return game.title && game.title !== "Без названия";
     });
-
-    return buildGameFromObject(game, index);
-  }).filter((game) => {
-    return game.title && game.title !== "Без названия";
-  });
 }
 
 function convertGoogleTableToGames(response) {
@@ -281,7 +318,9 @@ function convertGoogleTableToGames(response) {
     "price",
     "totalSeats",
     "freeSeats",
-    "announcementUrl"
+    "announcementUrl",
+    "imageUrl",
+    "playFormat"
   ];
 
   const hasNormalHeaders = headers.includes("title") && headers.includes("date");
@@ -303,21 +342,23 @@ function convertGoogleTableToGames(response) {
     }
   }
 
-  return rows.map((row, index) => {
-    const game = {};
+  return rows
+    .map((row, index) => {
+      const game = {};
 
-    headers.forEach((header, cellIndex) => {
-      if (!header) {
-        return;
-      }
+      headers.forEach((header, cellIndex) => {
+        if (!header) {
+          return;
+        }
 
-      game[header] = getCellValue(row.c[cellIndex]);
+        game[header] = getCellValue(row.c[cellIndex]);
+      });
+
+      return buildGameFromObject(game, index);
+    })
+    .filter((game) => {
+      return game.title && game.title !== "Без названия";
     });
-
-    return buildGameFromObject(game, index);
-  }).filter((game) => {
-    return game.title && game.title !== "Без названия";
-  });
 }
 
 function showLoadingMessage(message) {
@@ -589,14 +630,14 @@ function renderGames() {
           ${descriptionBlock}
 
           <div class="game-meta">
-  <span>📅 ${escapeHtml(game.date)}</span>
-  <span>🕖 ${escapeHtml(game.time)}</span>
-  <span>📍 ${escapeHtml(game.playFormat)}</span>
-  <span>🎭 ${escapeHtml(game.master)}</span>
-  <span>⭐ ${escapeHtml(game.level)}</span>
-  <span>💰 ${escapeHtml(game.price)}</span>
-  <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
-</div>
+            <span>📅 ${escapeHtml(game.date)}</span>
+            <span>🕖 ${escapeHtml(game.time)}</span>
+            <span>📍 ${escapeHtml(game.playFormat)}</span>
+            <span>🎭 ${escapeHtml(game.master)}</span>
+            <span>⭐ ${escapeHtml(game.level)}</span>
+            <span>💰 ${escapeHtml(game.price)}</span>
+            <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
+          </div>
 
           <a class="button game-button" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
             Анонс / запись ВК
@@ -615,6 +656,15 @@ function renderSchedule() {
   }
 
   const filteredGames = getFilteredGames();
+
+  if (filteredGames.length === 0) {
+    scheduleBox.innerHTML = `
+      <div class="empty-message">
+        По выбранным фильтрам игр в расписании нет.
+      </div>
+    `;
+    return;
+  }
 
   scheduleBox.innerHTML = `
     <div class="schedule-row schedule-head">
@@ -648,6 +698,8 @@ function renderCalendar() {
     return;
   }
 
+  const filteredGames = getFilteredGames();
+
   const year = calendarDate.getFullYear();
   const month = calendarDate.getMonth();
 
@@ -677,7 +729,7 @@ function renderCalendar() {
   }
 
   for (let day = 1; day <= daysInMonth; day++) {
-    const gamesOnThisDay = games.filter((game) => {
+    const gamesOnThisDay = filteredGames.filter((game) => {
       const parsedDate = parseGameDate(game.date);
 
       if (!parsedDate) {
@@ -724,7 +776,7 @@ function renderOpenDateGames() {
     return;
   }
 
-  const openDateGames = games.filter((game) => isOpenDate(game.date));
+  const openDateGames = getFilteredGames().filter((game) => isOpenDate(game.date));
 
   if (openDateGames.length === 0) {
     openDateGamesList.innerHTML = `
@@ -743,7 +795,7 @@ function renderOpenDateGames() {
       <div class="open-date-game">
         <div>
           <strong>${escapeHtml(game.title)}</strong>
-          <p>${escapeHtml(game.master)} • ${escapeHtml(game.time)} • ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</p>
+          <p>${escapeHtml(game.master)} • ${escapeHtml(game.time)} • ${escapeHtml(game.playFormat)} • ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</p>
         </div>
 
         <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
@@ -751,14 +803,22 @@ function renderOpenDateGames() {
     `;
   }).join("");
 }
+
+/* ============================= */
+/* Дайджесты */
+/* ============================= */
+
 function buildDigestFromObject(digest, index) {
+  const title = String(digest.title ?? "").trim();
+  const link = getOptionalSafeUrl(digest.link);
+
   return {
     id: getSafeNumber(digest.id) || Date.now() + index,
-    title: digest.title || "Без названия",
-    description: digest.description || "",
-    date: normalizeDateForDisplay(digest.date),
-    link: getSafeUrl(digest.link),
-    category: digest.category || "Общее"
+    title: title,
+    description: String(digest.description ?? "").trim(),
+    date: normalizeDigestDateForDisplay(digest.date),
+    link: link,
+    category: String(digest.category ?? "Общее").trim() || "Общее"
   };
 }
 
@@ -776,12 +836,22 @@ function convertCsvToDigests(csvText) {
       const digest = {};
 
       headers.forEach((header, columnIndex) => {
+        if (!header) {
+          return;
+        }
+
         digest[header] = row[columnIndex] || "";
       });
 
       return buildDigestFromObject(digest, index);
     })
-    .filter((digest) => digest.title && digest.link);
+    .filter((digest) => {
+      const normalizedTitle = String(digest.title ?? "").trim().toLowerCase();
+
+      return digest.title &&
+        digest.link &&
+        normalizedTitle !== "без названия";
+    });
 }
 
 function renderDigests() {
@@ -817,7 +887,7 @@ function renderDigests() {
     </p>
   `;
 
-  digestSelect.addEventListener("change", () => {
+  digestSelect.onchange = () => {
     const selectedId = getSafeNumber(digestSelect.value);
     const selectedDigest = digests.find((digest) => digest.id === selectedId);
 
@@ -842,7 +912,7 @@ function renderDigests() {
         </a>
       </article>
     `;
-  });
+  };
 }
 
 async function loadDigestsFromGoogleSheet() {
@@ -856,7 +926,9 @@ async function loadDigestsFromGoogleSheet() {
   try {
     digestSelect.innerHTML = `<option value="">Загружаем дайджесты...</option>`;
 
-    const response = await fetch(googleDigestCsvUrl);
+    const response = await fetch(`${googleDigestCsvUrl}&cacheBust=${Date.now()}`, {
+      cache: "no-store"
+    });
 
     if (!response.ok) {
       throw new Error("Не удалось загрузить таблицу дайджестов");
@@ -877,6 +949,11 @@ async function loadDigestsFromGoogleSheet() {
     `;
   }
 }
+
+/* ============================= */
+/* Кнопки и запуск */
+/* ============================= */
+
 function bindCalendarButtons() {
   const prevMonthButton = document.querySelector("#prevMonthButton");
   const nextMonthButton = document.querySelector("#nextMonthButton");
