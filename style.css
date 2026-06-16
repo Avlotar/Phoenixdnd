@@ -1685,3 +1685,504 @@ button {
     font-size: 23px;
   }
 }
+/* ============================= */
+/* v2.5 — оптимизация под телефоны и разные экраны */
+/* ============================= */
+
+/* Общая защита от горизонтальной прокрутки */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Удобные нажатия пальцем */
+a,
+button {
+  touch-action: manipulation;
+}
+
+.button,
+.social,
+.filter-button,
+.calendar-nav-button,
+.accordion-title {
+  min-height: 44px;
+}
+
+/* Чтобы якоря не прятались под верхним меню */
+section {
+  scroll-margin-top: 90px;
+}
+
+/* Большие планшеты и небольшие ноутбуки */
+@media (max-width: 1100px) {
+  .container {
+    width: 94%;
+  }
+
+  .hub-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .game-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 560px;
+  }
+
+  .calendar-grid,
+  .calendar-weekdays {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .calendar-weekdays {
+    display: none;
+  }
+}
+
+/* Планшеты и телефоны */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .top-nav {
+    position: sticky;
+    top: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .nav-logo {
+    text-align: center;
+    font-size: 19px;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+
+  .nav-links a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 8px 11px;
+    border-radius: 999px;
+    background: rgba(255, 210, 122, 0.08);
+    font-size: 14px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 72px 14px 48px;
+  }
+
+  .tavern-hero {
+    background-position: center top !important;
+  }
+
+  .tavern-content {
+    width: 100%;
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: 38px;
+    line-height: 1.05;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .hero-text {
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .main-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .main-buttons .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .container {
+    width: 94%;
+    padding: 28px 0;
+  }
+
+  .section {
+    margin-bottom: 24px;
+    border-radius: 18px;
+  }
+
+  .accordion-title {
+    padding: 18px;
+    font-size: 24px;
+    line-height: 1.15;
+  }
+
+  .accordion-icon {
+    min-width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+
+  .accordion-body {
+    padding: 0 16px 20px;
+  }
+
+  .accordion-body > p:first-child {
+    padding-top: 18px;
+  }
+
+  .section p {
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .hub-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .hub-card {
+    min-height: auto;
+    padding: 18px;
+  }
+
+  .hub-card h3 {
+    font-size: 21px;
+  }
+
+  .hub-card p {
+    font-size: 15px;
+  }
+
+  .filter-panel {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 6px;
+  }
+
+  .filter-button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 10px 13px;
+    font-size: 14px;
+  }
+
+  .game-list {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .notice-board-section .game-list {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .notice-board-section .game-card {
+    transform: none !important;
+  }
+
+  .notice-board-section .game-card:hover {
+    transform: translateY(-3px) !important;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 520px;
+    background-position: center;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    padding: 18px;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(12, 5, 5, 0.12) 0%,
+        rgba(12, 5, 5, 0.68) 32%,
+        rgba(12, 5, 5, 0.94) 100%
+      );
+  }
+
+  .game-card h3 {
+    font-size: 23px;
+    line-height: 1.15;
+  }
+
+  .game-card p {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .game-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .game-meta {
+    gap: 7px;
+  }
+
+  .game-meta span {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .game-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .newbie-path {
+    grid-template-columns: 1fr;
+  }
+
+  .newbie-step {
+    padding: 18px;
+  }
+
+  .newbie-note {
+    padding: 18px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .step {
+    padding: 16px;
+  }
+
+  .schedule-box {
+    overflow: hidden;
+  }
+
+  .schedule-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 14px;
+  }
+
+  .schedule-head {
+    display: none;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .calendar-header h3 {
+    order: -1;
+    font-size: 24px;
+  }
+
+  .calendar-nav-button {
+    width: 100%;
+  }
+
+  .calendar-weekdays {
+    display: none;
+  }
+
+  .calendar-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .calendar-day {
+    min-height: auto;
+    padding: 14px;
+  }
+
+  .calendar-game {
+    padding: 10px;
+  }
+
+  .open-date-box {
+    padding: 18px;
+  }
+
+  .open-date-game {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .profile-preview {
+    flex-direction: column;
+    text-align: center;
+    padding: 18px;
+  }
+
+  .avatar-placeholder {
+    min-width: 78px;
+    width: 78px;
+    height: 78px;
+    font-size: 34px;
+  }
+
+  .social-links {
+    flex-direction: column;
+  }
+
+  .social {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer {
+    padding: 20px 14px;
+    font-size: 14px;
+  }
+
+  /* На телефоне уменьшаем тяжёлые эффекты */
+  .tavern-content,
+  .game-card,
+  .hub-card,
+  .section {
+    backdrop-filter: none;
+  }
+}
+
+/* Маленькие телефоны */
+@media (max-width: 480px) {
+  .top-nav {
+    padding: 9px 10px;
+  }
+
+  .nav-logo {
+    font-size: 18px;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .hero {
+    padding: 58px 12px 38px;
+  }
+
+  .tavern-content {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .hero-text {
+    font-size: 15px;
+  }
+
+  .button,
+  .social {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+
+  .accordion-title {
+    padding: 16px;
+    font-size: 22px;
+  }
+
+  .accordion-body {
+    padding: 0 14px 18px;
+  }
+
+  .notice-board-section .game-list {
+    padding: 10px;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 460px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    padding: 16px;
+  }
+
+  .game-card h3 {
+    font-size: 21px;
+  }
+
+  .game-card p {
+    font-size: 14px;
+  }
+
+  .game-type {
+    font-size: 12px;
+  }
+
+  .status-badge {
+    font-size: 12px;
+    padding: 6px 9px;
+  }
+
+  .game-meta span {
+    font-size: 12px;
+  }
+
+  .section p {
+    font-size: 15px;
+  }
+
+  .newbie-step h3,
+  .hub-card h3 {
+    font-size: 20px;
+  }
+}
+
+/* Очень узкие экраны */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .accordion-title {
+    font-size: 20px;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 420px;
+  }
+
+  .game-card h3 {
+    font-size: 19px;
+  }
+
+  .button,
+  .social,
+  .filter-button {
+    font-size: 14px;
+  }
+}
