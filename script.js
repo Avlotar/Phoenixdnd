@@ -515,6 +515,15 @@ function getFilteredGames() {
     return games.filter((game) => game.master === activeFilter.value);
   }
 
+  if (activeFilter.type === "playFormat") {
+    return games.filter((game) => {
+      const gamePlayFormat = String(game.playFormat || "Онлайн").trim().toLowerCase();
+      const filterValue = String(activeFilter.value || "").trim().toLowerCase();
+
+      return gamePlayFormat === filterValue;
+    });
+  }
+
   return games;
 }
 
