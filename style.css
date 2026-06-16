@@ -2422,3 +2422,62 @@ section {
     padding: 7px 9px;
   }
 }
+/* ============================= */
+/* v2.7 — чистый главный экран + закреплённое меню */
+/* ============================= */
+
+/* Убираем лишний нижний отступ, который раньше был нужен под кнопки */
+.tavern-content .hero-text {
+  margin-bottom: 0;
+}
+
+/* На компьютере верхнее меню всегда едет вместе со страницей */
+@media (min-width: 769px) {
+  .top-nav {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+
+    background:
+      linear-gradient(180deg, rgba(20, 8, 14, 0.96), rgba(10, 4, 8, 0.92));
+
+    backdrop-filter: blur(12px);
+    box-shadow:
+      0 8px 28px rgba(0, 0, 0, 0.38),
+      0 0 18px rgba(255, 150, 55, 0.08);
+  }
+
+  /* Чтобы главный экран не залезал под закреплённое меню */
+  .tavern-hero {
+    padding-top: 86px;
+  }
+
+  /* Навигация справа выглядит аккуратнее */
+  .nav-links {
+    align-items: center;
+  }
+
+  .nav-links a {
+    padding: 8px 10px;
+    border-radius: 999px;
+  }
+
+  .nav-links a:hover {
+    background: rgba(255, 210, 122, 0.10);
+  }
+}
+
+/* На телефонах оставляем уже удобную мобильную логику */
+@media (max-width: 768px) {
+  .top-nav {
+    position: sticky !important;
+    top: 0;
+    z-index: 9999;
+  }
+
+  .tavern-hero {
+    padding-top: 72px;
+  }
+}
