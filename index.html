@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=3.0" />
+  <link rel="stylesheet" href="style.css?v=3.0.1" />
 </head>
 <body>
   <nav class="top-nav">
@@ -39,44 +39,46 @@
     <div class="hero-content tavern-content">
       <p class="eyebrow">Таверна приключений</p>
       <h1>Гнездо Феникса</h1>
-      <p class="hero-text">
-        Заходи к огню, путник. Здесь собираются игроки настольных ролевых игр,
-        выбирают приключения, записываются на партии и становятся частью историй,
-        которые потом пересказывают у камина.
-      </p>
+      <p class="hero-text">Заходи к огню, путник. Здесь собираются игроки настольных ролевых игр, выбирают приключения, записываются на партии и становятся частью историй, которые потом пересказывают у камина.</p>
     </div>
   </header>
 
   <main class="container">
-    <section class="section tavern-card-large" id="news">
+    <section class="section tavern-card-large" id="news" data-icon="🕯️">
       <h2>Новости</h2>
       <p>
-        Здесь будут появляться свежие объявления таверны: ближайшие игры,
-        новые хроники, важные обновления клуба и события сообщества.
+        Свежие вести с тавернной доски: новые игры, важные объявления,
+        хроники прошедших приключений и всё, что Гард уже почти успел прибить к стене.
       </p>
 
       <div class="home-cards">
+        <a class="hub-card" href="#newbie">
+          <span class="hub-icon">🧭</span>
+          <h3>Я новичок</h3>
+          <p>Короткая тропа для тех, кто впервые садится у нашего огня.</p>
+        </a>
+
+        <a class="hub-card" href="#schedule">
+          <span class="hub-icon">📜</span>
+          <h3>Расписание</h3>
+          <p>Свиток ближайших игр: даты, время и кликабельные статусы записи.</p>
+        </a>
+
         <a class="hub-card" href="board.html">
-          <span class="hub-icon">📌</span>
-          <h3>Новые игры</h3>
-          <p>Открой доску объявлений и посмотри, куда сейчас идёт набор.</p>
+          <span class="hub-icon">🗡️</span>
+          <h3>Доска объявлений</h3>
+          <p>Все активные приключения, наборы и карточки игр в одном месте.</p>
         </a>
 
         <a class="hub-card" href="chronicles.html">
-          <span class="hub-icon">📖</span>
-          <h3>Свежие хроники</h3>
-          <p>Истории прошедших игр, последствия приключений и рассказы Гарда.</p>
-        </a>
-
-        <a class="hub-card" href="calendar.html">
-          <span class="hub-icon">🗓️</span>
-          <h3>Календарь</h3>
-          <p>Быстрый взгляд на занятые и свободные даты месяца.</p>
+          <span class="hub-icon">🪶</span>
+          <h3>Хроники</h3>
+          <p>Истории прошедших игр, записанные так, словно их рассказывает Гард.</p>
         </a>
       </div>
     </section>
 
-    <section class="section tavern-card-large newbie-guide" id="newbie">
+    <section class="section tavern-card-large newbie-guide" id="newbie" data-icon="🧭">
       <h2>Я новичок. С чего начать?</h2>
 
       <p>
@@ -161,12 +163,12 @@
       </a>
     </section>
 
-    <section class="section tavern-card-large" id="schedule">
+    <section class="section tavern-card-large" id="schedule" data-icon="📜">
       <h2>Расписание</h2>
 
       <p>
-        Ближайшие игры клуба по датам. Статусы в расписании кликабельные:
-        нажми на “Набор открыт” или “Мест нет”, чтобы открыть анонс игры.
+        Ближайшие игры клуба по датам. Плашки “Набор открыт” и “Мест нет” кликабельные:
+        нажми на них, чтобы открыть анонс игры в группе ВК.
       </p>
 
       <div class="schedule-actions">
@@ -178,19 +180,24 @@
       </div>
     </section>
 
-    <section class="section tavern-card-large" id="about">
+    <section class="section tavern-card-large" id="about" data-icon="🍻">
       <h2>О нас</h2>
 
       <p>
-        Гнездо Феникса — это таверна приключений для игроков настольных ролевых игр.
-        Здесь можно найти ваншоты, кампейны, хроники прошедших игр и место, где новичка
-        не бросят одного перед листом персонажа.
+        Гнездо Феникса — не просто список игр. Это тёплая таверна на перекрёстке историй,
+        куда приходят за приключениями, новыми знакомствами и тем самым моментом,
+        когда кубик падает на стол, а все вокруг замирают.
       </p>
 
-      <p>
-        Мы собираем игроков, помогаем выбрать игру, поддерживаем атмосферу живой таверны
-        и постепенно строим удобный общий хаб для клуба.
-      </p>
+      <div class="about-tavern-box">
+        <h3>Что ждёт путника у нашего огня?</h3>
+        <ul class="about-list">
+          <li>Ваншоты и кампейны для новичков и опытных игроков.</li>
+          <li>Анонсы игр, расписание, календарь и быстрый переход к записи.</li>
+          <li>Хроники прошедших приключений, которые Гард пересказывает у камина.</li>
+          <li>Уютное сообщество, где можно задавать вопросы и не бояться быть новичком.</li>
+        </ul>
+      </div>
 
       <h3>Наши площадки</h3>
 
@@ -239,7 +246,7 @@
       </p>
     </div>
   </footer>
-  <script src="script.js?v=3.0"></script>
-  <script src="accordion.js?v=3.0"></script>
+  <script src="script.js?v=3.0.1"></script>
+  <script src="accordion.js?v=3.0.1"></script>
 </body>
 </html>

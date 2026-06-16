@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=3.0" />
+  <link rel="stylesheet" href="style.css?v=3.0.1" />
 </head>
 <body>
   <nav class="top-nav">
@@ -28,6 +28,14 @@
     </div>
   </nav>
   <header class="hero tavern-hero page-hero">
+    <div class="tavern-background" aria-hidden="true">
+      <div class="tavern-layer tavern-deep" data-depth="0.2"></div>
+      <div class="tavern-layer tavern-window" data-depth="0.35"></div>
+      <div class="tavern-layer tavern-shelves" data-depth="0.55"></div>
+      <div class="tavern-layer tavern-fire" data-depth="0.75"></div>
+      <div class="tavern-layer tavern-sparks" data-depth="1"></div>
+    </div>
+
     <div class="hero-content tavern-content">
       <p class="eyebrow">Даты приключений</p>
       <h1>Календарь</h1>
@@ -36,12 +44,12 @@
   </header>
 
   <main class="container">
-    <section class="section tavern-card-large" id="calendar">
+    <section class="section tavern-card-large" id="calendar" data-icon="🌙">
       <h2>Календарь месяца</h2>
 
       <p>
         Здесь отображаются даты текущего месяца: занятые дни с играми
-        и свободные даты.
+        и свободные даты. Значки помогают быстро понять время и наличие мест.
       </p>
 
       <div class="calendar-header">
@@ -108,7 +116,7 @@
       </p>
     </div>
   </footer>
-  <script src="script.js?v=3.0"></script>
-  <script src="accordion.js?v=3.0"></script>
+  <script src="script.js?v=3.0.1"></script>
+  <script src="accordion.js?v=3.0.1"></script>
 </body>
 </html>

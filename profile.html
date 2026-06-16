@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=3.0" />
+  <link rel="stylesheet" href="style.css?v=3.0.1" />
 </head>
 <body>
   <nav class="top-nav">
@@ -28,15 +28,23 @@
     </div>
   </nav>
   <header class="hero tavern-hero page-hero">
+    <div class="tavern-background" aria-hidden="true">
+      <div class="tavern-layer tavern-deep" data-depth="0.2"></div>
+      <div class="tavern-layer tavern-window" data-depth="0.35"></div>
+      <div class="tavern-layer tavern-shelves" data-depth="0.55"></div>
+      <div class="tavern-layer tavern-fire" data-depth="0.75"></div>
+      <div class="tavern-layer tavern-sparks" data-depth="1"></div>
+    </div>
+
     <div class="hero-content tavern-content">
-      <p class="eyebrow">Личное место игрока</p>
+      <p class="eyebrow">Личная полка путника</p>
       <h1>Кабинет игрока</h1>
-      <p class="hero-text">Этот раздел готовится к будущему личному кабинету: история игр, заметки, достижения и личная информация участника клуба.</p>
+      <p class="hero-text">Будущее место, где игрок сможет видеть свои игры, достижения, заметки и личную историю в клубе.</p>
     </div>
   </header>
 
   <main class="container">
-    <section class="section tavern-card-large" id="profile">
+    <section class="section tavern-card-large" id="profile" data-icon="🛡️">
       <h2>Кабинет игрока</h2>
 
       <p>
@@ -52,7 +60,7 @@
 
           <p>
             Позже здесь появятся имя игрока, список посещённых игр, заметки,
-            достижения, покупки за Монеты и другая личная информация участника клуба.
+            достижения и другая личная информация участника клуба.
           </p>
         </div>
       </div>
@@ -88,7 +96,7 @@
       </p>
     </div>
   </footer>
-  <script src="script.js?v=3.0"></script>
-  <script src="accordion.js?v=3.0"></script>
+  <script src="script.js?v=3.0.1"></script>
+  <script src="accordion.js?v=3.0.1"></script>
 </body>
 </html>

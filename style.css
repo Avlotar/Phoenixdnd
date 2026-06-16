@@ -2841,3 +2841,735 @@ section {
     min-height: auto;
   }
 }
+
+/* ============================= */
+/* v2.15 — понятные места в карточках игр */
+/* ============================= */
+
+.game-seats-card {
+  margin-top: 14px;
+  padding: 13px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 210, 122, 0.28);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 235, 190, 0.08);
+}
+
+.game-seats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.game-seats-title {
+  color: #ffd27a;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.game-seats-status {
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.game-seats-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.game-seats-numbers div {
+  padding: 9px 7px;
+  border-radius: 11px;
+  text-align: center;
+  background: rgba(255, 210, 122, 0.10);
+  border: 1px solid rgba(255, 210, 122, 0.16);
+}
+
+.game-seats-numbers strong {
+  display: block;
+  color: #ffe1a3;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.game-seats-numbers span {
+  display: block;
+  margin-top: 5px;
+  color: #e8c98b;
+  font-size: 12px;
+}
+
+.game-seats-bar {
+  height: 9px;
+  margin-top: 11px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 210, 122, 0.16);
+}
+
+.game-seats-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, #ffd27a, #ff8a3d);
+}
+
+.game-seats-card.seats-open .game-seats-status {
+  color: #062d0a;
+  background: linear-gradient(180deg, #baff8f, #45d651);
+  box-shadow: 0 0 10px rgba(83, 255, 91, 0.45);
+}
+
+.game-seats-card.seats-low .game-seats-status {
+  color: #3a1c00;
+  background: linear-gradient(180deg, #ffe08a, #ff9f2f);
+  box-shadow: 0 0 10px rgba(255, 179, 64, 0.48);
+}
+
+.game-seats-card.seats-full .game-seats-status {
+  color: #fff2f2;
+  background: linear-gradient(180deg, #ff6b6b, #b51414);
+  box-shadow: 0 0 10px rgba(255, 70, 70, 0.52);
+}
+
+.game-seats-card.seats-unknown .game-seats-status {
+  color: #ffe1a3;
+  background: rgba(255, 210, 122, 0.14);
+  border: 1px solid rgba(255, 210, 122, 0.26);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-card {
+  background: rgba(83, 39, 14, 0.12);
+  border-color: rgba(83, 39, 14, 0.20);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-title {
+  color: #3a1c0d;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-numbers div {
+  background: rgba(83, 39, 14, 0.10);
+  border-color: rgba(83, 39, 14, 0.18);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-numbers strong {
+  color: #3a1c0d;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-numbers span {
+  color: #6b3a19;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-bar {
+  background: rgba(83, 39, 14, 0.18);
+}
+
+@media (max-width: 420px) {
+  .game-seats-numbers {
+    gap: 6px;
+  }
+
+  .game-seats-numbers div {
+    padding: 8px 5px;
+  }
+
+  .game-seats-numbers strong {
+    font-size: 18px;
+  }
+
+  .game-seats-numbers span {
+    font-size: 11px;
+  }
+
+  .game-seats-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ============================= */
+/* v2.17 — компактный календарь на телефоне */
+/* ============================= */
+
+.open-games-day {
+  background:
+    linear-gradient(180deg, rgba(83, 255, 91, 0.16), rgba(20, 80, 28, 0.20));
+  border-color: rgba(126, 255, 137, 0.55);
+}
+
+.full-games-day {
+  background:
+    linear-gradient(180deg, rgba(255, 70, 70, 0.16), rgba(110, 20, 20, 0.22));
+  border-color: rgba(255, 120, 120, 0.58);
+}
+
+.mixed-games-day {
+  background:
+    linear-gradient(135deg, rgba(83, 255, 91, 0.16), rgba(255, 70, 70, 0.18));
+  border-color: rgba(255, 210, 122, 0.62);
+}
+
+.calendar-mobile-dots {
+  display: none;
+}
+
+.calendar-dot,
+.calendar-dot-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-dot-more {
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
+  color: #1a0b08;
+  background: #ffd27a;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  #calendar .accordion-body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #calendar .calendar-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 16px;
+    margin-bottom: 12px;
+  }
+
+  #calendar .calendar-header h3 {
+    order: -1;
+    font-size: 22px;
+  }
+
+  #calendar .calendar-nav-button {
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  #calendar .calendar-weekdays {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px;
+    margin-bottom: 5px;
+  }
+
+  #calendar .calendar-weekdays span {
+    font-size: 11px;
+    opacity: 0.85;
+  }
+
+  #calendar .calendar-grid {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+  }
+
+  #calendar .calendar-day {
+    position: relative;
+    min-height: 43px !important;
+    padding: 5px 3px !important;
+    border-radius: 9px;
+    text-align: center;
+  }
+
+  #calendar .calendar-empty {
+    opacity: 0.22;
+  }
+
+  #calendar .calendar-day-number {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  #calendar .calendar-day-label {
+    display: none;
+  }
+
+  #calendar .calendar-game {
+    display: none;
+  }
+
+  #calendar .calendar-mobile-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    margin-top: 6px;
+    min-height: 8px;
+  }
+
+  #calendar .free-day {
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 214, 145, 0.13);
+  }
+
+  #calendar .open-games-day {
+    background:
+      radial-gradient(circle at center, rgba(125, 255, 106, 0.24), rgba(15, 60, 24, 0.30));
+    border-color: rgba(125, 255, 106, 0.68);
+    box-shadow: 0 0 10px rgba(125, 255, 106, 0.18);
+  }
+
+  #calendar .full-games-day {
+    background:
+      radial-gradient(circle at center, rgba(255, 91, 91, 0.25), rgba(80, 14, 14, 0.34));
+    border-color: rgba(255, 91, 91, 0.68);
+    box-shadow: 0 0 10px rgba(255, 91, 91, 0.18);
+  }
+
+  #calendar .mixed-games-day {
+    background:
+      linear-gradient(135deg, rgba(125, 255, 106, 0.22), rgba(255, 91, 91, 0.24));
+    border-color: rgba(255, 210, 122, 0.70);
+    box-shadow: 0 0 10px rgba(255, 210, 122, 0.18);
+  }
+
+  #calendar .open-date-box {
+    margin-top: 18px;
+    padding: 14px;
+  }
+
+  #calendar .open-date-box h3 {
+    font-size: 20px;
+  }
+
+  #calendar .open-date-box p {
+    font-size: 14px;
+  }
+
+  #calendar .calendar-grid::after {
+    content: "Зелёный — есть места • Красный — мест нет • Серый — свободно";
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    color: #e8c98b;
+    background: rgba(0, 0, 0, 0.24);
+    border: 1px solid rgba(255, 210, 122, 0.16);
+    font-size: 12px;
+    line-height: 1.35;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  #calendar .calendar-grid,
+  #calendar .calendar-weekdays {
+    gap: 3px !important;
+  }
+
+  #calendar .calendar-day {
+    min-height: 39px !important;
+    border-radius: 8px;
+  }
+
+  #calendar .calendar-day-number {
+    font-size: 13px;
+  }
+
+  #calendar .calendar-dot-more {
+    min-width: 14px;
+    height: 14px;
+    font-size: 9px;
+  }
+}
+
+/* ============================= */
+/* v2.18 — раскрывающийся список игр в календаре */
+/* ============================= */
+
+.calendar-day-toggle {
+  width: 100%;
+  display: block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.calendar-day-toggle:focus-visible {
+  outline: 2px solid rgba(255, 210, 122, 0.85);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.calendar-day-games-mini {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 210, 122, 0.18);
+}
+
+.calendar-day-open .calendar-day-games-mini {
+  display: grid;
+  gap: 8px;
+}
+
+.calendar-mini-game {
+  display: grid;
+  gap: 5px;
+  padding: 9px;
+  border-radius: 11px;
+  text-decoration: none;
+  background: rgba(12, 7, 18, 0.62);
+  border: 1px solid rgba(255, 214, 145, 0.16);
+}
+
+.calendar-mini-game:hover {
+  background: rgba(255, 210, 122, 0.10);
+}
+
+.calendar-mini-game strong {
+  color: #ffd27a;
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.calendar-mini-game-info {
+  color: #e8c98b;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.calendar-mini-empty {
+  padding: 9px;
+  border-radius: 11px;
+  color: #cdb98f;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 214, 145, 0.18);
+}
+
+@media (max-width: 768px) {
+  #calendar .calendar-day-toggle {
+    text-align: center;
+  }
+
+  #calendar .calendar-day-open {
+    grid-column: 1 / -1;
+    min-height: auto !important;
+    padding: 10px !important;
+    text-align: left;
+  }
+
+  #calendar .calendar-day-open .calendar-day-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: left;
+  }
+
+  #calendar .calendar-day-open .calendar-day-number {
+    font-size: 18px;
+  }
+
+  #calendar .calendar-day-open .calendar-day-label {
+    display: block;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  #calendar .calendar-day-open .calendar-mobile-dots {
+    margin-top: 0;
+  }
+
+  #calendar .calendar-day-games-mini {
+    margin-top: 9px;
+    padding-top: 9px;
+  }
+
+  #calendar .calendar-mini-game {
+    padding: 10px;
+  }
+
+  #calendar .calendar-mini-game strong {
+    font-size: 14px;
+  }
+
+  #calendar .calendar-mini-game-info {
+    font-size: 12px;
+  }
+
+  #calendar .calendar-mini-game .status-badge {
+    width: fit-content;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  #calendar .calendar-mini-empty {
+    font-size: 13px;
+  }
+}
+
+/* ============================= */
+/* v2.19 — солнце и луна в мобильном календаре */
+/* ============================= */
+
+.calendar-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.calendar-dot-open {
+  color: #062d0a;
+  background:
+    radial-gradient(circle at 35% 30%, #ffffff 0%, #baff8f 24%, #45d651 100%);
+  box-shadow:
+    0 0 8px rgba(83, 255, 91, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.calendar-dot-full {
+  color: #fff2f2;
+  background:
+    radial-gradient(circle at 35% 30%, #ffd0d0 0%, #ff6b6b 28%, #b51414 100%);
+  box-shadow:
+    0 0 8px rgba(255, 70, 70, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.calendar-dot-sun {
+  font-size: 11px;
+}
+
+.calendar-dot-moon {
+  font-size: 14px;
+}
+
+#calendar .calendar-mobile-dots {
+  gap: 4px;
+}
+
+@media (max-width: 768px) {
+  #calendar .calendar-grid::after {
+    content: "☀ — дневная игра • ☾ — вечерняя игра • зелёный — есть места • красный — мест нет";
+  }
+}
+
+@media (max-width: 420px) {
+  #calendar .calendar-dot {
+    width: 15px;
+    height: 15px;
+  }
+
+  #calendar .calendar-dot-sun {
+    font-size: 10px;
+  }
+
+  #calendar .calendar-dot-moon {
+    font-size: 13px;
+  }
+}
+
+/* ============================= */
+/* v2.20 — кликабельные статусы в расписании */
+/* ============================= */
+
+.schedule-status-link {
+  width: fit-content;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    filter 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.schedule-status-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.schedule-status-link:active {
+  transform: translateY(0);
+}
+
+.schedule-status-link:focus-visible {
+  outline: 2px solid rgba(255, 210, 122, 0.9);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .schedule-status-link {
+    width: 100%;
+    min-height: 42px;
+  }
+}
+
+/* ============================= */
+/* v3.0.1 — правки страниц, якорей и клубной стилистики */
+/* ============================= */
+
+.accordion-title-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accordion-title-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 235, 185, 0.32), rgba(255, 150, 55, 0.12));
+  border: 1px solid rgba(255, 210, 122, 0.34);
+  box-shadow: 0 0 18px rgba(255, 150, 55, 0.14);
+  font-size: 22px;
+  text-shadow: none;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.home-cards .hub-card {
+  background:
+    linear-gradient(180deg, rgba(62, 28, 16, 0.76), rgba(19, 8, 6, 0.86));
+  border-color: rgba(255, 210, 122, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 170, 0.06),
+    0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+.home-cards .hub-icon {
+  width: 54px;
+  height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 14px;
+  color: #ffd27a;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 235, 185, 0.35), rgba(255, 150, 55, 0.12));
+  border: 1px solid rgba(255, 210, 122, 0.36);
+  box-shadow: 0 0 22px rgba(255, 150, 55, 0.16);
+  font-size: 28px;
+}
+
+.about-tavern-box,
+.service-placeholder {
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 122, 0.10), rgba(44, 18, 10, 0.34));
+  border: 1px solid rgba(255, 210, 122, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 190, 0.08),
+    0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+.about-tavern-box h3,
+.service-placeholder h3 {
+  margin-top: 0;
+  color: #ffd27a;
+}
+
+.about-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-list li {
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: #f0d6ad;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 210, 122, 0.14);
+}
+
+.placeholder-mark {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  color: #ffd27a;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 235, 185, 0.34), rgba(255, 150, 55, 0.12));
+  border: 1px solid rgba(255, 210, 122, 0.36);
+  box-shadow: 0 0 30px rgba(255, 150, 55, 0.18);
+  font-size: 46px;
+}
+
+.service-placeholder {
+  text-align: center;
+}
+
+.service-placeholder p {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1100px) {
+  .home-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .accordion-title-main {
+    gap: 9px;
+  }
+
+  .accordion-title-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 19px;
+  }
+
+  .home-cards .hub-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+}

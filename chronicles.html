@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=3.0" />
+  <link rel="stylesheet" href="style.css?v=3.0.1" />
 </head>
 <body>
   <nav class="top-nav">
@@ -28,19 +28,28 @@
     </div>
   </nav>
   <header class="hero tavern-hero page-hero">
+    <div class="tavern-background" aria-hidden="true">
+      <div class="tavern-layer tavern-deep" data-depth="0.2"></div>
+      <div class="tavern-layer tavern-window" data-depth="0.35"></div>
+      <div class="tavern-layer tavern-shelves" data-depth="0.55"></div>
+      <div class="tavern-layer tavern-fire" data-depth="0.75"></div>
+      <div class="tavern-layer tavern-sparks" data-depth="1"></div>
+    </div>
+
     <div class="hero-content tavern-content">
-      <p class="eyebrow">Истории у камина</p>
+      <p class="eyebrow">Записи у камина</p>
       <h1>Хроники</h1>
-      <p class="hero-text">Здесь собраны истории прошедших игр, последствия приключений и рассказы, которые Гард пересказывает у камина.</p>
+      <p class="hero-text">Истории прошедших игр, последствия приключений и рассказы, которые Гард бережно складывает в тавернную книгу.</p>
     </div>
   </header>
 
   <main class="container">
-    <section class="section tavern-card-large digest-section" id="chronicles">
+    <section class="section digest-section" id="chronicles" data-icon="🪶">
       <h2>Хроники</h2>
 
       <p>
-        Выбери хронику из списка, чтобы открыть описание и перейти к полной записи.
+        Здесь собраны истории прошедших игр, важные события, последствия приключений
+        и рассказы, которые Гард пересказывает у камина.
       </p>
 
       <div class="digest-picker">
@@ -88,7 +97,7 @@
       </p>
     </div>
   </footer>
-  <script src="script.js?v=3.0"></script>
-  <script src="accordion.js?v=3.0"></script>
+  <script src="script.js?v=3.0.1"></script>
+  <script src="accordion.js?v=3.0.1"></script>
 </body>
 </html>
