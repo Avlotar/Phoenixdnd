@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=3.4.2" />
+  <link rel="stylesheet" href="style.css?v=3.5" />
 </head>
 <body class="profile-page">
   <nav class="top-nav compact-nav">
@@ -52,50 +52,153 @@
     <div class="hero-content tavern-content">
       <p class="eyebrow">Личная полка путника</p>
       <h1>Кабинет игрока</h1>
-      <p class="hero-text">Эта комната ещё строится. Позже здесь появятся история игр, достижения, Монеты и личные отметки игрока в Гнезде Феникса.</p>
+      <p class="hero-text">Личная полка игрока ещё готовится, но её очертания уже видны: история игр, Монеты, достижения, покупки и памятные отметки будут собраны в одном тёплом уголке таверны.</p>
     </div>
   </header>
 
   <main class="container">
-    <section class="section tavern-card-large profile-public-section" id="profile" data-icon="🛡️">
+    <section class="section tavern-card-large profile-public-section profile-showcase-section" id="profile" data-icon="🛡️">
       <h2>Кабинет игрока</h2>
 
       <p>
-        Кабинет игрока — будущая личная полка в таверне. На ней будут храниться следы ваших партий,
-        достижения, Монеты, покупки и важные отметки участия в жизни клуба.
+        Кабинет игрока — будущая личная полка в таверне. Здесь будут храниться следы партий,
+        Монеты, достижения, покупки и маленькие памятные отметки, которые превращают игрока
+        из случайного гостя в постоянного героя Гнезда Феникса.
       </p>
 
-      <div class="profile-preview polished-profile-preview polished-profile-preview--illustrated">
-        <img class="placeholder-illustration profile-placeholder-illustration" src="images/profile-illustration.png" alt="Иллюстрация-заглушка для Кабинета игрока" />
+      <div class="profile-preview polished-profile-preview polished-profile-preview--illustrated profile-welcome-card">
+        <img class="placeholder-illustration profile-placeholder-illustration" src="images/profile-illustration.png" alt="Улыбающийся персонаж приветствует игрока в будущем кабинете" />
 
         <div>
-          <p class="news-kicker">В разработке</p>
-          <h3>Личная история игрока появится позже</h3>
+          <p class="news-kicker">Комната готовится</p>
+          <h3>Гард уже протирает полку под твою историю</h3>
           <p>
-            Мы не спешим делать сложную регистрацию, чтобы не ломать уже работающий сайт.
-            Сначала красиво оформляем публичные разделы, а затем постепенно перейдём к личному кабинету.
+            Настоящей регистрации пока нет — мы не торопимся ломать рабочий сайт сложной системой.
+            Но сама страница уже показывает, каким станет кабинет: понятным, уютным и полезным.
           </p>
+
+          <div class="profile-cta-row">
+            <a class="button big" href="board.html">Выбрать игру</a>
+            <a class="button profile-secondary-button" href="chronicles.html">Открыть хроники</a>
+          </div>
         </div>
       </div>
 
-      <div class="profile-feature-grid">
+      <div class="profile-dashboard-preview">
+        <div class="profile-player-card">
+          <p class="news-kicker">Пример будущей карточки</p>
+          <div class="profile-avatar-ring">🔥</div>
+          <h3>Имя игрока</h3>
+          <p class="profile-rank">Путник у огня</p>
+
+          <div class="profile-stats-grid">
+            <div>
+              <strong>0</strong>
+              <span>игр</span>
+            </div>
+
+            <div>
+              <strong>0</strong>
+              <span>Монет</span>
+            </div>
+
+            <div>
+              <strong>0</strong>
+              <span>достижений</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-roadmap-card">
+          <p class="news-kicker">Что появится внутри</p>
+          <h3>Будущие разделы кабинета</h3>
+
+          <div class="profile-mini-list">
+            <div>
+              <span>📜</span>
+              <div>
+                <h4>История игр</h4>
+                <p>Список посещённых игр, мастеров и хроник, где игрок оставил след.</p>
+              </div>
+            </div>
+
+            <div>
+              <span>🪙</span>
+              <div>
+                <h4>Монеты</h4>
+                <p>Баланс клубной активности, наград и будущих покупок в лавке.</p>
+              </div>
+            </div>
+
+            <div>
+              <span>🏅</span>
+              <div>
+                <h4>Достижения</h4>
+                <p>Титулы, памятные события, смешные подвиги и особые отметки.</p>
+              </div>
+            </div>
+
+            <div>
+              <span>🎁</span>
+              <div>
+                <h4>Покупки и награды</h4>
+                <p>Скидки, именные предметы, личные тосты от Гарда и другие приятности.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-feature-grid profile-feature-grid-expanded">
         <div class="feature-card">
           <span>📜</span>
           <h3>История игр</h3>
-          <p>Список посещённых игр и хроник, где участвовал игрок.</p>
+          <p>Игрок сможет видеть, где он был, с кем играл и какие истории уже стали частью архива.</p>
         </div>
 
         <div class="feature-card">
           <span>🪙</span>
           <h3>Монеты</h3>
-          <p>Будущий баланс клубной активности и наград.</p>
+          <p>Будущая клубная валюта за активность, участие, помощь новичкам и другие добрые дела.</p>
         </div>
 
         <div class="feature-card">
           <span>🏅</span>
           <h3>Достижения</h3>
-          <p>Памятные отметки, титулы, события и личные подвиги.</p>
+          <p>Памятные отметки, титулы, события и личные подвиги, которые приятно показать.</p>
         </div>
+
+        <div class="feature-card">
+          <span>🛍️</span>
+          <h3>Покупки</h3>
+          <p>Здесь будут отмечаться награды, скидки, именные предметы и выбранные товары за Монеты.</p>
+        </div>
+
+        <div class="feature-card">
+          <span>🧾</span>
+          <h3>Заметки игрока</h3>
+          <p>Место для важных пометок: любимые форматы, персонажи, заявки и личные предпочтения.</p>
+        </div>
+
+        <div class="feature-card">
+          <span>🔒</span>
+          <h3>Безопасный запуск</h3>
+          <p>Сначала делаем красивую витрину, а авторизацию и настоящие данные добавим позже.</p>
+        </div>
+      </div>
+
+      <div class="about-tavern-box profile-status-box">
+        <h3>Статус комнаты</h3>
+        <p>
+          Сейчас это красивая витринная страница. Она показывает игрокам, что кабинет появится,
+          но не требует от них регистрации и не собирает лишние данные.
+        </p>
+
+        <ol class="service-step-list">
+          <li>Сначала оформляем внешний вид и понятную структуру.</li>
+          <li>Потом решаем, какие данные реально нужны игрокам.</li>
+          <li>Только после этого добавляем настоящую механику кабинета.</li>
+        </ol>
       </div>
     </section>
   </main>
@@ -129,7 +232,7 @@
       </p>
     </div>
   </footer>
-  <script src="script.js?v=3.4.2"></script>
-  <script src="accordion.js?v=3.4.2"></script>
+  <script src="script.js?v=3.5"></script>
+  <script src="accordion.js?v=3.5"></script>
 </body>
 </html>
