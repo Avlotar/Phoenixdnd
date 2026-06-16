@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+<stop stop-color="#25111E"/>
+<stop offset="1" stop-color="#0B0608"/>
+</linearGradient>
+<radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 260) rotate(90) scale(280 400)">
+<stop stop-color="#FFC66D" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#FFC66D" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="frame" x1="165" y1="100" x2="1035" y2="700" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F2D59A"/>
+<stop offset="1" stop-color="#8A5423"/>
+</linearGradient>
+<linearGradient id="panel" x1="205" y1="145" x2="995" y2="665" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2B171A"/>
+<stop offset="1" stop-color="#13090D"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="800" fill="url(#bg)"/>
+<rect width="1200" height="800" fill="url(#glow)"/>
+<rect x="160" y="100" width="880" height="600" rx="30" fill="#0B0608" stroke="url(#frame)" stroke-width="4"/>
+<rect x="195" y="135" width="810" height="530" rx="24" fill="url(#panel)" stroke="#704126" stroke-opacity="0.65"/>
+<circle cx="600" cy="330" r="112" fill="#FFD27A" fill-opacity="0.10" stroke="#FFD27A" stroke-opacity="0.55" stroke-width="4"/>
+<path d="M552 300c0-27 21-48 48-48s48 21 48 48c0 16-7 30-19 39 26 11 44 37 44 67v8H527v-8c0-30 18-56 44-67-12-9-19-23-19-39Z" fill="#FFD27A"/>
+<path d="M473 492h254" stroke="#A8622A" stroke-opacity="0.65" stroke-width="2"/>
+<text x="600" y="545" text-anchor="middle" fill="#FFD27A" font-size="54" font-family="Georgia, serif" font-weight="700">Комната в пути</text>
+<text x="600" y="592" text-anchor="middle" fill="#F3DFBD" font-size="28" font-family="Georgia, serif">Скоро здесь появится оформленный раздел</text>
+<text x="600" y="629" text-anchor="middle" fill="#D7B983" font-size="22" font-family="Georgia, serif">Пока таверна раскладывает записи, карты и особые предложения по полкам</text>
+<circle cx="994" cy="162" r="3" fill="#FFD27A" fill-opacity="0.7"/>
+<circle cx="1018" cy="188" r="2" fill="#FFD27A" fill-opacity="0.55"/>
+<circle cx="186" cy="184" r="2.5" fill="#FFD27A" fill-opacity="0.45"/>
+</svg>
