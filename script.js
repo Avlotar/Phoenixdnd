@@ -222,7 +222,8 @@ function buildGameFromObject(game, index) {
     totalSeats: getSafeNumber(game.totalSeats),
     freeSeats: getSafeNumber(game.freeSeats),
     announcementUrl: getSafeUrl(game.announcementUrl),
-    imageUrl: getSafeImageUrl(game.imageUrl)
+    imageUrl: getSafeImageUrl(game.imageUrl),
+    playFormat: game.playFormat || "Онлайн"
   };
 }
 
@@ -570,13 +571,14 @@ function renderGames() {
           ${descriptionBlock}
 
           <div class="game-meta">
-            <span>📅 ${escapeHtml(game.date)}</span>
-            <span>🕖 ${escapeHtml(game.time)}</span>
-            <span>🎭 ${escapeHtml(game.master)}</span>
-            <span>⭐ ${escapeHtml(game.level)}</span>
-            <span>💰 ${escapeHtml(game.price)}</span>
-            <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
-          </div>
+  <span>📅 ${escapeHtml(game.date)}</span>
+  <span>🕖 ${escapeHtml(game.time)}</span>
+  <span>📍 ${escapeHtml(game.playFormat)}</span>
+  <span>🎭 ${escapeHtml(game.master)}</span>
+  <span>⭐ ${escapeHtml(game.level)}</span>
+  <span>💰 ${escapeHtml(game.price)}</span>
+  <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
+</div>
 
           <a class="button game-button" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
             Анонс / запись ВК
