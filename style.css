@@ -2935,3 +2935,222 @@ section {
     align-items: flex-start;
   }
 }
+/* ============================= */
+/* v2.17 — компактный календарь на телефоне */
+/* ============================= */
+
+/* Цвета дней по состоянию игр */
+.open-games-day {
+  background:
+    linear-gradient(180deg, rgba(83, 255, 91, 0.16), rgba(20, 80, 28, 0.20));
+  border-color: rgba(126, 255, 137, 0.55);
+}
+
+.full-games-day {
+  background:
+    linear-gradient(180deg, rgba(255, 70, 70, 0.16), rgba(110, 20, 20, 0.22));
+  border-color: rgba(255, 120, 120, 0.58);
+}
+
+.mixed-games-day {
+  background:
+    linear-gradient(135deg, rgba(83, 255, 91, 0.16), rgba(255, 70, 70, 0.18));
+  border-color: rgba(255, 210, 122, 0.62);
+}
+
+.calendar-mobile-dots {
+  display: none;
+}
+
+.calendar-dot,
+.calendar-dot-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.calendar-dot-open {
+  background: #7dff6a;
+  box-shadow: 0 0 8px rgba(125, 255, 106, 0.75);
+}
+
+.calendar-dot-full {
+  background: #ff5b5b;
+  box-shadow: 0 0 8px rgba(255, 91, 91, 0.75);
+}
+
+.calendar-dot-more {
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
+  color: #1a0b08;
+  background: #ffd27a;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* Мобильная версия календаря */
+@media (max-width: 768px) {
+  #calendar .accordion-body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #calendar .calendar-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 16px;
+    margin-bottom: 12px;
+  }
+
+  #calendar .calendar-header h3 {
+    order: -1;
+    font-size: 22px;
+  }
+
+  #calendar .calendar-nav-button {
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  #calendar .calendar-weekdays {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px;
+    margin-bottom: 5px;
+  }
+
+  #calendar .calendar-weekdays span {
+    font-size: 11px;
+    opacity: 0.85;
+  }
+
+  #calendar .calendar-grid {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 4px !important;
+  }
+
+  #calendar .calendar-day {
+    position: relative;
+    min-height: 43px !important;
+    padding: 5px 3px !important;
+    border-radius: 9px;
+    text-align: center;
+  }
+
+  #calendar .calendar-empty {
+    opacity: 0.22;
+  }
+
+  #calendar .calendar-day-number {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  #calendar .calendar-day-label {
+    display: none;
+  }
+
+  #calendar .calendar-game {
+    display: none;
+  }
+
+  #calendar .calendar-mobile-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    margin-top: 6px;
+    min-height: 8px;
+  }
+
+  #calendar .free-day {
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 214, 145, 0.13);
+  }
+
+  #calendar .open-games-day {
+    background:
+      radial-gradient(circle at center, rgba(125, 255, 106, 0.24), rgba(15, 60, 24, 0.30));
+    border-color: rgba(125, 255, 106, 0.68);
+    box-shadow: 0 0 10px rgba(125, 255, 106, 0.18);
+  }
+
+  #calendar .full-games-day {
+    background:
+      radial-gradient(circle at center, rgba(255, 91, 91, 0.25), rgba(80, 14, 14, 0.34));
+    border-color: rgba(255, 91, 91, 0.68);
+    box-shadow: 0 0 10px rgba(255, 91, 91, 0.18);
+  }
+
+  #calendar .mixed-games-day {
+    background:
+      linear-gradient(135deg, rgba(125, 255, 106, 0.22), rgba(255, 91, 91, 0.24));
+    border-color: rgba(255, 210, 122, 0.70);
+    box-shadow: 0 0 10px rgba(255, 210, 122, 0.18);
+  }
+
+  #calendar .open-date-box {
+    margin-top: 18px;
+    padding: 14px;
+  }
+
+  #calendar .open-date-box h3 {
+    font-size: 20px;
+  }
+
+  #calendar .open-date-box p {
+    font-size: 14px;
+  }
+
+  #calendar .calendar-grid::after {
+    content: "Зелёный — есть места • Красный — мест нет • Серый — свободно";
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    color: #e8c98b;
+    background: rgba(0, 0, 0, 0.24);
+    border: 1px solid rgba(255, 210, 122, 0.16);
+    font-size: 12px;
+    line-height: 1.35;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  #calendar .calendar-grid,
+  #calendar .calendar-weekdays {
+    gap: 3px !important;
+  }
+
+  #calendar .calendar-day {
+    min-height: 39px !important;
+    border-radius: 8px;
+  }
+
+  #calendar .calendar-day-number {
+    font-size: 13px;
+  }
+
+  #calendar .calendar-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  #calendar .calendar-dot-more {
+    min-width: 14px;
+    height: 14px;
+    font-size: 9px;
+  }
+}

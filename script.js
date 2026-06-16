@@ -797,13 +797,51 @@ function renderCalendar() {
     });
 
     const hasGames = gamesOnThisDay.length > 0;
-    const dayClass = hasGames ? "calendar-day busy-day" : "calendar-day free-day";
-    const dayLabel = hasGames ? "Игра" : "Свободно";
+
+    const hasOpenGames = gamesOnThisDay.some((game) => {
+      return getGameStatus(game) === "Набор открыт";
+    });
+
+    const hasClosedGames = gamesOnThisDay.some((game) => {
+      return getGameStatus(game) === "Мест нет";
+    });
+
+    let dayClass = "calendar-day free-day";
+    let dayLabel = "Свободно";
+
+    if (hasGames && hasOpenGames && hasClosedGames) {
+      dayClass = "calendar-day busy-day mixed-games-day";
+      dayLabel = "Игры";
+    } else if (hasGames && hasOpenGames) {
+      dayClass = "calendar-day busy-day open-games-day";
+      dayLabel = "Есть места";
+    } else if (hasGames && hasClosedGames) {
+      dayClass = "calendar-day busy-day full-games-day";
+      dayLabel = "Мест нет";
+    }
+
+    const visibleDots = gamesOnThisDay.slice(0, 3).map((game) => {
+      const status = getGameStatus(game);
+      const dotClass = status === "Мест нет" ? "calendar-dot-full" : "calendar-dot-open";
+
+      return `
+        <span class="calendar-dot ${dotClass}" title="${escapeHtml(game.title)}"></span>
+      `;
+    }).join("");
+
+    const extraDots = gamesOnThisDay.length > 3
+      ? `<span class="calendar-dot-more">+${gamesOnThisDay.length - 3}</span>`
+      : "";
+
+    const mobileDots = hasGames
+      ? `<div class="calendar-mobile-dots">${visibleDots}${extraDots}</div>`
+      : "";
 
     calendarHtml += `
       <div class="${dayClass}">
         <div class="calendar-day-number">${day}</div>
         <div class="calendar-day-label">${dayLabel}</div>
+        ${mobileDots}
 
         ${gamesOnThisDay.map((game) => {
           const status = getGameStatus(game);
