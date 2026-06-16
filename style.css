@@ -2481,3 +2481,58 @@ section {
     padding-top: 72px;
   }
 }
+/* ============================= */
+/* v2.8 — юридический подвал */
+/* ============================= */
+
+.footer {
+  padding: 34px 18px;
+  border-top: 1px solid rgba(255, 210, 122, 0.24);
+  background:
+    linear-gradient(180deg, rgba(24, 10, 8, 0.94), rgba(8, 3, 4, 0.98));
+  color: #cdb98f;
+}
+
+.footer-inner {
+  width: min(1100px, 94%);
+  margin: 0 auto;
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #cdb98f;
+}
+
+.footer-brand {
+  color: #ffd27a !important;
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+.footer-note {
+  color: #bfa77a !important;
+  font-size: 13px !important;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 28px 14px;
+  }
+
+  .footer-inner {
+    width: 94%;
+  }
+
+  .footer p {
+    font-size: 13px;
+  }
+
+  .footer-brand {
+    font-size: 15px !important;
+  }
+}
