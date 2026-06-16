@@ -4366,3 +4366,38 @@ section {
     text-align: center;
   }
 }
+
+
+/* ============================= */
+/* v3.4.2 — персональные иллюстрации */
+/* ============================= */
+
+.profile-hero {
+  background:
+    linear-gradient(180deg, rgba(10, 4, 4, 0.22) 0%, rgba(10, 4, 4, 0.48) 55%, rgba(10, 4, 4, 0.84) 100%),
+    radial-gradient(circle at center, rgba(255, 190, 90, 0.10), rgba(0, 0, 0, 0.48) 70%),
+    url("images/profile-bg.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.service-main-offer .placeholder-illustration,
+.profile-placeholder-illustration {
+  object-fit: cover;
+}
+
+.service-main-offer .placeholder-illustration {
+  max-width: 420px;
+}
+
+.profile-placeholder-illustration {
+  max-width: 420px;
+}
+
+@media (max-width: 900px) {
+  .service-main-offer .placeholder-illustration,
+  .profile-placeholder-illustration {
+    max-width: 100%;
+  }
+}
