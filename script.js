@@ -607,6 +607,30 @@ function renderGames() {
     const imageUrl = getSafeImageUrl(game.imageUrl);
     const hasImageClass = imageUrl ? "has-image" : "";
 
+    const totalSeats = getSafeNumber(game.totalSeats);
+    const freeSeats = getSafeNumber(game.freeSeats);
+    const takenSeats = Math.max(totalSeats - freeSeats, 0);
+
+    const seatsPercent = totalSeats > 0
+      ? Math.min(Math.round((takenSeats / totalSeats) * 100), 100)
+      : 0;
+
+    const seatsStatusClass = totalSeats <= 0
+      ? "seats-unknown"
+      : freeSeats <= 0
+        ? "seats-full"
+        : freeSeats <= 2
+          ? "seats-low"
+          : "seats-open";
+
+    const seatsStatusText = totalSeats <= 0
+      ? "Места уточняются"
+      : freeSeats <= 0
+        ? "Мест нет"
+        : freeSeats <= 2
+          ? "Мало мест"
+          : "Есть места";
+
     const safeImageForCss = imageUrl.replaceAll("'", "%27");
     const imageStyle = imageUrl ? `style="--game-image-url: url('${safeImageForCss}');"` : "";
 
@@ -616,6 +640,36 @@ function renderGames() {
         <p>${escapeHtml(game.description)}</p>
       </details>
     ` : "";
+
+    const seatsBlock = `
+      <div class="game-seats-card ${seatsStatusClass}">
+        <div class="game-seats-header">
+          <span class="game-seats-title">🪑 Места</span>
+          <span class="game-seats-status">${escapeHtml(seatsStatusText)}</span>
+        </div>
+
+        <div class="game-seats-numbers">
+          <div>
+            <strong>${escapeHtml(totalSeats)}</strong>
+            <span>всего</span>
+          </div>
+
+          <div>
+            <strong>${escapeHtml(freeSeats)}</strong>
+            <span>свободно</span>
+          </div>
+
+          <div>
+            <strong>${escapeHtml(takenSeats)}</strong>
+            <span>занято</span>
+          </div>
+        </div>
+
+        <div class="game-seats-bar" aria-hidden="true">
+          <div class="game-seats-bar-fill" style="width: ${seatsPercent}%;"></div>
+        </div>
+      </div>
+    `;
 
     return `
       <div class="game-card ${hasImageClass}" ${imageStyle}>
@@ -636,8 +690,9 @@ function renderGames() {
             <span>🎭 ${escapeHtml(game.master)}</span>
             <span>⭐ ${escapeHtml(game.level)}</span>
             <span>💰 ${escapeHtml(game.price)}</span>
-            <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
           </div>
+
+          ${seatsBlock}
 
           <a class="button game-button" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
             Анонс / запись ВК

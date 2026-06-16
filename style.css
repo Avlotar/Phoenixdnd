@@ -2776,3 +2776,162 @@ section {
     font-size: 22px;
   }
 }
+/* ============================= */
+/* v2.15 — понятные места в карточках игр */
+/* ============================= */
+
+.game-seats-card {
+  margin-top: 14px;
+  padding: 13px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 210, 122, 0.28);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 235, 190, 0.08);
+}
+
+.game-seats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.game-seats-title {
+  color: #ffd27a;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.game-seats-status {
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.game-seats-numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.game-seats-numbers div {
+  padding: 9px 7px;
+  border-radius: 11px;
+  text-align: center;
+  background: rgba(255, 210, 122, 0.10);
+  border: 1px solid rgba(255, 210, 122, 0.16);
+}
+
+.game-seats-numbers strong {
+  display: block;
+  color: #ffe1a3;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.game-seats-numbers span {
+  display: block;
+  margin-top: 5px;
+  color: #e8c98b;
+  font-size: 12px;
+}
+
+.game-seats-bar {
+  height: 9px;
+  margin-top: 11px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 210, 122, 0.16);
+}
+
+.game-seats-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, #ffd27a, #ff8a3d);
+}
+
+/* Есть места */
+.game-seats-card.seats-open .game-seats-status {
+  color: #062d0a;
+  background: linear-gradient(180deg, #baff8f, #45d651);
+  box-shadow: 0 0 10px rgba(83, 255, 91, 0.45);
+}
+
+/* Осталось мало мест */
+.game-seats-card.seats-low .game-seats-status {
+  color: #3a1c00;
+  background: linear-gradient(180deg, #ffe08a, #ff9f2f);
+  box-shadow: 0 0 10px rgba(255, 179, 64, 0.48);
+}
+
+/* Мест нет */
+.game-seats-card.seats-full .game-seats-status {
+  color: #fff2f2;
+  background: linear-gradient(180deg, #ff6b6b, #b51414);
+  box-shadow: 0 0 10px rgba(255, 70, 70, 0.52);
+}
+
+/* Места уточняются */
+.game-seats-card.seats-unknown .game-seats-status {
+  color: #ffe1a3;
+  background: rgba(255, 210, 122, 0.14);
+  border: 1px solid rgba(255, 210, 122, 0.26);
+}
+
+/* Бумажные карточки без картинки */
+.notice-board-section .game-card:not(.has-image) .game-seats-card {
+  background: rgba(83, 39, 14, 0.12);
+  border-color: rgba(83, 39, 14, 0.20);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-title {
+  color: #3a1c0d;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-numbers div {
+  background: rgba(83, 39, 14, 0.10);
+  border-color: rgba(83, 39, 14, 0.18);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-numbers strong {
+  color: #3a1c0d;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-numbers span {
+  color: #6b3a19;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-seats-bar {
+  background: rgba(83, 39, 14, 0.18);
+}
+
+/* Телефоны */
+@media (max-width: 420px) {
+  .game-seats-numbers {
+    gap: 6px;
+  }
+
+  .game-seats-numbers div {
+    padding: 8px 5px;
+  }
+
+  .game-seats-numbers strong {
+    font-size: 18px;
+  }
+
+  .game-seats-numbers span {
+    font-size: 11px;
+  }
+
+  .game-seats-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
