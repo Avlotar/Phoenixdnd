@@ -2,8 +2,11 @@ const vkLink = "https://vk.com/phoenixdnd";
 
 const googleSheetGvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/gviz/tq?gid=0";
 const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=0&single=true&output=csv";
+const googleDigestCsvUrl = "https://docs.google.com/spreadsheets/d/1yYN3bEeUVrbMzx09afUlC6-qJxljGGG-beEG8U7UZWo/edit?gid=320358313#gid=320358313";
 
 let games = [];
+
+let digests = [];
 
 let activeFilters = {
   status: "all",
@@ -748,7 +751,132 @@ function renderOpenDateGames() {
     `;
   }).join("");
 }
+function buildDigestFromObject(digest, index) {
+  return {
+    id: getSafeNumber(digest.id) || Date.now() + index,
+    title: digest.title || "Без названия",
+    description: digest.description || "",
+    date: normalizeDateForDisplay(digest.date),
+    link: getSafeUrl(digest.link),
+    category: digest.category || "Общее"
+  };
+}
 
+function convertCsvToDigests(csvText) {
+  const rows = parseCsv(csvText);
+
+  if (rows.length < 2) {
+    return [];
+  }
+
+  const headers = rows[0].map(normalizeHeader);
+
+  return rows.slice(1)
+    .map((row, index) => {
+      const digest = {};
+
+      headers.forEach((header, columnIndex) => {
+        digest[header] = row[columnIndex] || "";
+      });
+
+      return buildDigestFromObject(digest, index);
+    })
+    .filter((digest) => digest.title && digest.link);
+}
+
+function renderDigests() {
+  const digestSelect = document.querySelector("#digestSelect");
+  const digestPreview = document.querySelector("#digestPreview");
+
+  if (!digestSelect || !digestPreview) {
+    return;
+  }
+
+  if (digests.length === 0) {
+    digestSelect.innerHTML = `<option value="">Дайджесты пока не загружены</option>`;
+    digestPreview.innerHTML = `
+      <p class="digest-empty">
+        Дайджесты пока не найдены или Google Таблица ещё не обновилась.
+      </p>
+    `;
+    return;
+  }
+
+  digestSelect.innerHTML = `
+    <option value="">Выберите дайджест</option>
+    ${digests.map((digest) => `
+      <option value="${escapeHtml(digest.id)}">
+        ${escapeHtml(digest.title)}
+      </option>
+    `).join("")}
+  `;
+
+  digestPreview.innerHTML = `
+    <p class="digest-empty">
+      Выберите дайджест из списка, чтобы открыть описание и ссылку.
+    </p>
+  `;
+
+  digestSelect.addEventListener("change", () => {
+    const selectedId = getSafeNumber(digestSelect.value);
+    const selectedDigest = digests.find((digest) => digest.id === selectedId);
+
+    if (!selectedDigest) {
+      digestPreview.innerHTML = `
+        <p class="digest-empty">
+          Выберите дайджест из списка, чтобы открыть описание и ссылку.
+        </p>
+      `;
+      return;
+    }
+
+    digestPreview.innerHTML = `
+      <article class="digest-card">
+        <p class="digest-category">${escapeHtml(selectedDigest.category)}</p>
+        <h3>${escapeHtml(selectedDigest.title)}</h3>
+        <p class="digest-date">📅 ${escapeHtml(selectedDigest.date)}</p>
+        <p>${escapeHtml(selectedDigest.description)}</p>
+
+        <a class="button digest-button" href="${selectedDigest.link}" target="_blank" rel="noopener noreferrer">
+          Открыть дайджест
+        </a>
+      </article>
+    `;
+  });
+}
+
+async function loadDigestsFromGoogleSheet() {
+  const digestSelect = document.querySelector("#digestSelect");
+  const digestPreview = document.querySelector("#digestPreview");
+
+  if (!digestSelect || !digestPreview) {
+    return;
+  }
+
+  try {
+    digestSelect.innerHTML = `<option value="">Загружаем дайджесты...</option>`;
+
+    const response = await fetch(googleDigestCsvUrl);
+
+    if (!response.ok) {
+      throw new Error("Не удалось загрузить таблицу дайджестов");
+    }
+
+    const csvText = await response.text();
+    digests = convertCsvToDigests(csvText);
+
+    renderDigests();
+  } catch (error) {
+    console.error(error);
+
+    digestSelect.innerHTML = `<option value="">Ошибка загрузки</option>`;
+    digestPreview.innerHTML = `
+      <p class="digest-empty">
+        Не удалось загрузить дайджесты. Проверь ссылку на Google Таблицу.
+      </p>
+    `;
+  }
+}
 function bindCalendarButtons() {
   const prevMonthButton = document.querySelector("#prevMonthButton");
   const nextMonthButton = document.querySelector("#nextMonthButton");
@@ -842,3 +970,4 @@ bindCalendarButtons();
 bindFilterButtons();
 bindSoonButtons();
 loadGamesFromGoogleSheet();
+loadDigestsFromGoogleSheet();

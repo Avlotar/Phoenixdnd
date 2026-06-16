@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-<link rel="stylesheet" href="style.css?v=2.12" />
+<link rel="stylesheet" href="style.css?v=2.13" />
 </head>
 <body>
 
@@ -20,6 +20,7 @@
   <a href="#newbie">Я новичок</a>
   <a href="#games">Игры</a>
   <a href="#signup">Запись</a>
+  <a href="#digests">Дайджесты</a>
   <a href="#schedule">Расписание</a>
   <a href="#calendar">Календарь</a>
   <a href="#profile">Кабинет</a>
@@ -50,8 +51,7 @@
   </header>
 
   <main class="container">
-
-    <section class="section welcome-panel tavern-card-large">
+<section class="section welcome-panel tavern-card-large">
       <h2>Добро пожаловать к огню</h2>
 
       <p>
@@ -115,7 +115,7 @@
       </div>
     </section>
 
-    <section class="section tavern-card-large newbie-guide" id="newbie">
+<section class="section tavern-card-large newbie-guide" id="newbie">
       <h2>Я новичок. С чего начать?</h2>
 
       <p>
@@ -249,6 +249,29 @@
         <!-- Карточки игр появятся здесь автоматически из Google Таблицы -->
       </div>
     </section>
+
+    <section class="section digest-section" id="digests">
+  <h2>Дайджесты</h2>
+
+  <p>
+    Здесь собраны истории прошедших игр, важные события, последствия приключений
+    и рассказы, которые Гард пересказывает у камина.
+  </p>
+
+  <div class="digest-picker">
+    <label for="digestSelect">Выберите дайджест</label>
+
+    <select id="digestSelect">
+      <option value="">Загружаем дайджесты...</option>
+    </select>
+  </div>
+
+  <div id="digestPreview" class="digest-preview">
+    <p class="digest-empty">
+      Дайджесты загружаются...
+    </p>
+  </div>
+</section>
 
     <section class="section tavern-card-large" id="signup">
       <h2>Запись на игры</h2>
