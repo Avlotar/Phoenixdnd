@@ -1198,6 +1198,90 @@ function bindFilterButtons() {
   }
 }
 
+
+function bindNavigationMenu() {
+  const nav = document.querySelector(".top-nav");
+
+  if (!nav) {
+    return;
+  }
+
+  const menuButton = nav.querySelector(".nav-menu-toggle");
+  const dropdowns = nav.querySelectorAll(".nav-dropdown");
+
+  function closeDropdowns() {
+    dropdowns.forEach((dropdown) => {
+      dropdown.classList.remove("open");
+
+      const dropdownButton = dropdown.querySelector(".nav-dropdown-toggle");
+
+      if (dropdownButton) {
+        dropdownButton.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  function closeMenu() {
+    nav.classList.remove("nav-open");
+
+    if (menuButton) {
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+
+    closeDropdowns();
+  }
+
+  if (menuButton) {
+    menuButton.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("nav-open");
+      menuButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+      if (!isOpen) {
+        closeDropdowns();
+      }
+    });
+  }
+
+  dropdowns.forEach((dropdown) => {
+    const dropdownButton = dropdown.querySelector(".nav-dropdown-toggle");
+
+    if (!dropdownButton) {
+      return;
+    }
+
+    dropdownButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      const isOpen = dropdown.classList.contains("open");
+
+      closeDropdowns();
+
+      if (!isOpen) {
+        dropdown.classList.add("open");
+        dropdownButton.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!nav.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+}
+
 function bindSoonButtons() {
   const soonButtons = document.querySelectorAll(".soon");
 
@@ -1220,5 +1304,6 @@ renderAll();
 bindCalendarButtons();
 bindFilterButtons();
 bindSoonButtons();
+bindNavigationMenu();
 loadGamesFromGoogleSheet();
 loadDigestsFromGoogleSheet();
