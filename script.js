@@ -552,7 +552,7 @@ function renderGames() {
 
     const descriptionBlock = game.description ? `
       <details class="game-description-details">
-        <summary>Показать логлайн</summary>
+        <summary>Описание</summary>
         <p>${escapeHtml(game.description)}</p>
       </details>
     ` : "";
