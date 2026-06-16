@@ -1471,3 +1471,119 @@ button {
     aspect-ratio: 16 / 10;
   }
 }
+/* ============================= */
+/* v2.3 — картинка анонса как фон карточки */
+/* ============================= */
+
+/* Старый отдельный блок картинки больше не нужен */
+.game-image-wrap {
+  display: none !important;
+}
+
+/* Карточка с картинкой теперь сама становится обложкой */
+.notice-board-section .game-card.has-image {
+  min-height: 620px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 18px;
+
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.18) 38%,
+      rgba(0, 0, 0, 0.78) 74%,
+      rgba(0, 0, 0, 0.92) 100%
+    ),
+    var(--game-image-url);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  border: 1px solid rgba(255, 210, 122, 0.38);
+  color: #f7ead2;
+}
+
+/* Убираем кнопку-гвоздик у карточек с картинкой */
+.notice-board-section .game-card.has-image::before {
+  display: none;
+}
+
+/* Текстовая зона поверх картинки */
+.notice-board-section .game-card.has-image .game-card-content {
+  width: 100%;
+  padding: 22px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(12, 5, 5, 0.10) 0%,
+      rgba(12, 5, 5, 0.62) 35%,
+      rgba(12, 5, 5, 0.88) 100%
+    );
+  backdrop-filter: blur(2px);
+  border-top: 1px solid rgba(255, 210, 122, 0.22);
+}
+
+/* Название поверх картинки */
+.notice-board-section .game-card.has-image h3 {
+  color: #ffd27a;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.85),
+    0 0 18px rgba(255, 150, 55, 0.35);
+}
+
+/* Описание поверх картинки */
+.notice-board-section .game-card.has-image p {
+  color: #f7dfba;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85);
+}
+
+/* Тип игры */
+.notice-board-section .game-card.has-image .game-type {
+  color: #ffd27a;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.85);
+}
+
+/* Метки дата/время/мастер */
+.notice-board-section .game-card.has-image .game-meta span {
+  background: rgba(0, 0, 0, 0.46);
+  border-color: rgba(255, 214, 145, 0.24);
+  color: #ffe1a3;
+  backdrop-filter: blur(3px);
+}
+
+/* Кнопка записи */
+.notice-board-section .game-card.has-image .game-button {
+  width: 100%;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 122, 0.26), rgba(122, 48, 22, 0.42));
+  border-color: rgba(255, 210, 122, 0.62);
+  box-shadow: 0 0 18px rgba(255, 150, 55, 0.18);
+}
+
+/* Статус на картинке */
+.notice-board-section .game-card.has-image .status-badge {
+  background: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(3px);
+}
+
+/* На телефоне карточка ниже, чтобы не была огромной */
+@media (max-width: 768px) {
+  .notice-board-section .game-card.has-image {
+    min-height: 520px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .notice-board-section .game-card.has-image {
+    min-height: 470px;
+  }
+}

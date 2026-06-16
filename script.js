@@ -547,22 +547,11 @@ function renderGames() {
     const imageUrl = getSafeImageUrl(game.imageUrl);
     const hasImageClass = imageUrl ? "has-image" : "";
 
-    const imageBlock = imageUrl ? `
-      <div class="game-image-wrap">
-        <img
-          class="game-image"
-          src="${imageUrl}"
-          alt="${escapeHtml(game.title)}"
-          loading="lazy"
-          onerror="this.closest('.game-card').classList.remove('has-image'); this.closest('.game-image-wrap').remove();"
-        />
-      </div>
-    ` : "";
+    const safeImageForCss = imageUrl.replaceAll("'", "%27");
+    const imageStyle = imageUrl ? `style="--game-image-url: url('${safeImageForCss}');"` : "";
 
     return `
-      <div class="game-card ${hasImageClass}">
-        ${imageBlock}
-
+      <div class="game-card ${hasImageClass}" ${imageStyle}>
         <div class="game-card-content">
           <div class="game-card-top">
             <p class="game-type">${escapeHtml(game.type)}</p>
