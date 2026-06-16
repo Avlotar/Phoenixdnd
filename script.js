@@ -508,6 +508,19 @@ function getStatusClass(status) {
   return "status-default";
 }
 
+function getGameTimePart(game) {
+  const rawTime = String(game.time ?? "").trim();
+
+  const timeMatch = rawTime.match(/(\d{1,2})/);
+  const hour = timeMatch ? Number(timeMatch[1]) : 19;
+
+  if (hour < 18) {
+    return "day";
+  }
+
+  return "evening";
+}
+
 function parseGameDate(dateText) {
   if (isOpenDate(dateText)) {
     return null;
@@ -821,13 +834,29 @@ function renderCalendar() {
     }
 
     const visibleDots = gamesOnThisDay.slice(0, 3).map((game) => {
-      const status = getGameStatus(game);
-      const dotClass = status === "Мест нет" ? "calendar-dot-full" : "calendar-dot-open";
+  const status = getGameStatus(game);
+  const timePart = getGameTimePart(game);
 
-      return `
-        <span class="calendar-dot ${dotClass}" title="${escapeHtml(game.title)}"></span>
-      `;
-    }).join("");
+  const dotStatusClass = status === "Мест нет"
+    ? "calendar-dot-full"
+    : "calendar-dot-open";
+
+  const dotTimeClass = timePart === "day"
+    ? "calendar-dot-sun"
+    : "calendar-dot-moon";
+
+  const dotIcon = timePart === "day"
+    ? "☀"
+    : "☾";
+
+  const dotTitle = `${game.title} — ${game.time} — ${status}`;
+
+  return `
+    <span class="calendar-dot ${dotStatusClass} ${dotTimeClass}" title="${escapeHtml(dotTitle)}">
+      ${dotIcon}
+    </span>
+  `;
+}).join("");
 
     const extraDots = gamesOnThisDay.length > 3
       ? `<span class="calendar-dot-more">+${gamesOnThisDay.length - 3}</span>`
