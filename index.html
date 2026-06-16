@@ -6,27 +6,27 @@
 
   <title>Гнездо Феникса — Таверна приключений</title>
   <link rel="icon" href="favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
-<link rel="apple-touch-icon" href="apple-touch-icon.png" />
-<link rel="stylesheet" href="style.css?v=2.20" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="stylesheet" href="style.css?v=3.0" />
 </head>
 <body>
-
   <nav class="top-nav">
     <a href="#" class="nav-logo">🔥 Гнездо Феникса</a>
 
     <div class="nav-links">
-  <a href="#newbie">Я новичок</a>
-  <a href="#games">Игры</a>
-  <a href="#digests">Дайджесты</a>
-  <a href="#schedule">Расписание</a>
-  <a href="#calendar">Календарь</a>
-  <a href="#profile">Кабинет</a>
-  <a href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">ВК</a>
-</div>
+      <a href="#news">Новости</a>
+      <a href="#newbie">Я новичок</a>
+      <a href="#schedule">Расписание</a>
+      <a href="#about">О нас</a>
+      <a href="games-service.html">Игры под ключ</a>
+      <a href="board.html">Доска объявлений</a>
+      <a href="chronicles.html">Хроники</a>
+      <a href="calendar.html">Календарь</a>
+      <a href="profile.html">Кабинет</a>
+    </div>
   </nav>
-
   <header class="hero tavern-hero">
     <div class="tavern-background" aria-hidden="true">
       <div class="tavern-layer tavern-deep" data-depth="0.2"></div>
@@ -38,9 +38,7 @@
 
     <div class="hero-content tavern-content">
       <p class="eyebrow">Таверна приключений</p>
-
       <h1>Гнездо Феникса</h1>
-
       <p class="hero-text">
         Заходи к огню, путник. Здесь собираются игроки настольных ролевых игр,
         выбирают приключения, записываются на партии и становятся частью историй,
@@ -50,9 +48,35 @@
   </header>
 
   <main class="container">
+    <section class="section tavern-card-large" id="news">
+      <h2>Новости</h2>
+      <p>
+        Здесь будут появляться свежие объявления таверны: ближайшие игры,
+        новые хроники, важные обновления клуба и события сообщества.
+      </p>
 
+      <div class="home-cards">
+        <a class="hub-card" href="board.html">
+          <span class="hub-icon">📌</span>
+          <h3>Новые игры</h3>
+          <p>Открой доску объявлений и посмотри, куда сейчас идёт набор.</p>
+        </a>
 
-<section class="section tavern-card-large newbie-guide" id="newbie">
+        <a class="hub-card" href="chronicles.html">
+          <span class="hub-icon">📖</span>
+          <h3>Свежие хроники</h3>
+          <p>Истории прошедших игр, последствия приключений и рассказы Гарда.</p>
+        </a>
+
+        <a class="hub-card" href="calendar.html">
+          <span class="hub-icon">🗓️</span>
+          <h3>Календарь</h3>
+          <p>Быстрый взгляд на занятые и свободные даты месяца.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="section tavern-card-large newbie-guide" id="newbie">
       <h2>Я новичок. С чего начать?</h2>
 
       <p>
@@ -66,7 +90,7 @@
           <span>1</span>
           <h3>Посмотри игры</h3>
           <p>
-            Открой раздел “Ближайшие игры” и выбери приключение, которое тебе интересно
+            Открой “Доску объявлений” и выбери приключение, которое тебе интересно
             по названию, описанию, уровню и времени.
           </p>
         </div>
@@ -75,7 +99,7 @@
           <span>2</span>
           <h3>Проверь места</h3>
           <p>
-            Если на карточке написано “Набор открыт”, значит на игру ещё можно записаться.
+            Если написано “Набор открыт”, значит на игру ещё можно записаться.
             Если “Мест нет” — игра уже заполнена.
           </p>
         </div>
@@ -84,7 +108,7 @@
           <span>3</span>
           <h3>Открой анонс</h3>
           <p>
-            Нажми кнопку “Анонс / запись ВК” на карточке игры. Она откроет пост
+            Нажми кнопку “Анонс / запись ВК”. Она откроет пост
             в группе ВК или основную страницу клуба.
           </p>
         </div>
@@ -132,164 +156,45 @@
         </p>
       </div>
 
-      <a class="button big" href="#games">
+      <a class="button big" href="board.html">
         Выбрать первую игру
       </a>
     </section>
-
-<section class="section tavern-card-large notice-board-section" id="games">
-  <h2>Доска объявлений</h2>
-      <p>
-        На доске объявлений уже ждут приключения: ваншоты, мини-кампейны
-        и особые истории от мастеров клуба.
-      </p>
-
-      <div class="filter-panel dropdown-filter-panel">
-  <label class="filter-field">
-    <span>Актуальность</span>
-    <select id="statusFilter">
-      <option value="all">Все</option>
-      <option value="Набор открыт">Набор открыт</option>
-      <option value="Мест нет">Мест нет</option>
-    </select>
-  </label>
-
-  <label class="filter-field">
-    <span>Тип игры</span>
-    <select id="playFormatFilter">
-      <option value="all">Все</option>
-      <option value="Онлайн">Онлайн</option>
-      <option value="Офлайн">Офлайн</option>
-      <option value="Домашняя">Домашняя</option>
-      <option value="Выездная">Выездная</option>
-    </select>
-  </label>
-
-  <label class="filter-field">
-    <span>Мастер</span>
-    <select id="masterFilter">
-      <option value="all">Все</option>
-      <option value="Харон">Харон</option>
-      <option value="Глория">Глория</option>
-      <option value="Оникс">Оникс</option>
-    </select>
-  </label>
-
-  <button class="filter-reset-button" id="resetFilters" type="button">
-    Сбросить фильтры
-  </button>
-</div>
-
-      <p class="games-counter" id="gamesCounter"></p>
-
-      <div class="game-list" id="gamesList">
-        <!-- Карточки игр появятся здесь автоматически из Google Таблицы -->
-      </div>
-    </section>
-
-    <section class="section digest-section" id="digests">
-  <h2>Дайджесты</h2>
-
-  <p>
-    Здесь собраны истории прошедших игр, важные события, последствия приключений
-    и рассказы, которые Гард пересказывает у камина.
-  </p>
-
-  <div class="digest-picker">
-    <label for="digestSelect">Выберите дайджест</label>
-
-    <select id="digestSelect">
-      <option value="">Загружаем дайджесты...</option>
-    </select>
-  </div>
-
-  <div id="digestPreview" class="digest-preview">
-    <p class="digest-empty">
-      Дайджесты загружаются...
-    </p>
-  </div>
-</section>
 
     <section class="section tavern-card-large" id="schedule">
       <h2>Расписание</h2>
 
       <p>
-        Ближайшие игры клуба по датам.
+        Ближайшие игры клуба по датам. Статусы в расписании кликабельные:
+        нажми на “Набор открыт” или “Мест нет”, чтобы открыть анонс игры.
       </p>
+
+      <div class="schedule-actions">
+        <a class="button big" href="calendar.html">Открыть календарь</a>
+      </div>
 
       <div class="schedule-box" id="scheduleBox">
         <!-- Расписание появится здесь автоматически из Google Таблицы -->
       </div>
     </section>
 
-    <section class="section tavern-card-large" id="calendar">
-      <h2>Календарь месяца</h2>
+    <section class="section tavern-card-large" id="about">
+      <h2>О нас</h2>
 
       <p>
-        Здесь отображаются даты текущего месяца: занятые дни с играми
-        и свободные даты.
+        Гнездо Феникса — это таверна приключений для игроков настольных ролевых игр.
+        Здесь можно найти ваншоты, кампейны, хроники прошедших игр и место, где новичка
+        не бросят одного перед листом персонажа.
       </p>
-
-      <div class="calendar-header">
-        <button class="calendar-nav-button" id="prevMonthButton">← Предыдущий</button>
-        <h3 id="calendarTitle">Месяц</h3>
-        <button class="calendar-nav-button" id="nextMonthButton">Следующий →</button>
-      </div>
-
-      <div class="calendar-weekdays">
-        <span>Пн</span>
-        <span>Вт</span>
-        <span>Ср</span>
-        <span>Чт</span>
-        <span>Пт</span>
-        <span>Сб</span>
-        <span>Вс</span>
-      </div>
-
-      <div class="calendar-grid" id="calendarGrid">
-        <!-- Календарь появится здесь автоматически -->
-      </div>
-
-      <div class="open-date-box">
-        <h3>Игры с открытой датой</h3>
-
-        <p>
-          Эти игры ещё не закреплены за конкретным днём. Для них можно выбрать
-          свободную дату в календаре.
-        </p>
-
-        <div id="openDateGamesList">
-          <!-- Игры с открытой датой появятся здесь -->
-        </div>
-      </div>
-    </section>
-
-    <section class="section tavern-card-large" id="profile">
-      <h2>Кабинет игрока</h2>
 
       <p>
-        В будущем здесь игрок сможет видеть своё имя, историю игр,
-        достижения и личную информацию.
+        Мы собираем игроков, помогаем выбрать игру, поддерживаем атмосферу живой таверны
+        и постепенно строим удобный общий хаб для клуба.
       </p>
 
-      <div class="profile-preview">
-        <div class="avatar-placeholder">?</div>
+      <h3>Наши площадки</h3>
 
-        <div>
-          <h3>Кабинет в разработке</h3>
-
-          <p>
-            Позже здесь появятся имя игрока, список посещённых игр, заметки,
-            достижения и другая личная информация участника клуба.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section tavern-card-large">
-      <h2>Наши площадки</h2>
-
-      <div class="social-links">
+      <div class="social-links about-social-links">
         <a class="social vk" href="https://vk.com/phoenixdnd" target="_blank" rel="noopener noreferrer">
           Группа ВК
         </a>
@@ -303,40 +208,38 @@
         </button>
       </div>
     </section>
-
   </main>
 
- <footer class="footer">
-  <div class="footer-inner">
-    <p class="footer-brand">
-      © 2026 Гнездо Феникса. Таверна, где начинаются приключения.
-    </p>
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-brand">
+        © 2026 Гнездо Феникса. Таверна, где начинаются приключения.
+      </p>
 
-    <p>
-      Проект является неофициальным сообществом настольных ролевых игр.
-      Все упомянутые игровые системы, названия, вселенные, товарные знаки и материалы
-      принадлежат их правообладателям.
-    </p>
+      <p>
+        Проект является неофициальным сообществом настольных ролевых игр.
+        Все упомянутые игровые системы, названия, вселенные, товарные знаки и материалы
+        принадлежат их правообладателям.
+      </p>
 
-    <p>
-      Материалы сайта, тексты, изображения и оформление могут создаваться или дорабатываться
-      с использованием инструментов искусственного интеллекта. Финальные материалы отбираются,
-      проверяются и редактируются организаторами проекта.
-    </p>
+      <p>
+        Материалы сайта, тексты, изображения и оформление могут создаваться или дорабатываться
+        с использованием инструментов искусственного интеллекта. Финальные материалы отбираются,
+        проверяются и редактируются организаторами проекта.
+      </p>
 
-    <p>
-      Сайт носит информационный характер. Запись на игры и общение с участниками проходят
-      через внешние площадки клуба.
-    </p>
+      <p>
+        Сайт носит информационный характер. Запись на игры и общение с участниками проходят
+        через внешние площадки клуба.
+      </p>
 
-    <p class="footer-note">
-      Если вы являетесь правообладателем материала и считаете, что он размещён некорректно,
-      свяжитесь с администрацией сообщества для проверки и удаления или исправления материала.
-    </p>
-  </div>
-</footer>
-  
-<script src="script.js?v=2.20"></script>
-<script src="accordion.js?v=2.4"></script>
+      <p class="footer-note">
+        Если вы являетесь правообладателем материала и считаете, что он размещён некорректно,
+        свяжитесь с администрацией сообщества для проверки и удаления или исправления материала.
+      </p>
+    </div>
+  </footer>
+  <script src="script.js?v=3.0"></script>
+  <script src="accordion.js?v=3.0"></script>
 </body>
 </html>

@@ -2,10 +2,10 @@ const vkLink = "https://vk.com/phoenixdnd";
 
 const googleSheetGvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/gviz/tq?gid=0";
 const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=0&single=true&output=csv";
-
 const googleDigestCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=320358313&single=true&output=csv";
 
 let games = [];
+
 let digests = [];
 
 let activeFilters = {
@@ -45,28 +45,6 @@ function getSafeUrl(value) {
     return vkLink;
   }
 }
-
-function getOptionalSafeUrl(value) {
-  const rawUrl = String(value ?? "").trim();
-
-  if (!rawUrl) {
-    return "";
-  }
-
-  try {
-    const url = new URL(rawUrl);
-    const isAllowedProtocol = url.protocol === "https:" || url.protocol === "http:";
-
-    if (!isAllowedProtocol) {
-      return "";
-    }
-
-    return url.href;
-  } catch (error) {
-    return "";
-  }
-}
-
 function getSafeImageUrl(value) {
   const rawUrl = String(value ?? "").trim();
 
@@ -85,6 +63,7 @@ function getSafeImageUrl(value) {
 
   try {
     const url = new URL(rawUrl);
+
     const isAllowedProtocol = url.protocol === "https:" || url.protocol === "http:";
 
     if (!isAllowedProtocol) {
@@ -165,16 +144,6 @@ function normalizeDateForDisplay(value) {
   return rawDate;
 }
 
-function normalizeDigestDateForDisplay(value) {
-  const rawDate = String(value ?? "").trim();
-
-  if (!rawDate) {
-    return "Дата не указана";
-  }
-
-  return normalizeDateForDisplay(rawDate);
-}
-
 function normalizeTimeForDisplay(value) {
   const rawTime = String(value ?? "").trim();
 
@@ -243,10 +212,6 @@ function parseCsv(text) {
   });
 }
 
-/* ============================= */
-/* Игры */
-/* ============================= */
-
 function buildGameFromObject(game, index) {
   return {
     id: getSafeNumber(game.id) || Date.now() + index,
@@ -275,23 +240,21 @@ function convertCsvToGames(csvText) {
 
   const headers = rows[0].map((header) => normalizeHeader(header));
 
-  return rows.slice(1)
-    .map((row, index) => {
-      const game = {};
+  return rows.slice(1).map((row, index) => {
+    const game = {};
 
-      headers.forEach((header, cellIndex) => {
-        if (!header) {
-          return;
-        }
+    headers.forEach((header, cellIndex) => {
+      if (!header) {
+        return;
+      }
 
-        game[header] = row[cellIndex] || "";
-      });
-
-      return buildGameFromObject(game, index);
-    })
-    .filter((game) => {
-      return game.title && game.title !== "Без названия";
+      game[header] = row[cellIndex] || "";
     });
+
+    return buildGameFromObject(game, index);
+  }).filter((game) => {
+    return game.title && game.title !== "Без названия";
+  });
 }
 
 function convertGoogleTableToGames(response) {
@@ -318,9 +281,7 @@ function convertGoogleTableToGames(response) {
     "price",
     "totalSeats",
     "freeSeats",
-    "announcementUrl",
-    "imageUrl",
-    "playFormat"
+    "announcementUrl"
   ];
 
   const hasNormalHeaders = headers.includes("title") && headers.includes("date");
@@ -342,23 +303,21 @@ function convertGoogleTableToGames(response) {
     }
   }
 
-  return rows
-    .map((row, index) => {
-      const game = {};
+  return rows.map((row, index) => {
+    const game = {};
 
-      headers.forEach((header, cellIndex) => {
-        if (!header) {
-          return;
-        }
+    headers.forEach((header, cellIndex) => {
+      if (!header) {
+        return;
+      }
 
-        game[header] = getCellValue(row.c[cellIndex]);
-      });
-
-      return buildGameFromObject(game, index);
-    })
-    .filter((game) => {
-      return game.title && game.title !== "Без названия";
+      game[header] = getCellValue(row.c[cellIndex]);
     });
+
+    return buildGameFromObject(game, index);
+  }).filter((game) => {
+    return game.title && game.title !== "Без названия";
+  });
 }
 
 function showLoadingMessage(message) {
@@ -508,19 +467,6 @@ function getStatusClass(status) {
   return "status-default";
 }
 
-function getGameTimePart(game) {
-  const rawTime = String(game.time ?? "").trim();
-
-  const timeMatch = rawTime.match(/(\d{1,2})/);
-  const hour = timeMatch ? Number(timeMatch[1]) : 19;
-
-  if (hour < 18) {
-    return "day";
-  }
-
-  return "evening";
-}
-
 function parseGameDate(dateText) {
   if (isOpenDate(dateText)) {
     return null;
@@ -620,30 +566,6 @@ function renderGames() {
     const imageUrl = getSafeImageUrl(game.imageUrl);
     const hasImageClass = imageUrl ? "has-image" : "";
 
-    const totalSeats = getSafeNumber(game.totalSeats);
-    const freeSeats = getSafeNumber(game.freeSeats);
-    const takenSeats = Math.max(totalSeats - freeSeats, 0);
-
-    const seatsPercent = totalSeats > 0
-      ? Math.min(Math.round((takenSeats / totalSeats) * 100), 100)
-      : 0;
-
-    const seatsStatusClass = totalSeats <= 0
-      ? "seats-unknown"
-      : freeSeats <= 0
-        ? "seats-full"
-        : freeSeats <= 2
-          ? "seats-low"
-          : "seats-open";
-
-    const seatsStatusText = totalSeats <= 0
-      ? "Места уточняются"
-      : freeSeats <= 0
-        ? "Мест нет"
-        : freeSeats <= 2
-          ? "Мало мест"
-          : "Есть места";
-
     const safeImageForCss = imageUrl.replaceAll("'", "%27");
     const imageStyle = imageUrl ? `style="--game-image-url: url('${safeImageForCss}');"` : "";
 
@@ -653,36 +575,6 @@ function renderGames() {
         <p>${escapeHtml(game.description)}</p>
       </details>
     ` : "";
-
-    const seatsBlock = `
-      <div class="game-seats-card ${seatsStatusClass}">
-        <div class="game-seats-header">
-          <span class="game-seats-title">🪑 Места</span>
-          <span class="game-seats-status">${escapeHtml(seatsStatusText)}</span>
-        </div>
-
-        <div class="game-seats-numbers">
-          <div>
-            <strong>${escapeHtml(totalSeats)}</strong>
-            <span>всего</span>
-          </div>
-
-          <div>
-            <strong>${escapeHtml(freeSeats)}</strong>
-            <span>свободно</span>
-          </div>
-
-          <div>
-            <strong>${escapeHtml(takenSeats)}</strong>
-            <span>занято</span>
-          </div>
-        </div>
-
-        <div class="game-seats-bar" aria-hidden="true">
-          <div class="game-seats-bar-fill" style="width: ${seatsPercent}%;"></div>
-        </div>
-      </div>
-    `;
 
     return `
       <div class="game-card ${hasImageClass}" ${imageStyle}>
@@ -697,15 +589,14 @@ function renderGames() {
           ${descriptionBlock}
 
           <div class="game-meta">
-            <span>📅 ${escapeHtml(game.date)}</span>
-            <span>🕖 ${escapeHtml(game.time)}</span>
-            <span>📍 ${escapeHtml(game.playFormat)}</span>
-            <span>🎭 ${escapeHtml(game.master)}</span>
-            <span>⭐ ${escapeHtml(game.level)}</span>
-            <span>💰 ${escapeHtml(game.price)}</span>
-          </div>
-
-          ${seatsBlock}
+  <span>📅 ${escapeHtml(game.date)}</span>
+  <span>🕖 ${escapeHtml(game.time)}</span>
+  <span>📍 ${escapeHtml(game.playFormat)}</span>
+  <span>🎭 ${escapeHtml(game.master)}</span>
+  <span>⭐ ${escapeHtml(game.level)}</span>
+  <span>💰 ${escapeHtml(game.price)}</span>
+  <span>🪑 ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</span>
+</div>
 
           <a class="button game-button" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
             Анонс / запись ВК
@@ -725,37 +616,24 @@ function renderSchedule() {
 
   const filteredGames = getFilteredGames();
 
-  if (filteredGames.length === 0) {
-    scheduleBox.innerHTML = `
-      <div class="empty-message">
-        По выбранным фильтрам игр в расписании нет.
-      </div>
-    `;
-    return;
-  }
-
   scheduleBox.innerHTML = `
     <div class="schedule-row schedule-head">
       <strong>Дата</strong>
       <span>Игра</span>
       <span>Время</span>
-      <span>Статус / запись</span>
+      <span>Статус</span>
     </div>
 
     ${filteredGames.map((game) => {
       const status = getGameStatus(game);
       const statusClass = getStatusClass(status);
-      const announcementUrl = getSafeUrl(game.announcementUrl);
 
       return `
         <div class="schedule-row">
           <strong>${escapeHtml(game.date)}</strong>
           <span>${escapeHtml(game.title)}</span>
           <span>${escapeHtml(game.time)}</span>
-
-          <a class="status-badge schedule-status-link ${statusClass}" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
-            ${escapeHtml(status)}
-          </a>
+          <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
         </div>
       `;
     }).join("")}
@@ -769,8 +647,6 @@ function renderCalendar() {
   if (!calendarTitle || !calendarGrid) {
     return;
   }
-
-  const filteredGames = getFilteredGames();
 
   const year = calendarDate.getFullYear();
   const month = calendarDate.getMonth();
@@ -801,7 +677,7 @@ function renderCalendar() {
   }
 
   for (let day = 1; day <= daysInMonth; day++) {
-    const gamesOnThisDay = filteredGames.filter((game) => {
+    const gamesOnThisDay = games.filter((game) => {
       const parsedDate = parseGameDate(game.date);
 
       if (!parsedDate) {
@@ -814,135 +690,31 @@ function renderCalendar() {
     });
 
     const hasGames = gamesOnThisDay.length > 0;
-
-    const hasOpenGames = gamesOnThisDay.some((game) => {
-      return getGameStatus(game) === "Набор открыт";
-    });
-
-    const hasClosedGames = gamesOnThisDay.some((game) => {
-      return getGameStatus(game) === "Мест нет";
-    });
-
-    let dayClass = "calendar-day free-day";
-    let dayLabel = "Свободно";
-
-    if (hasGames && hasOpenGames && hasClosedGames) {
-      dayClass = "calendar-day busy-day mixed-games-day";
-      dayLabel = "Игры";
-    } else if (hasGames && hasOpenGames) {
-      dayClass = "calendar-day busy-day open-games-day";
-      dayLabel = "Есть места";
-    } else if (hasGames && hasClosedGames) {
-      dayClass = "calendar-day busy-day full-games-day";
-      dayLabel = "Мест нет";
-    }
-
-    const visibleDots = gamesOnThisDay.slice(0, 3).map((game) => {
-  const status = getGameStatus(game);
-  const timePart = getGameTimePart(game);
-
-  const dotStatusClass = status === "Мест нет"
-    ? "calendar-dot-full"
-    : "calendar-dot-open";
-
-  const dotTimeClass = timePart === "day"
-    ? "calendar-dot-sun"
-    : "calendar-dot-moon";
-
-  const dotIcon = timePart === "day"
-    ? "☀"
-    : "☾";
-
-  const dotTitle = `${game.title} — ${game.time} — ${status}`;
-
-  return `
-    <span class="calendar-dot ${dotStatusClass} ${dotTimeClass}" title="${escapeHtml(dotTitle)}">
-      ${dotIcon}
-    </span>
-  `;
-}).join("");
-
-    const extraDots = gamesOnThisDay.length > 3
-      ? `<span class="calendar-dot-more">+${gamesOnThisDay.length - 3}</span>`
-      : "";
-
-    const mobileDots = hasGames
-      ? `<div class="calendar-mobile-dots">${visibleDots}${extraDots}</div>`
-      : `<div class="calendar-mobile-dots calendar-mobile-dots-empty"></div>`;
-
-    const gamesListHtml = hasGames
-      ? gamesOnThisDay.map((game) => {
-        const status = getGameStatus(game);
-        const statusClass = getStatusClass(status);
-
-        return `
-          <a class="calendar-mini-game" href="${getSafeUrl(game.announcementUrl)}" target="_blank" rel="noopener noreferrer">
-            <strong>${escapeHtml(game.title)}</strong>
-
-            <span class="calendar-mini-game-info">
-              🕖 ${escapeHtml(game.time)}
-              · 🎭 ${escapeHtml(game.master)}
-              · 🪑 ${escapeHtml(game.freeSeats)} свободно
-            </span>
-
-            <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
-          </a>
-        `;
-      }).join("")
-      : `
-        <div class="calendar-mini-empty">
-          Свободная дата для будущих игр.
-        </div>
-      `;
+    const dayClass = hasGames ? "calendar-day busy-day" : "calendar-day free-day";
+    const dayLabel = hasGames ? "Игра" : "Свободно";
 
     calendarHtml += `
       <div class="${dayClass}">
-        <button class="calendar-day-toggle" type="button" aria-expanded="false">
-          <div class="calendar-day-number">${day}</div>
-          <div class="calendar-day-label">${dayLabel}</div>
-          ${mobileDots}
-        </button>
+        <div class="calendar-day-number">${day}</div>
+        <div class="calendar-day-label">${dayLabel}</div>
 
-        <div class="calendar-day-games-mini">
-          ${gamesListHtml}
-        </div>
+        ${gamesOnThisDay.map((game) => {
+          const status = getGameStatus(game);
+          const statusClass = getStatusClass(status);
+
+          return `
+            <div class="calendar-game">
+              <strong>${escapeHtml(game.title)}</strong>
+              <span>${escapeHtml(game.time)}</span>
+              <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+            </div>
+          `;
+        }).join("")}
       </div>
     `;
   }
 
   calendarGrid.innerHTML = calendarHtml;
-  bindCalendarDayToggles();
-}
-
-function bindCalendarDayToggles() {
-  const calendarDays = document.querySelectorAll(".calendar-day");
-
-  calendarDays.forEach((day) => {
-    const toggle = day.querySelector(".calendar-day-toggle");
-
-    if (!toggle) {
-      return;
-    }
-
-    toggle.addEventListener("click", () => {
-      const isOpen = day.classList.contains("calendar-day-open");
-
-      calendarDays.forEach((otherDay) => {
-        otherDay.classList.remove("calendar-day-open");
-
-        const otherToggle = otherDay.querySelector(".calendar-day-toggle");
-
-        if (otherToggle) {
-          otherToggle.setAttribute("aria-expanded", "false");
-        }
-      });
-
-      if (!isOpen) {
-        day.classList.add("calendar-day-open");
-        toggle.setAttribute("aria-expanded", "true");
-      }
-    });
-  });
 }
 
 function renderOpenDateGames() {
@@ -952,7 +724,7 @@ function renderOpenDateGames() {
     return;
   }
 
-  const openDateGames = getFilteredGames().filter((game) => isOpenDate(game.date));
+  const openDateGames = games.filter((game) => isOpenDate(game.date));
 
   if (openDateGames.length === 0) {
     openDateGamesList.innerHTML = `
@@ -971,7 +743,7 @@ function renderOpenDateGames() {
       <div class="open-date-game">
         <div>
           <strong>${escapeHtml(game.title)}</strong>
-          <p>${escapeHtml(game.master)} • ${escapeHtml(game.time)} • ${escapeHtml(game.playFormat)} • ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</p>
+          <p>${escapeHtml(game.master)} • ${escapeHtml(game.time)} • ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</p>
         </div>
 
         <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
@@ -979,22 +751,14 @@ function renderOpenDateGames() {
     `;
   }).join("");
 }
-
-/* ============================= */
-/* Дайджесты */
-/* ============================= */
-
 function buildDigestFromObject(digest, index) {
-  const title = String(digest.title ?? "").trim();
-  const link = getOptionalSafeUrl(digest.link);
-
   return {
     id: getSafeNumber(digest.id) || Date.now() + index,
-    title: title,
-    description: String(digest.description ?? "").trim(),
-    date: normalizeDigestDateForDisplay(digest.date),
-    link: link,
-    category: String(digest.category ?? "Общее").trim() || "Общее"
+    title: digest.title || "Без названия",
+    description: digest.description || "",
+    date: normalizeDateForDisplay(digest.date),
+    link: getSafeUrl(digest.link),
+    category: digest.category || "Общее"
   };
 }
 
@@ -1012,22 +776,12 @@ function convertCsvToDigests(csvText) {
       const digest = {};
 
       headers.forEach((header, columnIndex) => {
-        if (!header) {
-          return;
-        }
-
         digest[header] = row[columnIndex] || "";
       });
 
       return buildDigestFromObject(digest, index);
     })
-    .filter((digest) => {
-      const normalizedTitle = String(digest.title ?? "").trim().toLowerCase();
-
-      return digest.title &&
-        digest.link &&
-        normalizedTitle !== "без названия";
-    });
+    .filter((digest) => digest.title && digest.link);
 }
 
 function renderDigests() {
@@ -1063,7 +817,7 @@ function renderDigests() {
     </p>
   `;
 
-  digestSelect.onchange = () => {
+  digestSelect.addEventListener("change", () => {
     const selectedId = getSafeNumber(digestSelect.value);
     const selectedDigest = digests.find((digest) => digest.id === selectedId);
 
@@ -1088,7 +842,7 @@ function renderDigests() {
         </a>
       </article>
     `;
-  };
+  });
 }
 
 async function loadDigestsFromGoogleSheet() {
@@ -1102,9 +856,7 @@ async function loadDigestsFromGoogleSheet() {
   try {
     digestSelect.innerHTML = `<option value="">Загружаем дайджесты...</option>`;
 
-    const response = await fetch(`${googleDigestCsvUrl}&cacheBust=${Date.now()}`, {
-      cache: "no-store"
-    });
+    const response = await fetch(googleDigestCsvUrl);
 
     if (!response.ok) {
       throw new Error("Не удалось загрузить таблицу дайджестов");
@@ -1125,11 +877,6 @@ async function loadDigestsFromGoogleSheet() {
     `;
   }
 }
-
-/* ============================= */
-/* Кнопки и запуск */
-/* ============================= */
-
 function bindCalendarButtons() {
   const prevMonthButton = document.querySelector("#prevMonthButton");
   const nextMonthButton = document.querySelector("#nextMonthButton");
@@ -1222,5 +969,21 @@ renderAll();
 bindCalendarButtons();
 bindFilterButtons();
 bindSoonButtons();
-loadGamesFromGoogleSheet();
-loadDigestsFromGoogleSheet();
+
+const pageNeedsGamesData =
+  document.querySelector("#gamesList") ||
+  document.querySelector("#scheduleBox") ||
+  document.querySelector("#calendarGrid") ||
+  document.querySelector("#openDateGamesList");
+
+const pageNeedsDigestsData =
+  document.querySelector("#digestSelect") ||
+  document.querySelector("#digestPreview");
+
+if (pageNeedsGamesData) {
+  loadGamesFromGoogleSheet();
+}
+
+if (pageNeedsDigestsData) {
+  loadDigestsFromGoogleSheet();
+}
