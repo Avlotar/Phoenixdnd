@@ -2,7 +2,7 @@ const vkLink = "https://vk.com/phoenixdnd";
 
 const googleSheetGvizUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/gviz/tq?gid=0";
 const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vScdOaeIeH3w3Uo_Rvh-DX3yRbV4htmrFEM1oM5miAGl4rLnAlhMD1b8IYBtpAViWx3IJsCQd7lYPF9/pub?gid=0&single=true&output=csv";
-const googleDigestCsvUrl = "https://docs.google.com/spreadsheets/d/1yYN3bEeUVrbMzx09afUlC6-qJxljGGG-beEG8U7UZWo/edit?gid=320358313";
+const googleDigestCsvUrl = "https://docs.google.com/spreadsheets/d/1yYN3bEeUVrbMzx09afUlC6-qJxljGGG-beEG8U7UZWo/edit?gid=320358313single=true&output=csv";
 
 let games = [];
 
