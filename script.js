@@ -692,13 +692,11 @@ function renderGames() {
     return `
       <div class="game-card ${hasImageClass}" ${imageStyle}>
         <div class="game-card-content">
-          <div class="game-card-top">
-            <p class="game-type">${escapeHtml(game.type)}</p>
-          </div>
-
           <div class="game-card-spacer"></div>
 
           <div class="game-card-bottom-panel">
+            <p class="game-type game-type-bottom">${escapeHtml(game.type)}</p>
+
             <h3>${escapeHtml(game.title)}</h3>
 
             ${seatsBlock}

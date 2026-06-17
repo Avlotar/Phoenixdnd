@@ -5303,3 +5303,33 @@ video {
     min-height: 90px;
   }
 }
+
+
+/* ============================= */
+/* v3.6.5 — тип игры рядом с названием */
+/* ============================= */
+
+.game-card-top {
+  display: none;
+}
+
+.game-card-bottom-panel .game-type-bottom {
+  margin: 0 0 2px;
+  align-self: flex-start;
+}
+
+.notice-board-section .game-card.has-image .game-card-bottom-panel .game-type-bottom {
+  color: #f2d59a;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.82),
+    0 0 14px rgba(255, 170, 70, 0.22);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-card-bottom-panel .game-type-bottom {
+  color: #6d3816;
+  text-shadow: none;
+}
+
+.game-card-bottom-panel {
+  align-content: end;
+}
