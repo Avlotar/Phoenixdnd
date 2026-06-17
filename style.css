@@ -4952,3 +4952,194 @@ video {
     transform: none;
   }
 }
+
+
+/* ============================= */
+/* v3.6.2 — упрощённые карточки анонсов */
+/* Основа: стабильная v3.6.1 */
+/* ============================= */
+
+/* На карточке остаётся только: тип, название, количество мест, описание, наличие мест */
+.game-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.game-card-top {
+  margin-bottom: 0;
+}
+
+.game-type {
+  margin: 0;
+}
+
+.game-card h3 {
+  margin-bottom: 0;
+}
+
+.game-card-seats-summary {
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.40);
+  border: 1px solid rgba(255, 210, 122, 0.25);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 235, 190, 0.08);
+}
+
+.game-card-seats-summary span {
+  display: block;
+  margin-bottom: 6px;
+  color: #ffd27a;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.game-card-seats-summary strong {
+  display: block;
+  color: #ffe1a3;
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.notice-board-section .game-card:not(.has-image) .game-card-seats-summary {
+  background: rgba(83, 39, 14, 0.10);
+  border-color: rgba(83, 39, 14, 0.18);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-card-seats-summary span,
+.notice-board-section .game-card:not(.has-image) .game-card-seats-summary strong {
+  color: #3a1c0d;
+}
+
+.game-card-bottom {
+  display: flex;
+  margin-top: auto;
+}
+
+.game-card-bottom .game-seats-status {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 42px;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+}
+
+.game-card-bottom .seats-open {
+  color: #062d0a;
+  background: linear-gradient(180deg, #baff8f, #45d651);
+  box-shadow: 0 0 10px rgba(83, 255, 91, 0.45);
+}
+
+.game-card-bottom .seats-low {
+  color: #3a1c00;
+  background: linear-gradient(180deg, #ffe08a, #ff9f2f);
+  box-shadow: 0 0 10px rgba(255, 179, 64, 0.48);
+}
+
+.game-card-bottom .seats-full {
+  color: #fff2f2;
+  background: linear-gradient(180deg, #ff6b6b, #b51414);
+  box-shadow: 0 0 10px rgba(255, 70, 70, 0.52);
+}
+
+.game-card-bottom .seats-unknown {
+  color: #ffe1a3;
+  background: rgba(255, 210, 122, 0.14);
+  border: 1px solid rgba(255, 210, 122, 0.26);
+}
+
+/* У карточек с картинкой оставляем арт видимым, а текст — коротким */
+.notice-board-section .game-card.has-image {
+  min-height: 520px;
+}
+
+.notice-board-section .game-card.has-image .game-card-content {
+  min-height: 520px;
+  justify-content: flex-end;
+}
+
+.notice-board-section .game-card.has-image .game-card-seats-summary {
+  background: rgba(0, 0, 0, 0.52);
+  border-color: rgba(255, 210, 122, 0.28);
+  backdrop-filter: blur(3px);
+}
+
+/* Кнопка описания теперь главный переход к полной информации */
+.game-description-button {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  text-align: center;
+}
+
+/* В модальном окне вся информация показывается аккуратной сеткой */
+.game-modal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.game-modal-info-grid div {
+  padding: 12px 13px;
+  border-radius: 15px;
+  background: rgba(8, 3, 5, 0.48);
+  border: 1px solid rgba(255, 210, 122, 0.18);
+}
+
+.game-modal-info-grid span {
+  display: block;
+  margin-bottom: 5px;
+  color: #d9a441;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.game-modal-info-grid strong {
+  display: block;
+  color: #f7ead2;
+  font-size: 17px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.game-modal-description h3 {
+  margin: 0 0 12px;
+  color: #ffd27a;
+  font-size: 26px;
+}
+
+@media (max-width: 768px) {
+  .notice-board-section .game-card.has-image {
+    min-height: 470px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    min-height: 470px;
+  }
+
+  .game-card-seats-summary strong {
+    font-size: 20px;
+  }
+
+  .game-modal-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .notice-board-section .game-card.has-image {
+    min-height: 430px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    min-height: 430px;
+  }
+}

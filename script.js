@@ -655,33 +655,14 @@ function renderGames() {
       </button>
     ` : "";
 
+    const seatsSummaryText = totalSeats <= 0
+      ? "Места уточняются"
+      : `${freeSeats} из ${totalSeats} свободно`;
+
     const seatsBlock = `
-      <div class="game-seats-card ${seatsStatusClass}">
-        <div class="game-seats-header">
-          <span class="game-seats-title">🪑 Места</span>
-          <span class="game-seats-status">${escapeHtml(seatsStatusText)}</span>
-        </div>
-
-        <div class="game-seats-numbers">
-          <div>
-            <strong>${escapeHtml(totalSeats)}</strong>
-            <span>всего</span>
-          </div>
-
-          <div>
-            <strong>${escapeHtml(freeSeats)}</strong>
-            <span>свободно</span>
-          </div>
-
-          <div>
-            <strong>${escapeHtml(takenSeats)}</strong>
-            <span>занято</span>
-          </div>
-        </div>
-
-        <div class="game-seats-bar" aria-hidden="true">
-          <div class="game-seats-bar-fill" style="width: ${seatsPercent}%;"></div>
-        </div>
+      <div class="game-card-seats-summary ${seatsStatusClass}">
+        <span>🪑 Количество мест</span>
+        <strong>${escapeHtml(seatsSummaryText)}</strong>
       </div>
     `;
 
@@ -690,27 +671,17 @@ function renderGames() {
         <div class="game-card-content">
           <div class="game-card-top">
             <p class="game-type">${escapeHtml(game.type)}</p>
-            <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
           </div>
 
           <h3>${escapeHtml(game.title)}</h3>
 
-          ${descriptionBlock}
-
-          <div class="game-meta">
-            <span>📅 ${escapeHtml(game.date)}</span>
-            <span>🕖 ${escapeHtml(game.time)}</span>
-            <span>📍 ${escapeHtml(game.playFormat)}</span>
-            <span>🎭 ${escapeHtml(game.master)}</span>
-            <span>⭐ ${escapeHtml(game.level)}</span>
-            <span>💰 ${escapeHtml(game.price)}</span>
-          </div>
-
           ${seatsBlock}
 
-          <a class="button game-button" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
-            Анонс / запись ВК
-          </a>
+          ${descriptionBlock}
+
+          <div class="game-card-bottom">
+            <span class="game-seats-status ${seatsStatusClass}">${escapeHtml(seatsStatusText)}</span>
+          </div>
         </div>
       </div>
     `;
@@ -1534,17 +1505,41 @@ function openGameDescriptionModal(game) {
 
       <h2 id="gameModalTitle">${escapeHtml(game.title)}</h2>
 
-      <div class="game-modal-meta">
-        <span>📅 ${escapeHtml(game.date)}</span>
-        <span>🕖 ${escapeHtml(game.time)}</span>
-        <span>📍 ${escapeHtml(game.playFormat)}</span>
-        <span>🎭 ${escapeHtml(game.master)}</span>
-        <span>⭐ ${escapeHtml(game.level)}</span>
-        <span>💰 ${escapeHtml(game.price)}</span>
+      <div class="game-modal-info-grid">
+        <div>
+          <span>Дата</span>
+          <strong>📅 ${escapeHtml(game.date)}</strong>
+        </div>
+
+        <div>
+          <span>Время</span>
+          <strong>🕖 ${escapeHtml(game.time)}</strong>
+        </div>
+
+        <div>
+          <span>Формат игры</span>
+          <strong>📍 ${escapeHtml(game.playFormat)}</strong>
+        </div>
+
+        <div>
+          <span>Мастер</span>
+          <strong>🎭 ${escapeHtml(game.master)}</strong>
+        </div>
+
+        <div>
+          <span>Уровень персонажей</span>
+          <strong>⭐ ${escapeHtml(game.level)}</strong>
+        </div>
+
+        <div>
+          <span>Стоимость</span>
+          <strong>💰 ${escapeHtml(game.price)}</strong>
+        </div>
       </div>
     </div>
 
     <div class="game-modal-description">
+      <h3>Описание</h3>
       ${formatTextWithLinks(game.description)}
     </div>
 
