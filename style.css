@@ -5260,3 +5260,46 @@ video {
     min-height: 500px;
   }
 }
+
+
+/* ============================= */
+/* v3.6.4 — название прикреплено к блоку мест */
+/* ============================= */
+
+.game-card-bottom-panel h3 {
+  margin: 0 0 2px;
+}
+
+/* Верх карточки теперь служит только для типа игры, а название живёт рядом с местами */
+.game-card-content > h3 {
+  display: none;
+}
+
+.notice-board-section .game-card.has-image .game-card-bottom-panel h3 {
+  color: #ffd27a;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.85),
+    0 0 18px rgba(255, 150, 55, 0.35);
+}
+
+.notice-board-section .game-card:not(.has-image) .game-card-bottom-panel h3 {
+  color: #3a1c0d;
+  text-shadow: none;
+}
+
+/* Чуть больше воздуха сверху, чтобы картинку было видно */
+.game-card-spacer {
+  min-height: 190px;
+}
+
+@media (max-width: 768px) {
+  .game-card-spacer {
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 420px) {
+  .game-card-spacer {
+    min-height: 90px;
+  }
+}

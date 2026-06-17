@@ -696,11 +696,11 @@ function renderGames() {
             <p class="game-type">${escapeHtml(game.type)}</p>
           </div>
 
-          <h3>${escapeHtml(game.title)}</h3>
-
           <div class="game-card-spacer"></div>
 
           <div class="game-card-bottom-panel">
+            <h3>${escapeHtml(game.title)}</h3>
+
             ${seatsBlock}
 
             ${descriptionBlock}
