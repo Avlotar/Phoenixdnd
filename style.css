@@ -4817,3 +4817,138 @@ body.modal-open {
     text-align: center;
   }
 }
+
+
+/* ============================= */
+/* v3.6.1 — безопасная оптимизация под устройства */
+/* Основа: стабильная v3.6, без перестройки карточек */
+/* ============================= */
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* На планшетах и не очень широких экранах карточки не должны сжиматься в три тесные колонки */
+@media (max-width: 1120px) {
+  .game-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .container {
+    width: 94%;
+  }
+}
+
+/* Телефон: делаем всё одной колонкой и убираем причины горизонтального вылета */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 28px 12px;
+  }
+
+  .section {
+    padding: 20px 14px;
+  }
+
+  .dropdown-filter-panel {
+    grid-template-columns: 1fr !important;
+  }
+
+  .filter-field,
+  .filter-field select,
+  .filter-reset-button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .notice-board-section .game-list,
+  .game-list {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  .notice-board-section .game-card,
+  .game-card {
+    max-width: 100%;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 520px;
+  }
+
+  .game-card-content {
+    min-width: 0;
+  }
+
+  .game-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .game-meta span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .game-description-button,
+  .game-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .game-seats-numbers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .game-seats-numbers div {
+    min-width: 0;
+  }
+}
+
+/* Маленький телефон: информация в одну колонку, чтобы ничего не упиралось в края */
+@media (max-width: 420px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .section {
+    padding: 18px 12px;
+  }
+
+  .game-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 500px;
+  }
+
+  .game-seats-numbers strong {
+    font-size: 18px;
+  }
+
+  .game-seats-numbers span {
+    font-size: 11px;
+  }
+}
+
+/* На сенсорных устройствах убираем лишние hover-сдвиги, чтобы карточки не прыгали */
+@media (hover: none) {
+  .notice-board-section .game-card:hover,
+  .notice-board-section .game-card.has-image:hover {
+    transform: none;
+  }
+}
