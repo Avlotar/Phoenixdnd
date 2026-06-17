@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+<stop stop-color="#2E1320"/>
+<stop offset="1" stop-color="#0E0710"/>
+</linearGradient>
+<radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 290) rotate(90) scale(260 380)">
+<stop stop-color="#FFCF7B" stop-opacity="0.55"/>
+<stop offset="1" stop-color="#FFCF7B" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="frame" x1="180" y1="110" x2="1020" y2="690" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F4D08A"/>
+<stop offset="1" stop-color="#9E5B21"/>
+</linearGradient>
+<linearGradient id="panel" x1="220" y1="150" x2="980" y2="650" gradientUnits="userSpaceOnUse">
+<stop stop-color="#341917"/>
+<stop offset="1" stop-color="#190C11"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="800" fill="url(#bg)"/>
+<rect width="1200" height="800" fill="url(#glow)"/>
+<circle cx="1030" cy="130" r="4" fill="#FFD27A" fill-opacity="0.8"/>
+<circle cx="1070" cy="180" r="3" fill="#FFD27A" fill-opacity="0.55"/>
+<circle cx="1100" cy="145" r="2.5" fill="#FFD27A" fill-opacity="0.5"/>
+<circle cx="150" cy="160" r="3" fill="#FFD27A" fill-opacity="0.35"/>
+<rect x="180" y="110" width="840" height="580" rx="28" fill="#0B0608" stroke="url(#frame)" stroke-width="4"/>
+<rect x="210" y="140" width="780" height="520" rx="22" fill="url(#panel)" stroke="#6E4121" stroke-opacity="0.65"/>
+<path d="M600 214c-89 0-162 73-162 162 0 88 73 161 162 161 89 0 162-73 162-161 0-89-73-162-162-162Zm0 46c27 0 49 22 49 49s-22 49-49 49-49-22-49-49 22-49 49-49Zm-1 231c-48 0-90-22-118-57 1-40 79-62 119-62 40 0 118 22 119 62-28 35-71 57-120 57Z" fill="#FFD27A" fill-opacity="0.18"/>
+<g filter="url(#none)">
+<path d="M611 233c41 2 74 36 74 78 0 43-35 78-78 78-42 0-77-33-78-75-2-43 35-81 82-81Zm-6 34c-24 0-44 20-44 44 0 25 20 45 44 45 25 0 45-20 45-45 0-24-20-44-45-44Zm-14 118h29l-7 90 29 30-22 20-37-39 8-101Z" fill="#FFD27A"/>
+</g>
+<path d="M360 555H840" stroke="#A8622A" stroke-opacity="0.65" stroke-width="2"/>
+<text x="600" y="580" text-anchor="middle" fill="#FFD27A" font-size="54" font-family="Georgia, serif" font-weight="700">Игры под ключ</text>
+<text x="600" y="627" text-anchor="middle" fill="#F3DFBD" font-size="28" font-family="Georgia, serif">Комната готовится к приёму заказных приключений</text>
+<text x="600" y="664" text-anchor="middle" fill="#D7B983" font-size="22" font-family="Georgia, serif">Скоро здесь поселятся форматы, цены и особые игровые вечера</text>
+<path d="M270 200c44-27 88-39 133-39" stroke="#B16A2D" stroke-opacity="0.45" stroke-width="4" stroke-linecap="round"/>
+<path d="M929 200c-44-27-88-39-133-39" stroke="#B16A2D" stroke-opacity="0.45" stroke-width="4" stroke-linecap="round"/>
+</svg>
