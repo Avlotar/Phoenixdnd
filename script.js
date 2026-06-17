@@ -660,9 +660,32 @@ function renderGames() {
       : `${freeSeats} из ${totalSeats} свободно`;
 
     const seatsBlock = `
-      <div class="game-card-seats-summary ${seatsStatusClass}">
-        <span>🪑 Количество мест</span>
-        <strong>${escapeHtml(seatsSummaryText)}</strong>
+      <div class="game-seats-card game-card-seats-full ${seatsStatusClass}">
+        <div class="game-seats-header">
+          <span class="game-seats-title">🪑 Места</span>
+          <span class="game-seats-status">${escapeHtml(seatsStatusText)}</span>
+        </div>
+
+        <div class="game-seats-numbers">
+          <div>
+            <strong>${escapeHtml(totalSeats)}</strong>
+            <span>всего</span>
+          </div>
+
+          <div>
+            <strong>${escapeHtml(freeSeats)}</strong>
+            <span>свободно</span>
+          </div>
+
+          <div>
+            <strong>${escapeHtml(takenSeats)}</strong>
+            <span>занято</span>
+          </div>
+        </div>
+
+        <div class="game-seats-bar" aria-hidden="true">
+          <div class="game-seats-bar-fill" style="width: ${seatsPercent}%;"></div>
+        </div>
       </div>
     `;
 
@@ -675,12 +698,16 @@ function renderGames() {
 
           <h3>${escapeHtml(game.title)}</h3>
 
-          ${seatsBlock}
+          <div class="game-card-spacer"></div>
 
-          ${descriptionBlock}
+          <div class="game-card-bottom-panel">
+            ${seatsBlock}
 
-          <div class="game-card-bottom">
-            <span class="game-seats-status ${seatsStatusClass}">${escapeHtml(seatsStatusText)}</span>
+            ${descriptionBlock}
+
+            <div class="game-card-bottom">
+              <span class="game-seats-status ${seatsStatusClass}">${escapeHtml(seatsStatusText)}</span>
+            </div>
           </div>
         </div>
       </div>

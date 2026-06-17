@@ -5143,3 +5143,120 @@ video {
     min-height: 430px;
   }
 }
+
+
+/* ============================= */
+/* v3.6.3 — нижний блок карточки и ползунок мест */
+/* Основа: стабильная v3.6.2 */
+/* ============================= */
+
+.game-card-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.game-card-spacer {
+  flex: 1 1 auto;
+  min-height: 150px;
+}
+
+.game-card-bottom-panel {
+  display: grid;
+  gap: 12px;
+  margin-top: auto;
+}
+
+/* Возвращаем красивый блок мест именно в нижнюю часть карточки */
+.game-card-bottom-panel .game-seats-card {
+  margin-top: 0;
+}
+
+.game-card-bottom-panel .game-seats-bar {
+  height: 10px;
+}
+
+.game-card-bottom-panel .game-seats-bar-fill {
+  box-shadow:
+    0 0 12px rgba(255, 190, 90, 0.36),
+    0 0 22px rgba(255, 128, 55, 0.20);
+}
+
+/* Убираем старый компактный блок из v3.6.2, если где-то остался */
+.game-card-seats-summary {
+  display: none;
+}
+
+/* У карточек с картинкой нижний блок работает как аккуратная панель поверх арта */
+.notice-board-section .game-card.has-image .game-card-bottom-panel {
+  padding: 12px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(10, 4, 4, 0.18), rgba(10, 4, 4, 0.72));
+  border: 1px solid rgba(255, 210, 122, 0.18);
+  backdrop-filter: blur(2px);
+}
+
+.notice-board-section .game-card.has-image .game-card-content {
+  justify-content: stretch;
+}
+
+.notice-board-section .game-card.has-image .game-seats-card {
+  background: rgba(0, 0, 0, 0.54);
+  border-color: rgba(255, 210, 122, 0.26);
+}
+
+/* Кнопка описания остаётся в нижнем блоке и не прыгает */
+.game-card-bottom-panel .game-description-button {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+}
+
+/* Индикатор наличия мест закреплён самым нижним элементом */
+.game-card-bottom {
+  margin-top: 0;
+}
+
+.game-card-bottom .game-seats-status {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 42px;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* На телефоне не создаём огромную пустоту внутри карточки */
+@media (max-width: 768px) {
+  .game-card-spacer {
+    min-height: 90px;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 540px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    min-height: 540px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-bottom-panel {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .game-card-spacer {
+    min-height: 70px;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 500px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    min-height: 500px;
+  }
+}
