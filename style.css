@@ -5002,3 +5002,100 @@ body.modal-open {
     align-items: flex-start;
   }
 }
+
+
+/* ============================= */
+/* v3.7.2 — карточки анонсов крупнее */
+/* ============================= */
+
+/* На доске делаем карточки шире: вместо трёх тесных карточек чаще будут две крупные */
+.notice-board-section .game-list {
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 24px;
+}
+
+/* Сами карточки становятся просторнее */
+.notice-board-section .game-card {
+  padding: 28px;
+}
+
+/* Карточки с картинкой делаем выше, чтобы было видно арт, а не только текст */
+.notice-board-section .game-card.has-image {
+  min-height: 720px;
+  background-position: center top;
+}
+
+/* Затемнение делаем мягче сверху, чтобы картинка была виднее */
+.notice-board-section .game-card.has-image {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.00) 0%,
+      rgba(0, 0, 0, 0.12) 32%,
+      rgba(0, 0, 0, 0.62) 64%,
+      rgba(0, 0, 0, 0.94) 100%
+    ),
+    var(--game-image-url);
+}
+
+/* Текстовая часть остаётся снизу, но получает больше воздуха */
+.notice-board-section .game-card.has-image .game-card-content {
+  padding: 26px;
+}
+
+/* Метаданные чуть крупнее и читабельнее */
+.notice-board-section .game-card.has-image .game-meta span,
+.notice-board-section .game-meta span {
+  min-height: 42px;
+}
+
+/* Блок мест тоже чуть просторнее */
+.game-seats-card {
+  padding: 15px;
+}
+
+.game-seats-numbers div {
+  padding: 10px 8px;
+}
+
+/* На средних экранах всё равно держим две нормальные карточки */
+@media (max-width: 1180px) {
+  .notice-board-section .game-list {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 680px;
+  }
+}
+
+/* На телефоне карточка одна, но выше — чтобы картинка была видна */
+@media (max-width: 768px) {
+  .notice-board-section .game-list {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .notice-board-section .game-card {
+    padding: 22px;
+  }
+
+  .notice-board-section .game-card.has-image {
+    min-height: 620px;
+  }
+
+  .notice-board-section .game-card.has-image .game-card-content {
+    padding: 22px;
+  }
+}
+
+/* На совсем маленьких телефонах не делаем карточку чудовищно высокой, но оставляем арт видимым */
+@media (max-width: 420px) {
+  .notice-board-section .game-card.has-image {
+    min-height: 560px;
+  }
+
+  .notice-board-section .game-card {
+    padding: 20px;
+  }
+}
