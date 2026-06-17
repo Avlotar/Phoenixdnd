@@ -4590,3 +4590,230 @@ section {
     margin: 0 auto;
   }
 }
+
+
+/* ============================= */
+/* v3.6 — большое окно описания игры */
+/* ============================= */
+
+.game-description-button {
+  align-self: flex-start;
+  margin: 4px 0 12px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.game-modal-overlay[hidden] {
+  display: none;
+}
+
+.game-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, rgba(255, 190, 90, 0.10), transparent 42%),
+    rgba(4, 2, 4, 0.74);
+  backdrop-filter: blur(7px);
+}
+
+.game-modal {
+  --modal-game-image-url: url("images/tavern-bg.png");
+
+  position: relative;
+  z-index: 1;
+  width: min(920px, 100%);
+  max-height: min(86vh, 820px);
+  overflow: hidden auto;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 210, 122, 0.38);
+  background:
+    linear-gradient(180deg, rgba(29, 12, 10, 0.96), rgba(9, 4, 6, 0.98));
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.62),
+    0 0 40px rgba(255, 150, 55, 0.12),
+    inset 0 1px 0 rgba(255, 235, 190, 0.10);
+}
+
+.game-modal::before {
+  content: "";
+  position: absolute;
+  inset: -28px;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(6, 2, 4, 0.34), rgba(6, 2, 4, 0.84)),
+    var(--modal-game-image-url);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.34;
+  transform: scale(1.08);
+  animation: gameModalDrift 24s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.game-modal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 210, 122, 0.16), transparent 42%),
+    linear-gradient(180deg, rgba(26, 10, 8, 0.42), rgba(8, 3, 5, 0.86));
+  pointer-events: none;
+}
+
+.game-modal-inner {
+  position: relative;
+  z-index: 1;
+  padding: 34px;
+}
+
+.game-modal-close {
+  position: sticky;
+  top: 18px;
+  float: right;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  margin: 18px 18px 0 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 210, 122, 0.42);
+  background: rgba(8, 3, 5, 0.78);
+  color: #ffd27a;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
+}
+
+.game-modal-close:hover,
+.game-modal-close:focus-visible {
+  background: rgba(255, 210, 122, 0.16);
+  outline: none;
+}
+
+.game-modal-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.game-modal-kicker > span:first-child {
+  color: #d9a441;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.game-modal h2 {
+  margin: 0;
+  color: #ffd27a;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.05;
+  text-shadow:
+    0 0 22px rgba(255, 150, 55, 0.18),
+    0 6px 28px rgba(0, 0, 0, 0.44);
+}
+
+.game-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 0;
+}
+
+.game-modal-meta span {
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: rgba(255, 210, 122, 0.09);
+  border: 1px solid rgba(255, 210, 122, 0.18);
+  color: #f3dfbd;
+  font-size: 15px;
+}
+
+.game-modal-description {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(8, 3, 5, 0.52);
+  border: 1px solid rgba(255, 210, 122, 0.18);
+  color: #f7ead2;
+  font-size: 19px;
+  line-height: 1.65;
+  white-space: normal;
+}
+
+.game-modal-description a {
+  color: #ffd27a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.game-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+@keyframes gameModalDrift {
+  0% {
+    transform: scale(1.08) translate3d(-10px, -6px, 0);
+    filter: brightness(0.95) saturate(1);
+  }
+
+  100% {
+    transform: scale(1.16) translate3d(14px, 10px, 0);
+    filter: brightness(1.10) saturate(1.08);
+  }
+}
+
+@media (max-width: 768px) {
+  .game-modal-overlay {
+    padding: 12px;
+  }
+
+  .game-modal {
+    max-height: 90vh;
+    border-radius: 22px;
+  }
+
+  .game-modal-inner {
+    padding: 24px 18px 22px;
+  }
+
+  .game-modal-close {
+    top: 12px;
+    width: 40px;
+    height: 40px;
+    margin: 12px 12px 0 0;
+    font-size: 26px;
+  }
+
+  .game-modal-description {
+    padding: 18px;
+    font-size: 17px;
+    line-height: 1.58;
+  }
+
+  .game-modal-actions .button {
+    width: 100%;
+    text-align: center;
+  }
+}

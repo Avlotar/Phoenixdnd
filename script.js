@@ -262,6 +262,8 @@ function buildGameFromObject(game, index) {
     totalSeats: getSafeNumber(game.totalSeats),
     freeSeats: getSafeNumber(game.freeSeats),
     announcementUrl: getSafeUrl(game.announcementUrl),
+    detailsUrl: getOptionalSafeUrl(game.detailsUrl || game.documentUrl || game.docUrl || game.fullDescriptionUrl),
+    detailsTitle: game.detailsTitle || "Дополнительные материалы",
     imageUrl: getSafeImageUrl(game.imageUrl),
     playFormat: game.playFormat || "Онлайн"
   };
@@ -648,10 +650,9 @@ function renderGames() {
     const imageStyle = imageUrl ? `style="--game-image-url: url('${safeImageForCss}');"` : "";
 
     const descriptionBlock = game.description ? `
-      <details class="game-description-details">
-        <summary>Описание</summary>
-        <p>${escapeHtml(game.description)}</p>
-      </details>
+      <button class="button game-description-button" type="button" data-game-description-id="${escapeHtml(game.id)}">
+        Описание
+      </button>
     ` : "";
 
     const seatsBlock = `
@@ -1426,6 +1427,178 @@ function bindNavigationMenu() {
   });
 }
 
+
+function findGameById(gameId) {
+  return games.find((game) => {
+    return String(game.id) === String(gameId);
+  });
+}
+
+function formatTextWithLinks(value) {
+  const rawText = String(value ?? "").trim();
+
+  if (!rawText) {
+    return "<p>Описание скоро появится.</p>";
+  }
+
+  const urlPattern = /(https?:\/\/[^\s<]+)/g;
+  const parts = rawText.split(urlPattern);
+
+  return parts.map((part) => {
+    if (!part) {
+      return "";
+    }
+
+    if (urlPattern.test(part)) {
+      urlPattern.lastIndex = 0;
+
+      const safeUrl = getOptionalSafeUrl(part);
+
+      if (!safeUrl) {
+        return escapeHtml(part);
+      }
+
+      return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(part)}</a>`;
+    }
+
+    urlPattern.lastIndex = 0;
+
+    return escapeHtml(part).replace(/\n/g, "<br>");
+  }).join("");
+}
+
+function getGameDescriptionModal() {
+  let modal = document.querySelector("#gameDescriptionModal");
+
+  if (modal) {
+    return modal;
+  }
+
+  modal = document.createElement("div");
+  modal.id = "gameDescriptionModal";
+  modal.className = "game-modal-overlay";
+  modal.hidden = true;
+  modal.innerHTML = `
+    <div class="game-modal-backdrop" data-game-modal-close></div>
+
+    <article class="game-modal" role="dialog" aria-modal="true" aria-labelledby="gameModalTitle">
+      <button class="game-modal-close" type="button" aria-label="Закрыть описание" data-game-modal-close>×</button>
+      <div class="game-modal-inner"></div>
+    </article>
+  `;
+
+  document.body.appendChild(modal);
+
+  return modal;
+}
+
+function closeGameDescriptionModal() {
+  const modal = document.querySelector("#gameDescriptionModal");
+
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove("open");
+  modal.hidden = true;
+  document.body.classList.remove("modal-open");
+}
+
+function openGameDescriptionModal(game) {
+  if (!game) {
+    return;
+  }
+
+  const modal = getGameDescriptionModal();
+  const modalCard = modal.querySelector(".game-modal");
+  const modalInner = modal.querySelector(".game-modal-inner");
+  const status = getGameStatus(game);
+  const statusClass = getStatusClass(status);
+  const imageUrl = getSafeImageUrl(game.imageUrl);
+  const announcementUrl = getSafeUrl(game.announcementUrl);
+  const detailsUrl = getOptionalSafeUrl(game.detailsUrl);
+  const detailsTitle = game.detailsTitle || "Дополнительные материалы";
+
+  if (modalCard) {
+    const backgroundUrl = imageUrl || "images/tavern-bg.png";
+    const safeBackgroundUrl = String(backgroundUrl).replaceAll("'", "%27");
+    modalCard.style.setProperty("--modal-game-image-url", `url('${safeBackgroundUrl}')`);
+  }
+
+  modalInner.innerHTML = `
+    <div class="game-modal-header">
+      <div class="game-modal-kicker">
+        <span>${escapeHtml(game.type)}</span>
+        <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+      </div>
+
+      <h2 id="gameModalTitle">${escapeHtml(game.title)}</h2>
+
+      <div class="game-modal-meta">
+        <span>📅 ${escapeHtml(game.date)}</span>
+        <span>🕖 ${escapeHtml(game.time)}</span>
+        <span>📍 ${escapeHtml(game.playFormat)}</span>
+        <span>🎭 ${escapeHtml(game.master)}</span>
+        <span>⭐ ${escapeHtml(game.level)}</span>
+        <span>💰 ${escapeHtml(game.price)}</span>
+      </div>
+    </div>
+
+    <div class="game-modal-description">
+      ${formatTextWithLinks(game.description)}
+    </div>
+
+    <div class="game-modal-actions">
+      <a class="button big" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
+        Анонс / запись ВК
+      </a>
+
+      ${detailsUrl ? `
+        <a class="button big" href="${detailsUrl}" target="_blank" rel="noopener noreferrer">
+          ${escapeHtml(detailsTitle)}
+        </a>
+      ` : ""}
+    </div>
+  `;
+
+  modal.hidden = false;
+  modal.classList.add("open");
+  document.body.classList.add("modal-open");
+
+  const closeButton = modal.querySelector(".game-modal-close");
+
+  if (closeButton) {
+    closeButton.focus();
+  }
+}
+
+function bindGameDescriptionModal() {
+  document.addEventListener("click", (event) => {
+    const descriptionButton = event.target.closest("[data-game-description-id]");
+
+    if (descriptionButton) {
+      const gameId = descriptionButton.dataset.gameDescriptionId;
+      const game = findGameById(gameId);
+
+      openGameDescriptionModal(game);
+      return;
+    }
+
+    const closeButton = event.target.closest("[data-game-modal-close]");
+
+    if (closeButton) {
+      closeGameDescriptionModal();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeGameDescriptionModal();
+    }
+  });
+}
+
+
 function bindSoonButtons() {
   const soonButtons = document.querySelectorAll(".soon");
 
@@ -1448,6 +1621,7 @@ renderAll();
 bindCalendarButtons();
 bindFilterButtons();
 bindSoonButtons();
+bindGameDescriptionModal();
 bindNavigationMenu();
 loadGamesFromGoogleSheet();
 loadDigestsFromGoogleSheet();
