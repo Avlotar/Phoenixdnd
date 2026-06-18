@@ -1030,6 +1030,29 @@ function convertCsvToNews(csvText) {
     });
 }
 
+
+function getNewsIcon(type) {
+  const normalizedType = String(type ?? "").trim().toLowerCase();
+
+  if (normalizedType.includes("игра")) {
+    return "🎲";
+  }
+
+  if (normalizedType.includes("хроник")) {
+    return "📖";
+  }
+
+  if (normalizedType.includes("объяв")) {
+    return "📌";
+  }
+
+  if (normalizedType.includes("обнов")) {
+    return "✨";
+  }
+
+  return "🕯️";
+}
+
 function renderNews() {
   const newsList = document.querySelector("#newsList");
 
@@ -1039,19 +1062,22 @@ function renderNews() {
 
   if (news.length === 0) {
     newsList.innerHTML = `
-      <article class="news-bulletin news-empty-card">
-        <p class="news-kicker">Сегодня в Гнезде</p>
-        <h3>Вести пока не загрузились</h3>
-        <p>
-          Если ты только что обновил таблицу, подожди пару минут и обнови страницу.
-          Новости подтянутся сюда автоматически из Google Таблицы.
-        </p>
+      <article class="news-canvas news-canvas-empty">
+        <div class="news-canvas-icon">🕯️</div>
+        <div>
+          <p class="news-kicker">Сегодня в Гнезде</p>
+          <h3>Вести пока не загрузились</h3>
+          <p>
+            Если ты только что обновил таблицу, подожди пару минут и обнови страницу.
+            Новости подтянутся сюда автоматически из Google Таблицы.
+          </p>
+        </div>
       </article>
     `;
     return;
   }
 
-  const visibleNews = news.slice(0, 5);
+  const visibleNews = news.slice(0, 6);
 
   newsList.innerHTML = visibleNews.map((newsItem, index) => {
     const linkButton = newsItem.link
@@ -1062,14 +1088,21 @@ function renderNews() {
       `
       : "";
 
-    const featuredClass = index === 0 ? "news-bulletin-featured" : "";
+    const featuredClass = index === 0 ? "news-canvas-featured" : "";
+    const icon = getNewsIcon(newsItem.type);
 
     return `
-      <article class="news-bulletin ${featuredClass}">
-        <p class="news-kicker">${escapeHtml(newsItem.type)} • ${escapeHtml(newsItem.date)}</p>
-        <h3>${escapeHtml(newsItem.title)}</h3>
-        <p>${escapeHtml(newsItem.description)}</p>
-        ${linkButton}
+      <article class="news-canvas ${featuredClass}">
+        <div class="news-canvas-glow" aria-hidden="true"></div>
+
+        <div class="news-canvas-icon">${icon}</div>
+
+        <div class="news-canvas-content">
+          <p class="news-kicker">${escapeHtml(newsItem.type)} • ${escapeHtml(newsItem.date)}</p>
+          <h3>${escapeHtml(newsItem.title)}</h3>
+          <p>${escapeHtml(newsItem.description)}</p>
+          ${linkButton}
+        </div>
       </article>
     `;
   }).join("");

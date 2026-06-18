@@ -1,4 +1,4 @@
-const accordionSections = document.querySelectorAll("main .section");
+const accordionSections = document.querySelectorAll("main .section:not(.no-accordion)");
 
 function getFixedMenuOffset() {
   const nav = document.querySelector(".top-nav");

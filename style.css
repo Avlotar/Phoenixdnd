@@ -5333,3 +5333,194 @@ video {
 .game-card-bottom-panel {
   align-content: end;
 }
+
+
+/* ============================= */
+/* v3.7.0 — новости полотнами на главной */
+/* ============================= */
+
+.news-canvas-section {
+  overflow: hidden;
+}
+
+.news-canvas-section > h2 {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #ffd27a;
+  font-size: 38px;
+}
+
+.news-canvas-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 28px 0;
+}
+
+.news-canvas {
+  position: relative;
+  min-height: 220px;
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 26px;
+  overflow: hidden;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 210, 122, 0.20), transparent 38%),
+    radial-gradient(circle at bottom right, rgba(119, 64, 255, 0.14), transparent 42%),
+    linear-gradient(135deg, rgba(55, 22, 14, 0.92), rgba(12, 5, 9, 0.96));
+  border: 1px solid rgba(255, 210, 122, 0.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 190, 0.10),
+    0 16px 38px rgba(0, 0, 0, 0.28),
+    0 0 28px rgba(255, 150, 55, 0.07);
+}
+
+.news-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 210, 122, 0.18);
+  pointer-events: none;
+}
+
+.news-canvas-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -90px;
+  top: -110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 210, 122, 0.20), transparent 68%);
+  filter: blur(2px);
+  opacity: 0.9;
+}
+
+.news-canvas-featured {
+  grid-column: 1 / -1;
+  min-height: 300px;
+  grid-template-columns: 96px 1fr;
+  padding: 34px;
+  background:
+    linear-gradient(90deg, rgba(8, 3, 5, 0.70), rgba(8, 3, 5, 0.24)),
+    radial-gradient(circle at top left, rgba(255, 210, 122, 0.26), transparent 42%),
+    radial-gradient(circle at bottom right, rgba(119, 64, 255, 0.18), transparent 46%),
+    url("images/tavern-bg.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.news-canvas-icon {
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #ffd27a;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 235, 185, 0.34), rgba(255, 150, 55, 0.10)),
+    rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 210, 122, 0.38);
+  box-shadow:
+    0 0 24px rgba(255, 150, 55, 0.16),
+    inset 0 1px 0 rgba(255, 235, 190, 0.14);
+  font-size: 30px;
+}
+
+.news-canvas-featured .news-canvas-icon {
+  width: 82px;
+  height: 82px;
+  font-size: 38px;
+}
+
+.news-canvas-content {
+  position: relative;
+  z-index: 1;
+}
+
+.news-canvas h3 {
+  margin: 0 0 10px;
+  color: #ffd27a;
+  font-size: 28px;
+  line-height: 1.15;
+  text-shadow:
+    0 0 20px rgba(255, 150, 55, 0.16),
+    0 4px 22px rgba(0, 0, 0, 0.40);
+}
+
+.news-canvas-featured h3 {
+  font-size: clamp(34px, 4vw, 52px);
+  max-width: 780px;
+}
+
+.news-canvas p {
+  margin: 0;
+  color: #f3dfbd;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.news-canvas .news-kicker {
+  margin-bottom: 10px !important;
+}
+
+.news-canvas .news-button {
+  margin-top: 18px;
+}
+
+.news-canvas-empty {
+  grid-column: 1 / -1;
+}
+
+/* Новости теперь не аккордеон, но остальные разделы остаются раскрывающимися */
+.no-accordion .accordion-title,
+.no-accordion .accordion-body {
+  display: contents;
+}
+
+@media (max-width: 900px) {
+  .news-canvas-list {
+    grid-template-columns: 1fr;
+  }
+
+  .news-canvas,
+  .news-canvas-featured {
+    grid-column: auto;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .news-canvas-section > h2 {
+    font-size: 30px;
+  }
+
+  .news-canvas,
+  .news-canvas-featured {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+
+  .news-canvas-icon,
+  .news-canvas-featured .news-canvas-icon {
+    width: 62px;
+    height: 62px;
+    font-size: 28px;
+  }
+
+  .news-canvas h3,
+  .news-canvas-featured h3 {
+    font-size: 28px;
+  }
+
+  .news-canvas p {
+    font-size: 16px;
+  }
+}
