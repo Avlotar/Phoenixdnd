@@ -5558,3 +5558,243 @@ video {
     min-height: 42px;
   }
 }
+
+
+/* ============================= */
+/* v3.7.2 — страница “Сводка от Гарда” */
+/* ============================= */
+
+.gard-report-nav {
+  color: #ffd27a !important;
+  border: 1px solid rgba(255, 210, 122, 0.28);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 210, 122, 0.13), rgba(76, 32, 18, 0.20));
+}
+
+.gard-report-nav:hover,
+.gard-report-nav.current-page {
+  color: #fff0c2 !important;
+  border-color: rgba(255, 210, 122, 0.62);
+  background:
+    linear-gradient(180deg, rgba(255, 210, 122, 0.24), rgba(116, 54, 22, 0.34));
+  box-shadow: 0 0 18px rgba(255, 150, 55, 0.14);
+}
+
+.gard-report-section {
+  overflow: hidden;
+}
+
+.gard-report-heading {
+  max-width: 850px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.gard-report-heading h2 {
+  margin-bottom: 12px;
+  font-size: clamp(34px, 5vw, 56px);
+}
+
+.gard-newspaper {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(22px, 4vw, 42px);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 210, 122, 0.22), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(116, 64, 255, 0.12), transparent 38%),
+    linear-gradient(135deg, rgba(72, 33, 15, 0.90), rgba(15, 6, 8, 0.96));
+  border: 1px solid rgba(255, 210, 122, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 190, 0.10),
+    0 20px 55px rgba(0, 0, 0, 0.32),
+    0 0 32px rgba(255, 150, 55, 0.08);
+}
+
+.gard-newspaper::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px dashed rgba(255, 210, 122, 0.18);
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.gard-newspaper-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 22px;
+  padding-bottom: 24px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid rgba(255, 210, 122, 0.22);
+}
+
+.gard-newspaper-label {
+  margin: 0 0 8px;
+  color: #d9a441;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.gard-newspaper-header h3 {
+  margin: 0;
+  color: #ffd27a;
+  font-size: clamp(36px, 6vw, 70px);
+  line-height: 0.95;
+  text-shadow:
+    0 0 22px rgba(255, 150, 55, 0.18),
+    0 5px 24px rgba(0, 0, 0, 0.36);
+}
+
+.gard-newspaper-stamp {
+  min-width: 150px;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 20px;
+  color: #ffe1a3;
+  background: rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(255, 210, 122, 0.26);
+  text-align: center;
+}
+
+.gard-newspaper-stamp span {
+  font-size: 34px;
+}
+
+.gard-newspaper-stamp strong {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.gard-newspaper-main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.8fr);
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.gard-lead-story,
+.gard-omens-card,
+.gard-report-note,
+.gard-newspaper-footer {
+  border-radius: 22px;
+  background: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 210, 122, 0.18);
+}
+
+.gard-lead-story {
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.gard-lead-story h4 {
+  margin: 0 0 14px;
+  color: #ffd27a;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.05;
+}
+
+.gard-lead-story p,
+.gard-omens-card li,
+.gard-report-note p,
+.gard-newspaper-footer p {
+  color: #f3dfbd;
+  line-height: 1.55;
+}
+
+.gard-omens-card {
+  padding: 24px;
+}
+
+.gard-omens-card ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+}
+
+.gard-omens-card li + li {
+  margin-top: 12px;
+}
+
+.gard-report-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gard-report-note {
+  padding: 22px;
+}
+
+.gard-report-note span {
+  font-size: 34px;
+}
+
+.gard-report-note h4 {
+  margin: 12px 0 8px;
+  color: #ffd27a;
+  font-size: 23px;
+}
+
+.gard-report-note p {
+  margin: 0;
+}
+
+.gard-newspaper-footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  padding: 18px 22px;
+}
+
+.gard-newspaper-footer p {
+  margin: 0;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .gard-newspaper-header,
+  .gard-newspaper-main {
+    grid-template-columns: 1fr;
+  }
+
+  .gard-newspaper-header {
+    flex-direction: column;
+  }
+
+  .gard-report-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gard-newspaper-stamp {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .gard-report-nav {
+    padding: 7px 9px;
+  }
+
+  .gard-newspaper {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .gard-newspaper::before {
+    inset: 10px;
+  }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Сводка от Гарда — Гнездо Феникса</title>
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="stylesheet" href="style.css?v=3.7.2" />
+</head>
+
+<body>
+  <nav class="top-nav compact-nav">
+    <a href="index.html" class="nav-logo">🔥 <span>Гнездо Феникса</span></a>
+
+    <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="mainNavLinks">
+      ☰ Меню
+    </button>
+
+    <div class="nav-links" id="mainNavLinks">
+      <a class="nav-link" href="index.html#news">Новости</a>
+      <a class="nav-link gard-report-nav current-page" href="gard-report.html">Сводка Гарда</a>
+      <a class="nav-link" href="index.html#newbie">Я новичок</a>
+      <a class="nav-link" href="index.html#schedule">Расписание</a>
+      <a class="nav-link" href="index.html#about">О нас</a>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false">
+          Разделы <span>⌄</span>
+        </button>
+
+        <div class="nav-dropdown-menu">
+          <a href="games-service.html"><span>🎲</span>Игры под ключ</a>
+          <a href="board.html"><span>🗡️</span>Доска объявлений</a>
+          <a href="chronicles.html"><span>📖</span>Хроники</a>
+          <a class="current-page" href="calendar.html"><span>🗓️</span>Календарь</a>
+          <a href="profile.html"><span>🧭</span>Кабинет</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero tavern-hero gard-report-hero">
+    <div class="tavern-background" aria-hidden="true">
+      <div class="tavern-layer tavern-deep" data-depth="0.2"></div>
+      <div class="tavern-layer tavern-window" data-depth="0.35"></div>
+      <div class="tavern-layer tavern-shelves" data-depth="0.55"></div>
+      <div class="tavern-layer tavern-fire" data-depth="0.75"></div>
+      <div class="tavern-layer tavern-sparks" data-depth="1"></div>
+    </div>
+
+    <div class="hero-content tavern-content">
+      <p class="eyebrow">Тавернная газета</p>
+      <h1>Сводка от Гарда</h1>
+      <p class="hero-text">
+        Свежие слухи, приметы, тревожные знаки и добрые вести из живого мира Гнезда Феникса.
+        Даже те истории, в которые никто не успел сыграть, продолжают двигать мир вперёд.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section tavern-card-large gard-report-section no-accordion" id="gard-report" data-icon="📰">
+      <div class="gard-report-heading">
+        <p class="news-kicker">Свежий выпуск</p>
+        <h2>Тавернный лист Гарда</h2>
+        <p>
+          Здесь будет выходить новая сводка о событиях мира: несыгранные сценарии,
+          слухи с дорог, странные приметы и заметки Гарда у камина.
+        </p>
+      </div>
+
+      <article class="gard-newspaper">
+        <header class="gard-newspaper-header">
+          <div>
+            <p class="gard-newspaper-label">Гнездо Феникса представляет</p>
+            <h3>Сводка от Гарда</h3>
+          </div>
+
+          <div class="gard-newspaper-stamp">
+            <span>🕯️</span>
+            <strong>новый выпуск</strong>
+          </div>
+        </header>
+
+        <div class="gard-newspaper-main">
+          <section class="gard-lead-story">
+            <p class="news-kicker">Главная заметка</p>
+            <h4>Мир не стоит на месте</h4>
+            <p>
+              Пока одни герои собираются к столу, другие дороги уже темнеют под сапогами путников,
+              старые башни вспоминают забытые имена, а у камина всё чаще спрашивают:
+              “Гард, что нового слышно?”
+            </p>
+          </section>
+
+          <aside class="gard-omens-card">
+            <p class="news-kicker">Приметы недели</p>
+            <ul>
+              <li>Свечи в таверне горят чуть выше обычного.</li>
+              <li>На старых картах проступают дороги, которых вчера не было.</li>
+              <li>Гард трижды перечитал один и тот же листок и нахмурился.</li>
+            </ul>
+          </aside>
+        </div>
+
+        <div class="gard-report-grid">
+          <article class="gard-report-note">
+            <span>📜</span>
+            <h4>Слухи</h4>
+            <p>Короткие вести о том, что происходит за пределами сыгранных приключений.</p>
+          </article>
+
+          <article class="gard-report-note">
+            <span>⚖️</span>
+            <h4>Весы мира</h4>
+            <p>Бедствие и благополучие будут подаваться через атмосферные знаки, а не сухие цифры.</p>
+          </article>
+
+          <article class="gard-report-note">
+            <span>🧭</span>
+            <h4>Куда идти дальше</h4>
+            <p>Сводка поможет игрокам почувствовать, что мир живёт даже между играми.</p>
+          </article>
+        </div>
+
+        <footer class="gard-newspaper-footer">
+          <p>
+            Первый полноценный выпуск можно будет вставить сюда следующим шагом.
+            Страница уже готова под регулярную рубрику.
+          </p>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-brand">
+        © 2026 Гнездо Феникса. Таверна, где начинаются приключения.
+      </p>
+
+      <p>
+        Проект является неофициальным сообществом настольных ролевых игр.
+        Все упомянутые игровые системы, названия, вселенные, товарные знаки и материалы
+        принадлежат их правообладателям.
+      </p>
+
+      <p>
+        Материалы сайта, тексты, изображения и оформление могут создаваться или дорабатываться
+        с использованием инструментов искусственного интеллекта. Финальные материалы отбираются,
+        проверяются и редактируются организаторами проекта.
+      </p>
+
+      <p>
+        Сайт носит информационный характер. Запись на игры и общение с участниками проходят
+        через внешние площадки клуба.
+      </p>
+
+      <p class="footer-note">
+        Если вы являетесь правообладателем материала и считаете, что он размещён некорректно,
+        свяжитесь с администрацией сообщества для проверки и удаления или исправления материала.
+      </p>
+    </div>
+  </footer>
+  <script src="script.js?v=3.7.2"></script>
+  <script src="accordion.js?v=3.7.2"></script>
+</body>
+</html>
+
+</body>
+</html>
