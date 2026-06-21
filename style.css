@@ -5798,3 +5798,99 @@ video {
     inset: 10px;
   }
 }
+
+
+/* ============================= */
+/* v3.7.3 — Сводка Гарда: только титульник */
+/* ============================= */
+
+.gard-title-only-container {
+  max-width: 980px;
+}
+
+.gard-title-only-section {
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gard-title-only-card {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 58px);
+  text-align: center;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 210, 122, 0.24), transparent 38%),
+    radial-gradient(circle at bottom right, rgba(116, 64, 255, 0.14), transparent 42%),
+    linear-gradient(135deg, rgba(72, 33, 15, 0.90), rgba(15, 6, 8, 0.96));
+  border: 1px solid rgba(255, 210, 122, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 190, 0.12),
+    0 24px 60px rgba(0, 0, 0, 0.34),
+    0 0 34px rgba(255, 150, 55, 0.08);
+}
+
+.gard-title-only-card h2 {
+  margin: 0 0 16px;
+  color: #ffd27a;
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: 0.95;
+  text-shadow:
+    0 0 22px rgba(255, 150, 55, 0.18),
+    0 6px 28px rgba(0, 0, 0, 0.40);
+}
+
+.gard-title-only-card p {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #f3dfbd;
+  font-size: clamp(17px, 2.2vw, 22px);
+  line-height: 1.55;
+}
+
+.gard-title-only-stamp {
+  width: fit-content;
+  max-width: 100%;
+  margin: 28px auto 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  color: #ffe1a3;
+  background: rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(255, 210, 122, 0.28);
+  box-shadow: 0 0 18px rgba(255, 150, 55, 0.10);
+}
+
+.gard-title-only-stamp span {
+  font-size: 24px;
+}
+
+.gard-title-only-stamp strong {
+  font-size: 14px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 520px) {
+  .gard-title-only-section {
+    min-height: 340px;
+  }
+
+  .gard-title-only-card {
+    padding: 26px 18px;
+    border-radius: 24px;
+  }
+
+  .gard-title-only-stamp {
+    width: 100%;
+    justify-content: center;
+    border-radius: 18px;
+    text-align: center;
+  }
+}
