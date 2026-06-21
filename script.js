@@ -963,6 +963,7 @@ function renderOpenDateGames() {
   openDateGamesList.innerHTML = openDateGames.map((game) => {
     const status = getGameStatus(game);
     const statusClass = getStatusClass(status);
+    const announcementUrl = getSafeUrl(game.announcementUrl);
 
     return `
       <div class="open-date-game">
@@ -971,7 +972,9 @@ function renderOpenDateGames() {
           <p>${escapeHtml(game.master)} • ${escapeHtml(game.time)} • ${escapeHtml(game.playFormat)} • ${escapeHtml(game.freeSeats)} / ${escapeHtml(game.totalSeats)} мест</p>
         </div>
 
-        <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+        <a class="status-badge open-date-game-link ${statusClass}" href="${announcementUrl}" target="_blank" rel="noopener noreferrer">
+          ${escapeHtml(status)}
+        </a>
       </div>
     `;
   }).join("");

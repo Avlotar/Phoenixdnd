@@ -5524,3 +5524,37 @@ video {
     font-size: 16px;
   }
 }
+
+
+/* ============================= */
+/* v3.7.1 — кликабельные игры с открытой датой */
+/* ============================= */
+
+.open-date-game-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.open-date-game-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow:
+    0 0 14px rgba(255, 210, 122, 0.22),
+    0 8px 18px rgba(0, 0, 0, 0.20);
+}
+
+.open-date-game-link:focus-visible {
+  outline: 3px solid rgba(255, 210, 122, 0.42);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .open-date-game-link {
+    width: 100%;
+    min-height: 42px;
+  }
+}
