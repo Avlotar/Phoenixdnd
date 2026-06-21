@@ -11,109 +11,106 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <link rel="stylesheet" href="style.css?v=3.7.3" />
+  <link rel="stylesheet" href="gard-report.css?v=3.7.4" />
 </head>
 
 <body>
-  <nav class="top-nav compact-nav">
-    <a href="index.html" class="nav-logo">🔥 <span>Гнездо Феникса</span></a>
+  <nav class="paper-nav">
+    <a class="paper-logo" href="index.html">🔥 Гнездо Феникса</a>
 
-    <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="mainNavLinks">
-      ☰ Меню
-    </button>
-
-    <div class="nav-links" id="mainNavLinks">
-      <a class="nav-link" href="index.html#news">Новости</a>
-      <a class="nav-link gard-report-nav current-page" href="gard-report.html">Сводка Гарда</a>
-      <a class="nav-link" href="index.html#newbie">Я новичок</a>
-      <a class="nav-link" href="index.html#schedule">Расписание</a>
-      <a class="nav-link" href="index.html#about">О нас</a>
-
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-toggle" type="button" aria-expanded="false">
-          Разделы <span>⌄</span>
-        </button>
-
-        <div class="nav-dropdown-menu">
-          <a href="games-service.html"><span>🎲</span>Игры под ключ</a>
-          <a href="board.html"><span>🗡️</span>Доска объявлений</a>
-          <a href="chronicles.html"><span>📖</span>Хроники</a>
-          <a class="current-page" href="calendar.html"><span>🗓️</span>Календарь</a>
-          <a href="profile.html"><span>🧭</span>Кабинет</a>
-        </div>
-      </div>
+    <div class="paper-nav-links">
+      <a href="index.html#news">Новости</a>
+      <a href="board.html">Доска объявлений</a>
+      <a href="calendar.html">Календарь</a>
+      <a href="chronicles.html">Хроники</a>
+      <a class="current" href="gard-report.html">Сводка Гарда</a>
     </div>
   </nav>
 
-  <header class="hero tavern-hero gard-report-hero">
-    <div class="tavern-background" aria-hidden="true">
-      <div class="tavern-layer tavern-deep" data-depth="0.2"></div>
-      <div class="tavern-layer tavern-window" data-depth="0.35"></div>
-      <div class="tavern-layer tavern-shelves" data-depth="0.55"></div>
-      <div class="tavern-layer tavern-fire" data-depth="0.75"></div>
-      <div class="tavern-layer tavern-sparks" data-depth="1"></div>
-    </div>
+  <main class="newspaper-page">
+    <section class="newspaper" aria-label="Сводка от Гарда">
+      <header class="newspaper-masthead">
+        <p class="newspaper-kicker" id="reportKicker">Тавернная газета живого мира</p>
 
-    <div class="hero-content tavern-content">
-      <p class="eyebrow">Тавернная газета</p>
-      <h1>Сводка от Гарда</h1>
-      <p class="hero-text">
-        Свежие слухи, приметы, тревожные знаки и добрые вести из живого мира Гнезда Феникса.
-        Даже те истории, в которые никто не успел сыграть, продолжают двигать мир вперёд.
-      </p>
-    </div>
-  </header>
+        <h1 id="reportTitle">Сводка от Гарда</h1>
 
-  <main class="container gard-title-only-container">
-    <section class="section tavern-card-large gard-report-section gard-title-only-section no-accordion" id="gard-report" data-icon="📰">
-      <div class="gard-title-only-card">
-        <p class="news-kicker">Тавернная газета</p>
-        <h2>Сводка от Гарда</h2>
-        <p>
-          Свежие слухи, приметы, тревожные знаки и добрые вести из живого мира Гнезда Феникса.
-        </p>
-
-        <div class="gard-title-only-stamp">
-          <span>🕯️</span>
-          <strong>Скоро здесь появится новый выпуск</strong>
+        <div class="newspaper-meta">
+          <span id="reportDate">Дата выпуска появится из таблицы</span>
+          <span>Гнездо Феникса</span>
+          <span id="reportIssue">Выпуск готовится</span>
         </div>
-      </div>
+      </header>
+
+      <section class="newspaper-lead">
+        <article class="lead-story">
+          <p class="section-label">Главная заметка</p>
+          <h2 id="leadTitle">Мир шевелится между играми</h2>
+          <p id="leadText">
+            Гард раскладывает свежие листки у стойки. Пока новая таблица сводки ещё не подключена,
+            здесь будет показываться заготовка газетного выпуска.
+          </p>
+        </article>
+
+        <aside class="omens-box">
+          <p class="section-label">Приметы выпуска</p>
+          <ul id="omensList">
+            <li>Свечи горят ровно, но тени у стены двигаются чуть быстрее огня.</li>
+            <li>На доске объявлений стало больше пустых гвоздей.</li>
+            <li>Гард просит не шуметь: он слушает дороги.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="world-pulse">
+        <article>
+          <p class="section-label">Бедствие</p>
+          <h3 id="disasterTitle">Тревожные знаки</h3>
+          <p id="disasterText">
+            Цифры не вывешены на стену, но гадалки шепчут: где-то снова пахнет грозой.
+          </p>
+        </article>
+
+        <article>
+          <p class="section-label">Благополучие</p>
+          <h3 id="wellbeingTitle">Добрые приметы</h3>
+          <p id="wellbeingText">
+            Впрочем, не всё мрачно: на дорогах всё ещё встречаются костры, помощь и попутчики.
+          </p>
+        </article>
+      </section>
+
+      <section class="report-columns">
+        <article class="paper-column">
+          <h2>Игры и сборы</h2>
+          <div id="gamesColumn" class="paper-list">
+            <p class="loading-note">Гард смотрит доску ближайших игр...</p>
+          </div>
+        </article>
+
+        <article class="paper-column">
+          <h2>Новости таверны</h2>
+          <div id="newsColumn" class="paper-list">
+            <p class="loading-note">Гард листает свежие новости...</p>
+          </div>
+        </article>
+
+        <article class="paper-column">
+          <h2>Хроники</h2>
+          <div id="digestsColumn" class="paper-list">
+            <p class="loading-note">Гард раскрывает архив хроник...</p>
+          </div>
+        </article>
+      </section>
+
+      <footer class="newspaper-footer">
+        <p id="reportFooter">
+          Данные этой страницы будут собираться из отдельного листа “gard_report”,
+          а также из таблиц игр, новостей и дайджестов.
+        </p>
+      </footer>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <p class="footer-brand">
-        © 2026 Гнездо Феникса. Таверна, где начинаются приключения.
-      </p>
-
-      <p>
-        Проект является неофициальным сообществом настольных ролевых игр.
-        Все упомянутые игровые системы, названия, вселенные, товарные знаки и материалы
-        принадлежат их правообладателям.
-      </p>
-
-      <p>
-        Материалы сайта, тексты, изображения и оформление могут создаваться или дорабатываться
-        с использованием инструментов искусственного интеллекта. Финальные материалы отбираются,
-        проверяются и редактируются организаторами проекта.
-      </p>
-
-      <p>
-        Сайт носит информационный характер. Запись на игры и общение с участниками проходят
-        через внешние площадки клуба.
-      </p>
-
-      <p class="footer-note">
-        Если вы являетесь правообладателем материала и считаете, что он размещён некорректно,
-        свяжитесь с администрацией сообщества для проверки и удаления или исправления материала.
-      </p>
-    </div>
-  </footer>
-  <script src="script.js?v=3.7.3"></script>
-  <script src="accordion.js?v=3.7.3"></script>
-</body>
-</html>
-
+  <script src="gard-report.js?v=3.7.4"></script>
 </body>
 </html>
